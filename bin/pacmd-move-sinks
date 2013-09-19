@@ -1,0 +1,8 @@
+#!/bin/bash
+
+for index in `pacmd list-sink-inputs | awk '/index: [0-9]+/ { print $2 }'`
+do
+	pacmd move-sink-input $index $1
+done
+pacmd set-default-sink $1
+

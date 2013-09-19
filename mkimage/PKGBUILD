@@ -1,0 +1,25 @@
+# Maintainer: Michael Lass <bevan@bi-co.net>
+# Contributor: Philipp Schrader <philipp.schrader+arch@gmail.com>
+pkgname=uboot-mkimage
+pkgver=2013.07
+pkgrel=1
+pkgdesc="U-Boot mkimage utility, which encapsulates a compressed uImage Linux kernel image with header information, CRC32 checksum, etc, for use with the U-Boot bootloader"
+arch=('i686' 'x86_64' 'armv7h')
+url="http://www.denx.de/wiki/U-Boot/WebHome"
+license=('GPL')
+depends=('glibc')
+
+source=(ftp://ftp.denx.de/pub/u-boot/u-boot-${pkgver}.tar.bz2)
+md5sums=('8445162690052e6afd4b8f87af2bb557')
+
+build() {
+  cd "$srcdir/u-boot-${pkgver}"
+
+  # Build tools only
+  make tools
+}
+
+package() {
+  install -Dm 755 $srcdir/u-boot-${pkgver}/tools/mkimage $pkgdir/usr/bin/mkimage
+  install -Dm 644 $srcdir/u-boot-${pkgver}/doc/mkimage.1 $pkgdir/usr/share/man/man1/mkimage.1
+}

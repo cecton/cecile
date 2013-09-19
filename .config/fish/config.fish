@@ -1,0 +1,55 @@
+# This part of code is deprecated since I prefered to let bash
+# deal with the environmement variable and the login shell
+if begin test "$TERM" = "linux"; and status --is-login; end
+    if not test "$USER" = "cecile"
+        set -x PATH /home/cecile/bin $PATH
+    end
+    set -x PATH ~/bin ~/.local/bin $PATH /usr/local/sbin /usr/sbin /opt/android-sdk/platform-tools /usr/bin/vendor_perl /usr/bin/core_perl
+    set -x PYTHONDONTWRITEBYTECODE 1
+    set -x EDITOR /usr/bin/vim
+    set -x XBMC_HOST openelec
+    echo "Environment variables set"
+end
+
+if status --is-interactive
+
+    function fish_prompt -d "Write out the prompt"
+        printf '[%s] %s%s%s> ' (date +'%H:%M:%S') (set_color $fish_color_cwd) (prompt_pwd) (set_color normal)
+    end
+
+    function sshterm
+        infocmp $TERM | ssh $argv "mkdir -p ~/.terminfo && cat >/tmp/ti && tic /tmp/ti"
+    end
+
+    if test "$TERM" = "linux"
+        function x
+            set tty (printf "vt%02d" (tty | grep -o '[0-9]\+'))
+            xinit -- $tty
+        end
+    end
+
+    alias je "echo 'Hey! Dvorak keyboard here!'; cd"
+    alias b bzr
+    alias lin "linphonec 2> /dev/null"
+
+    alias ls='ls --color=auto'
+
+    alias ls 'ls --color=auto -h'
+    alias ll 'ls -l --color=auto'
+
+    alias rm 'rm -iv'
+    alias mv 'mv -iv'
+    alias cp 'cp -ipv'
+    echo "Aliases loaded"
+
+    if fuser 5433/tcp >&-
+        set -x PGHOST localhost
+        set -x PGPORT 5433
+        echo "PostgreSQL default connection set to $PGHOST:$PGPORT"
+    else
+        set -e PGHOST
+        set -e PGPORT
+    end
+
+    init_ssh_agent
+end
