@@ -23,8 +23,9 @@ if status --is-interactive
 
     if test "$TERM" = "linux"
         function x
-            set tty (printf "vt%02d" (tty | grep -o '[0-9]\+'))
-            xinit -- $tty
+            set tty (tty | grep -o '[0-9]\+')
+            set vt (printf "vt%02d" $tty)
+            xinit -- :$tty $vt
         end
     end
 
