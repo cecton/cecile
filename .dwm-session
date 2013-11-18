@@ -25,8 +25,8 @@ function autostart
 {
     [ -f ".fehbg" ] && . .fehbg
     redshift -l 50.72:4.86 -t 6500:3600 -g 0.9 -m vidmode &
-    #sleep 2
-    [ $USER == openerp ] && (/home/cecile/programs/chromium-cookie-filter.pl apply && chromium) &
+    #[ $USER == openerp ] && (/home/cecile/programs/chromium-cookie-filter.pl apply && chromium) &
+    [ $USER == openerp ] && chromium &
     [ $USER == cecile ] && firefox &
     gajim &
     [ -z "`ps -C rygel -o user,pid --no-headers | grep \"^$USER\>\"`" ] && dtach -n /tmp/rygel.$USER rygel
