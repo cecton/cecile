@@ -1,0 +1,43 @@
+#!/bin/bash
+echo $PATH > /tmp/path
+
+export socks_proxy=socks://127.0.0.1:9050/
+#export http_proxy=$socks_proxy
+#export https_proxy=$http_proxy
+#export ftp_proxy=$http_proxy
+#export rsync_proxy=$http_proxy
+export no_proxy="localhost,127.0.0.1,localaddress,.localdomain.com"
+
+xsetroot -solid black
+xset -dpms
+xset s off
+xset +fp /usr/share/fonts/local
+xset fp rehash
+xrdb -load $HOME/.Xresources
+xmodmap - <<EOF
+keysym Menu = Control_R
+add Control = Control_R
+EOF
+/home/cecile/bin/xrandr-auto
+[ $USER == openerp ] && xhost +local:
+
+function autostart
+{
+    [ -f ".fehbg" ] && . .fehbg
+    redshift -l 50.72:4.86 -t 6500:3600 -g 0.9 -m vidmode &
+    #sleep 2
+    [ $USER == openerp ] && (/home/cecile/programs/chromium-cookie-filter.pl apply && chromium) &
+    [ $USER == cecile ] && firefox &
+    gajim &
+    [ -z "`ps -C rygel -o user,pid --no-headers | grep \"^$USER\>\"`" ] && dtach -n /tmp/rygel.$USER rygel
+    #(sleep 3 && conky -q -d) &
+}
+
+cd
+autostart &
+cd -
+
+#while true; do
+#    xsetroot -name "$(date +" %a %b %_d, %H:%M") | $(acpi | awk '{gsub(/^Battery [0-9]+: |Unknown, | remaining | until charged/, ""); print; exit}')"
+#    sleep 60
+#    done &
