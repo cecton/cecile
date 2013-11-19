@@ -39,6 +39,9 @@ alias underscan="xrandr --output HDMI-0 --set underscan"
 alias vborder='xrandr --output HDMI-0 --set "underscan vborder"'
 alias hborder='xrandr --output HDMI-0 --set "underscan hborder"'
 
+# disable speaker
+setterm -blength 0
+
 parent_want_fish=(st login tmux su gnome-terminal)
 parent_name=`ps ho comm -p $PPID`
 [ "${parent_want_fish[*]#$parent_name}" != "${parent_want_fish[*]}" -a ! -e /tmp/$USER-nofish ] && exec fish

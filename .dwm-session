@@ -9,7 +9,7 @@ export socks_proxy=socks://127.0.0.1:9050/
 export no_proxy="localhost,127.0.0.1,localaddress,.localdomain.com"
 
 xsetroot -solid black
-xset -dpms
+xset -dpms -b
 xset s off
 xset +fp /usr/share/fonts/local
 xset fp rehash
