@@ -21,6 +21,10 @@ if status --is-interactive
         infocmp $TERM | ssh $argv "mkdir -p ~/.terminfo && cat >/tmp/ti && tic /tmp/ti"
     end
 
+    function sshx -a address display
+        set -x DISPLAY "$address:$display";ip addr | grep -o 'inet6\? [^:][^ /]\+' | sed 's/^/+/;s/ /:/' | xargs ssh $address DISPLAY=":$display" xhost
+    end
+
     if test "$TERM" = "linux"
         function x
             set tty (tty | grep -o '[0-9]\+')
