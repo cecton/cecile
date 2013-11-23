@@ -25,6 +25,10 @@ if status --is-interactive
         set -x DISPLAY "$address:$display";ip addr | grep -o 'inet6\? [^:][^ /]\+' | sed 's/^/+/;s/ /:/' | xargs ssh $address DISPLAY=":$display" xhost
     end
 
+    function sshallow
+        cat ~/.ssh/id_rsa.pub | ssh $argv "mkdir ~/.ssh; cat - >> ~/.ssh/authorized_keys"
+    end
+
     if test "$TERM" = "linux"
         function x
             set tty (tty | grep -o '[0-9]\+')
