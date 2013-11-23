@@ -31,6 +31,7 @@ if status --is-interactive
             set vt (printf "vt%02d" $tty)
             xinit -- :$tty $vt
         end
+        set -x DISPLAY
     end
 
     alias je "echo 'Hey! Dvorak keyboard here!'; cd"
