@@ -36,13 +36,17 @@ if status --is-interactive
             xinit -- :$tty $vt
         end
         set -x DISPLAY
+    else
+        function ff
+            firefox $args >/dev/null ^/dev/null &
+        end
     end
 
     alias je "echo 'Hey! Dvorak keyboard here!'; cd"
     alias b bzr
     alias lin "linphonec 2> /dev/null"
 
-    alias ls='ls --color=auto'
+    alias ls 'ls --color=auto'
 
     alias ls 'ls --color=auto -h'
     alias ll 'ls -l --color=auto'
