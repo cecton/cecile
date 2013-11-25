@@ -114,10 +114,18 @@ static const Tag tags[] = {
 static const char *dmenucmd[] = { "dmenu_run", "-fn", font, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbgcolor, "-sf", selfgcolor, NULL };
 static const char *termcmd[]  = { "st", NULL };
 static const char *suspendcmd[]  = { "systemctl", "suspend", "-i", NULL };
+static const char *brightnessup[]  = { "sudo", "brightness", "up", NULL };
+static const char *brightnessdown[]  = { "sudo", "brightness", "down", NULL };
+static const char *volumeup[]  = { "amixer", "set", "Master", "5%+", NULL };
+static const char *volumedown[]  = { "amixer", "set", "Master", "5%-", NULL };
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
     { 0,                            0x1008ff2f, spawn,         {.v = suspendcmd } },
+    { 0,                            0x1008ff02, spawn,         {.v = brightnessup } },
+    { 0,                            0x1008ff03, spawn,         {.v = brightnessdown } },
+    { 0,                            0x1008ff13, spawn,         {.v = volumeup } },
+    { 0,                            0x1008ff11, spawn,         {.v = volumedown } },
 	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
 	{ MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
