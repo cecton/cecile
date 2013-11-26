@@ -42,18 +42,25 @@ if status --is-interactive
         end
     end
 
+    # funny ones
     alias je "echo 'Hey! Dvorak keyboard here!'; cd"
-    alias b bzr
-    alias lin "linphonec 2> /dev/null"
 
+    # shell ones
     alias ls 'ls --color=auto'
-
     alias ls 'ls --color=auto -h'
     alias ll 'ls -l --color=auto'
-
     alias rm 'rm -iv'
     alias mv 'mv -iv'
     alias cp 'cp -ipv'
+
+    # programs
+    alias lin "linphonec 2> /dev/null"
+
+    alias g git
+
+    alias b bzr
+    alias b-find "bzr log --line | grep"
+
     echo "Aliases loaded"
 
     if fuser 5433/tcp >&-
