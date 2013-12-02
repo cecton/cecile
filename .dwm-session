@@ -1,12 +1,4 @@
 #!/bin/bash
-echo $PATH > /tmp/path
-
-export socks_proxy=socks://127.0.0.1:9050/
-#export http_proxy=$socks_proxy
-#export https_proxy=$http_proxy
-#export ftp_proxy=$http_proxy
-#export rsync_proxy=$http_proxy
-export no_proxy="localhost,127.0.0.1,localaddress,.localdomain.com"
 
 xsetroot -solid black
 xset -dpms -b
@@ -14,6 +6,7 @@ xset s off
 xset +fp /usr/share/fonts/local
 xset fp rehash
 xrdb -load $HOME/.Xresources
+setxkbmap -option caps:none -layout us -variant dvp
 xmodmap - <<EOF
 keysym Menu = Control_R
 add Control = Control_R
@@ -28,6 +21,7 @@ function autostart
     #[ $USER == openerp ] && (/home/cecile/programs/chromium-cookie-filter.pl apply && chromium) &
     [ $USER == openerp ] && chromium &
     [ $USER == cecile ] && firefox &
+    #[ $USER == cecile ] || gajim &
     gajim &
     [ -z "`ps -C rygel -o user,pid --no-headers | grep \"^$USER\>\"`" ] && dtach -n /tmp/rygel.$USER rygel
     #(sleep 3 && conky -q -d) &
