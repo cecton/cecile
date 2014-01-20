@@ -116,8 +116,8 @@ static const char *termcmd[]  = { "st", NULL };
 static const char *suspendcmd[]  = { "systemctl", "suspend", "-i", NULL };
 static const char *brightnessup[]  = { "sudo", "brightness", "up", NULL };
 static const char *brightnessdown[]  = { "sudo", "brightness", "down", NULL };
-static const char *volumeup[]  = { "amixer", "set", "Master", "5%+", NULL };
-static const char *volumedown[]  = { "amixer", "set", "Master", "5%-", NULL };
+static const char *volumeup[]  = { "amixer", "set", "Master", "2%+", NULL };
+static const char *volumedown[]  = { "amixer", "set", "Master", "2%-", NULL };
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
