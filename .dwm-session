@@ -21,8 +21,8 @@ function autostart
     #[ $USER == openerp ] && (/home/cecile/programs/chromium-cookie-filter.pl apply && chromium) &
     [ $USER == openerp ] && chromium &
     [ $USER == cecile ] && firefox &
-    #[ $USER == cecile ] || gajim &
-    gajim &
+    [ $USER == cecile ] && gajim &
+    #gajim &
     [ -z "`ps -C rygel -o user,pid --no-headers | grep \"^$USER\>\"`" ] && dtach -n /tmp/rygel.$USER rygel
     #(sleep 3 && conky -q -d) &
 }
