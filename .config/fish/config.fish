@@ -55,6 +55,12 @@ if status --is-interactive
     alias rm 'rm -iv'
     alias mv 'mv -iv'
     alias cp 'cp -ipv'
+    # how to make my videos fits well my stupid tv
+    set w 1280
+    set h 720
+    set bx 32
+    set by 17
+    alias mplayer "mplayer -geometry "(expr $w - 2 \* $bx)"x"(expr $h - 2 \* $by)"+$bx+$by"
 
     # programs
     alias lin "linphonec 2> /dev/null"

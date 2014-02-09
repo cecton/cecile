@@ -36,12 +36,13 @@ static const int nmaster            = 1;        /* default number of clients in 
 
 static const Rule rules[] = {
 	/* class                  instance    title       tags mask     isfloating   monitor   opacity */
-	{ "Chromium",             NULL,       NULL,       1 << 3,       False,       -1,       -1 },
-	{ "Firefox",              NULL,       NULL,       1 << 3,       False,       -1,       -1 },
-	{ "Gajim",                NULL,       NULL,       1 << 2,       False,       -1,       -1 },
+	{ "Chromium",             NULL,       NULL,       1 << 3,       False,        1,       -1 },
+	{ "Firefox",              NULL,       NULL,       1 << 3,       False,        0,       -1 },
+	{ "Gajim",                NULL,       NULL,       1 << 2,       False,        0,       -1 },
 	{ "Gimp",                 NULL,       NULL,       0,            True,        -1,       -1 },
 	{ "Dia",                  NULL,       NULL,       0,            True,        -1,       -1 },
 	{ "Inkscape",             NULL,       NULL,       0,            True,        -1,       -1 },
+	{ "MPlayer",              NULL,       NULL,       0,            True,        -1,       -1 },
 
 	{ "libreoffice-calc",     NULL,       NULL,       0,            True,        -1,       -1 },
 	{ "libreoffice-writer",   NULL,       NULL,       0,            True,        -1,       -1 },
