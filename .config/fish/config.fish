@@ -40,6 +40,9 @@ if status --is-interactive
         function ff
             firefox $args >/dev/null ^/dev/null &
         end
+        function gajim
+            sh -c (which gajim) $args >/dev/null ^/dev/null &
+        end
     end
 
     # funny ones
