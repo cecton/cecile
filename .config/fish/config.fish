@@ -13,6 +13,31 @@ end
 
 if status --is-interactive
 
+    init_ssh_agent
+
+    if test "$TERM" = "linux"
+        function x
+            set tty (tty | grep -o '[0-9]\+')
+            set vt (printf "vt%02d" $tty)
+            xinit -- :$tty $vt >/dev/null ^/dev/null
+        end
+        set -x DISPLAY
+        echo -n "Starting graphical session, press return to cancel... "
+        if sh -c "read -s -t 1"
+            echo canceled
+        else
+            x
+            echo done
+        end
+    else
+        function ff
+            firefox $args >/dev/null ^/dev/null &
+        end
+        function gajim
+            sh -c (which gajim) $args >/dev/null ^/dev/null &
+        end
+    end
+
     function fish_prompt -d "Write out the prompt"
         printf '[%s] %s%s%s> ' (date +'%H:%M:%S') (set_color $fish_color_cwd) (prompt_pwd) (set_color normal)
     end
@@ -27,22 +52,6 @@ if status --is-interactive
 
     function sshallow
         cat ~/.ssh/id_rsa.pub | ssh $argv "mkdir ~/.ssh; cat - >> ~/.ssh/authorized_keys"
-    end
-
-    if test "$TERM" = "linux"
-        function x
-            set tty (tty | grep -o '[0-9]\+')
-            set vt (printf "vt%02d" $tty)
-            xinit -- :$tty $vt
-        end
-        set -x DISPLAY
-    else
-        function ff
-            firefox $args >/dev/null ^/dev/null &
-        end
-        function gajim
-            sh -c (which gajim) $args >/dev/null ^/dev/null &
-        end
     end
 
     # funny ones
@@ -80,6 +89,4 @@ if status --is-interactive
         set -e PGHOST
         set -e PGPORT
     end
-
-    init_ssh_agent
 end
