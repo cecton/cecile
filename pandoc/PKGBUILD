@@ -1,0 +1,103 @@
+# Maintainer: Nicolas Reynolds <fauno@kiwwwi.com.ar>
+# Based on haskell-pandoc
+
+# Run `makepkg -sp SRCBUILD` if you want to update the source tarball
+
+pkgname=pandoc-static
+_pkgname=pandoc
+pkgver=1.12.3.1
+pkgrel=2
+pkgdesc='Conversion between markup formats (no Haskell libs)'
+url='http://johnmacfarlane.net/pandoc/'
+license=('GPL')
+arch=('i686' 'x86_64')
+# Needed for pandoc-citeproc
+depends=('icu>=52' 'icu<=53')
+makedepends=('ghc' 'sh' 'cabal-install' 'alex' 'happy')
+options=(strip !makeflags !distcc !emptydirs)
+source=(https://repo.parabolagnulinux.org/other/pandoc-static/${_pkgname}-${pkgver}-1-any.src.tar.xz{,.sig}
+        SRCBUILD)
+sha256sums=('0fae0b3aaddd04219b882a421a6b977163ed9de8649c7023738e815661a77406'
+            'SKIP'
+            '37af943126e85c2c6679d66f343d90b55e38429c9dec2f024afe9e191aa596f5')
+replaces=('pandoc')
+provides=('pandoc')
+optdepends=('texlive-most: for pdf creation')
+
+# PKGBUILD functions
+build() {
+   mkdir -p ${srcdir}/{build,${_pkgname}-${pkgver}}
+   cd ${srcdir}/${_pkgname}-${pkgver}
+
+# pandoc-citeproc needs hsb2hs
+   export PATH=${srcdir}/build/usr/bin:$PATH
+
+   while read _hkpkg; do
+# Skip already built
+       [ -d ${srcdir}/build/usr/lib/$_hkpkg ] && continue
+
+       pushd ${srcdir}/${_pkgname}-${pkgver}/${_hkpkg} >/dev/null
+
+       msg2 "Building $_hkpkg"
+
+       case $_hkpkg in
+        $_pkgname-$pkgver)
+         HOME=${srcdir}/${_pkgname}-${pkgver} \
+         cabal configure --prefix=/usr \
+                         --libdir=${srcdir}/build/usr/lib -v
+
+         HOME=${srcdir}/${_pkgname}-${pkgver} \
+         cabal build
+
+         HOME=${srcdir}/${_pkgname}-${pkgver} \
+         cabal register --inplace
+         ;;
+
+        pandoc-citeproc*)
+         HOME=${srcdir}/${_pkgname}-${pkgver} \
+         cabal configure --flags='small_base embed_data_files bibutils hexpat unicode_collation' \
+                       --libdir=${srcdir}/build/usr/lib \
+                       --prefix=/usr -v
+
+         HOME=${srcdir}/${_pkgname}-${pkgver} \
+         cabal build
+         ;;
+
+        *)
+         HOME=${srcdir}/${_pkgname}-${pkgver} \
+         cabal install --prefix=${srcdir}/build/usr --flags="embed_data_files" --force-reinstalls
+         ;;
+       esac
+
+       popd >/dev/null
+   done <BUILDORDER
+
+}
+
+package() {
+  cd ${srcdir}/${_pkgname}-${pkgver}/${_pkgname}-${pkgver}
+
+  #cabal configure --prefix=${srcdir}/build/usr
+  runghc Setup.hs copy --destdir=${pkgdir}/
+
+  cd ${srcdir}/${_pkgname}-${pkgver}/pandoc-citeproc*
+  runghc Setup.hs copy --destdir=${pkgdir}/
+
+# For some reason the library is installed anyway
+# Remove all files and !emptydirs takes care of the rest
+  msg2 "Removing lib files..."
+  find ${pkgdir} -iname lib -print0 | xargs -0 rm -rvf
+
+  cp -av ${srcdir}/build/usr/bin/* ${pkgdir}/usr/bin/
+
+# EC is unfree and makes Parabola TeXLive cry
+# besides, it's unneeded
+  sed "/fontenc/d" -i ${pkgdir}/usr/share/${_pkgname}-${pkgver}/data/templates/default.latex
+
+  find ${pkgdir}/usr/share -type f -exec chmod 644 {} \;
+  find ${pkgdir}/usr/share -type d -exec chmod 755 {} \;
+
+  msg2 "Installing licenses"
+  install -d ${pkgdir}/usr/share/licenses
+  cp -rv ${srcdir}/build/usr/share/doc/* ${pkgdir}/usr/share/licenses/
+}
