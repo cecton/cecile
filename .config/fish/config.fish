@@ -77,7 +77,7 @@ if status --is-interactive
     alias g git
 
     alias b bzr
-    alias b-find "bzr log --line | grep"
+    alias b-find "bzr log --line -n0 | grep"
 
     echo "Aliases loaded"
 
