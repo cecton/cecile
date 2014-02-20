@@ -1,5 +1,4 @@
 " make XML more readable
-syntax on
 setlocal wrap linebreak
 
 " always use spaces instead of tabs
