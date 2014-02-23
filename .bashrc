@@ -24,16 +24,11 @@ alias mv='mv -iv'
 alias rm='rm -iv'
 alias cp='cp -iv'
 
-manpod() {
-	local f=`mktemp`;
-	pod2man "$1" > $f && man $f && rm -f $f
-}
-
 #alias x="xinit -- :8 &> /dev/null"
 function x {
-    tty=`tty`
-    tty=`printf "vt%02d" ${tty#*tty}`
-    startx -- $tty
+	tty=`tty | grep -o '[0-9]\+'`
+	vt=`printf "vt%02d" $tty`
+	startx -- :$tty $vt &> /dev/null
 }
 alias je="echo 'Hey! Dvorak keyboard here!'; cd"
 alias underscan="xrandr --output HDMI-0 --set underscan"
@@ -43,6 +38,21 @@ alias hborder='xrandr --output HDMI-0 --set "underscan hborder"'
 # disable speaker
 setterm -blength 0
 
-parent_want_fish=(st login tmux su gnome-terminal)
+# get the parent process name
 parent_name=`ps ho comm -p $PPID`
+
+# automatically start graphical session
+if [ "$parent_name" == login ]; then
+	echo -n "Starting graphical session, press return to cancel... "
+	read -s -t 1 answer
+	if [ $? -eq 0 ] && [ "$answer" != x ]; then
+		echo canceled
+	else
+		x
+		echo done
+	fi
+fi
+
+# exec fish depending who's the parent
+parent_want_fish=(st login tmux su)
 [ "${parent_want_fish[*]#$parent_name}" != "${parent_want_fish[*]}" -a ! -e /tmp/$USER-nofish ] && exec fish
