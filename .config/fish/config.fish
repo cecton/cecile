@@ -1,9 +1,5 @@
 if status --is-interactive
 
-	function fish_prompt -d "Write out the prompt"
-		printf '[%s] %s%s%s> ' (date +'%H:%M:%S') (set_color $fish_color_cwd) (prompt_pwd) (set_color normal)
-	end
-
 	init_ssh_agent
 
 	# starting on a linux console
@@ -76,6 +72,66 @@ if status --is-interactive
 	else
 		set -e PGHOST
 		set -e PGPORT
+	end
+
+	# shortcuts
+	function repo-log
+		git log --oneline ^&-
+		or bzr log --line ^&- | less -sFX
+		commandline -f repaint
+	end
+
+	function repo-diff-cached
+		git diff --cached ^&-
+		commandline -f repaint
+	end
+
+	function repo-diff
+		git diff ^&-
+		or bzr cdiff ^&- | less -sFXR
+		or bzr diff ^&- | less -sFX
+		commandline -f repaint
+	end
+
+	function repo-status
+		echo
+		git status ^&-
+		or bzr status ^&- | less -sFX
+		commandline -f repaint
+	end
+
+	function repo-commit
+		git commit ^&-
+		or bzr commit ^&-
+		commandline -f repaint
+	end
+
+	function repo-suffix
+		perl -we 'use Cwd;while(getcwd ne "/"){do{open IN,".bzr/branch/location" and do {print " $1" if <IN>=~m{([^/]+)/*$}}; last} if -e ".bzr/branch/location";chdir ".."}'
+	end
+
+	# binds
+	function fish_user_key_bindings
+		# F8
+		bind [19~ repo-log
+		# F9
+		bind [20~ repo-status
+		# F10
+		bind [23~ repo-diff
+		# F11
+		bind [21~ repo-diff-cached
+		# F12
+		bind [24~ repo-commit
+	end
+
+	# prompt
+	function fish_prompt -d "Write out the prompt"
+		printf '[%s] %s%s%s%s%s> ' \
+			(date +'%H:%M:%S') \
+			(set_color $fish_color_cwd) (prompt_pwd) \
+			(set_color purple) \
+			(repo-suffix) \
+			(set_color normal)
 	end
 
 end
