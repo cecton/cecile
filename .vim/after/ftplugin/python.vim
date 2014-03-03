@@ -1,5 +1,9 @@
 " For Python files, always use spaces instead of tabs
 setlocal expandtab tabstop=4 softtabstop=4 shiftwidth=4
+set smartindent
+
+" Fix the stupid automatic indenting when typing comments
+inoremap # X<C-H>#
 
 " Show invalid and wrong characters
 highlight Invalid ctermbg=red guibg=red
@@ -11,3 +15,8 @@ highlight ColorColumn ctermbg=8
 
 " Check file integrity on save -- too slow
 "autocmd FileType python compiler pylint
+
+" try to keep the file clean when it's my repo
+if matchstr(expand('%:p'), '^/home/cecile/repos/') != ''
+	au BufWrite <buffer> %s/\s\+$//e
+endif

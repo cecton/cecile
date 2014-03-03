@@ -10,9 +10,9 @@ nmap <F12> :wa<CR>
 imap <F12> <Esc>:wa<CR>
 
 syntax on
+set spell
 set listchars=nbsp: ,tab:\ \ ,eol:↵
 set tabstop=4 softtabstop=4 shiftwidth=4
-set smartindent
 " disable automatic indent of comments and sometimes automatic comment
 set formatoptions-=r
 
