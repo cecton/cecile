@@ -1,4 +1,4 @@
-if stridx($TERM, "st") > -1
+if stridx($TERM, "256color") > -1
 "if strlen($DISPLAY) > 0 && stridx($TERM, "xterm") < 0
     set background=dark
     colorscheme solarized
