@@ -76,6 +76,7 @@ if status --is-interactive
 
 	# shortcuts
 	function repo-log
+		echo
 		git log --oneline ^&-
 		or bzr log --line ^&- | less -sFX
 		commandline -f repaint
@@ -83,13 +84,13 @@ if status --is-interactive
 
 	function repo-diff-cached
 		git diff --cached ^&-
+		or bzr cdiff ^&- | less -sFXR
+		or bzr diff ^&- | less -sFX
 		commandline -f repaint
 	end
 
 	function repo-diff
 		git diff ^&-
-		or bzr cdiff ^&- | less -sFXR
-		or bzr diff ^&- | less -sFX
 		commandline -f repaint
 	end
 
@@ -117,9 +118,9 @@ if status --is-interactive
 		# F9
 		bind [20~ repo-status
 		# F10
-		bind [23~ repo-diff
+		bind [21~ repo-diff
 		# F11
-		bind [21~ repo-diff-cached
+		bind [23~ repo-diff-cached
 		# F12
 		bind [24~ repo-commit
 	end
