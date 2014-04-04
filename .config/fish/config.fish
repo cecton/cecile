@@ -102,6 +102,7 @@ if status --is-interactive
 	end
 
 	function repo-commit
+		echo
 		git commit ^&-
 		or bzr commit ^&-
 		commandline -f repaint
