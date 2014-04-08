@@ -20,6 +20,8 @@ export PYTHONDONTWRITEBYTECODE=1
 
 export XBMC_HOST=openelec
 
+export LC_TIME="en_GB.utf8"
+
 alias mv='mv -iv'
 alias rm='rm -iv'
 alias cp='cp -iv'
