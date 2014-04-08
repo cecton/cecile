@@ -130,7 +130,7 @@ if status --is-interactive
 	function fish_prompt -d "Write out the prompt"
 		printf '[%s] %s%s%s%s%s > ' \
 			(date +'%H:%M:%S') \
-			(set_color $fish_color_cwd) (prompt_pwd) \
+			(set_color green) (prompt_pwd) \
 			(set_color purple) \
 			(repo-suffix) \
 			(set_color normal)
