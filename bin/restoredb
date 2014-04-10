@@ -1,0 +1,4 @@
+#!/bin/sh
+
+export PYTHONPATH=/home/cecile/repos/StreamDecompressor/:/home/cecile/repos/pg_header.py/
+exec /home/cecile/repos/restoredb.py/restoredb.py $*
