@@ -23,7 +23,14 @@ if status --is-interactive
 		set h 720
 		set bx 31
 		set by 17
-		alias mplayer "mplayer -geometry "(expr $w - 2 \* $bx)"x"(expr $h - 2 \* $by)"+$bx+$by"
+		# Using geometry argument stretch the picture on some systems
+		#alias mplayer "mplayer -geometry "(expr $w - 2 \* $bx)"x"(expr $h - 2 \* $by)"+$bx+$by"
+		#alias mplayer43 "mplayer -geometry "(expr $h / 3 \* 4 - 2 \* $bx)"x"(expr $h - 2 \* $by)"+"(expr $bx + $w / 2 - $h / 3 \* 4 / 2)"+$by"
+		# Using dsize to expand at most to the resolution given and keep aspect
+		# and expand to put a black border around. Also: expand permit the
+		# subtitles to be drawn on it.
+		# Note: -subpos argument is need when using expand
+		alias mplayer "mplayer -vf dsize="(expr $w - 2 \* $bx)":"(expr $h - 2 \* $by)":0,expand=$w:$h -subpos 82"
 	end
 
 	function sshterm
