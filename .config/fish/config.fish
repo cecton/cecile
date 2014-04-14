@@ -13,10 +13,10 @@ if status --is-interactive
 	# starting on a graphical session
 	else
 		function ff
-			firefox $args ^&- >&- &
+			firefox $args ^/dev/null >/dev/null &
 		end
 		function gajim
-			sh -c (which gajim) $args ^&- >&- &
+			sh -c (which gajim) $args ^/dev/null >/dev/null &
 		end
 		# how to make my videos fits well on my stupid tv
 		set w 1280
