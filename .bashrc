@@ -26,11 +26,10 @@ alias mv='mv -iv'
 alias rm='rm -iv'
 alias cp='cp -iv'
 
-#alias x="xinit -- :8 &> /dev/null"
 function x {
 	tty=`tty | grep -o '[0-9]\+'`
 	vt=`printf "vt%02d" $tty`
-	startx -- :$tty $vt &> /dev/null
+	startx -- :$tty $vt &>>/tmp/dwm-session-${UID}.log
 }
 alias je="echo 'Hey! Dvorak keyboard here!'; cd"
 alias underscan="xrandr --output HDMI-0 --set underscan"
