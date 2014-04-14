@@ -23,14 +23,18 @@ if status --is-interactive
 		set h 720
 		set bx 31
 		set by 17
-		# Using geometry argument stretch the picture on some systems
-		#alias mplayer "mplayer -geometry "(expr $w - 2 \* $bx)"x"(expr $h - 2 \* $by)"+$bx+$by"
-		#alias mplayer43 "mplayer -geometry "(expr $h / 3 \* 4 - 2 \* $bx)"x"(expr $h - 2 \* $by)"+"(expr $bx + $w / 2 - $h / 3 \* 4 / 2)"+$by"
-		# Using dsize to expand at most to the resolution given and keep aspect
-		# and expand to put a black border around. Also: expand permit the
-		# subtitles to be drawn on it.
-		# Note: -subpos argument is need when using expand
-		alias mplayer "mplayer -vf dsize="(expr $w - 2 \* $bx)":"(expr $h - 2 \* $by)":0,expand=$w:$h -subpos 82"
+		# Use dsize to expand at most to the display resolution given while
+		# keeping aspect. Then use expand=:::::16/9 to stretch the drawable
+		# canvas to a 16/9 resolution.
+		alias mplayer "mplayer -vf dsize="(expr $w - 2 \* $bx)":"(expr $h - 2 \* $by)":0,expand=:::::16/9 -geometry "(expr $w - 2 \* $bx)"x"(expr $h - 2 \* $by)"+$bx+$by"
+		# NOTE: Using geometry argument stretch the picture without keeping
+		#       aspect on some systems.
+		# NOTE: expand permit the subtitles to be drawn on it but the
+		#       width/height values are calculated from the picture source and
+		#       doesn't give the expected result: expand=1280 doesn't display a
+		#       window of 1280px but probably much more
+		# NOTE: -subpos argument is needed when using expand but *not* if you
+		#       specify only the aspect
 	end
 
 	function sshterm
