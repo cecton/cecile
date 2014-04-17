@@ -26,9 +26,10 @@ if status --is-interactive
 		# Use dsize to expand at most to the display resolution given while
 		# keeping aspect. Then use expand=:::::16/9 to stretch the drawable
 		# canvas to a 16/9 resolution.
-		alias mplayer "mplayer -vf dsize="(expr $w - 2 \* $bx)":"(expr $h - 2 \* $by)":0,expand=:::::16/9 -geometry "(expr $w - 2 \* $bx)"x"(expr $h - 2 \* $by)"+$bx+$by"
+		alias mplayer "mplayer -geometry "(expr $w - 2 \* $bx)"x"(expr $h - 2 \* $by)"+$bx+$by"
 		# NOTE: Using geometry argument stretch the picture without keeping
-		#       aspect on some systems.
+		#       aspect on some systems (seems to be not the case from version
+		#       4.7.3 of mplayer
 		# NOTE: expand permit the subtitles to be drawn on it but the
 		#       width/height values are calculated from the picture source and
 		#       doesn't give the expected result: expand=1280 doesn't display a
