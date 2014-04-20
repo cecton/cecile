@@ -7,7 +7,7 @@ if status --is-interactive
 		function x
 			set tty (tty | grep -o '[0-9]\+')
 			set vt (printf "vt%02d" $tty)
-			xinit -- :$tty $vt ^&- >&-
+			sh -c "exec xinit -- :$tty $vt &>>/tmp/dwm-session-\${UID}.log"
 		end
 		set -x DISPLAY
 	# starting on a graphical session
