@@ -64,6 +64,12 @@ if [ "$parent_name" == login ]; then
 	fi
 fi
 
+if [ "$parent_name" == tmux ]; then
+	if [ -z "$DISPLAY" ]; then
+		export TERM=linux
+	fi
+fi
+
 # exec fish depending who's the parent
 parent_want_fish=(st login tmux su fbterm)
 [ "${parent_want_fish[*]#$parent_name}" != "${parent_want_fish[*]}" -a ! -e /tmp/$USER-nofish ] && exec fish

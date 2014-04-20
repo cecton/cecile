@@ -15,4 +15,4 @@ EOF
 	export FBTERM_BACKGROUND_IMAGE=1
 fi
 
-exec fbterm --font-names Terminus -s 16 $*
+exec fbterm --font-names Terminus -s 16 --cursor-shape 1 --cursor-interval 0 $*
