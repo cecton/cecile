@@ -1,31 +1,38 @@
-#!/bin/bash
+#!/bin/sh
 
 xsetroot -solid black
 xset -dpms -b
 xset s off
-xset +fp /usr/share/fonts/local
+test -d /usr/share/fonts/local && xset +fp /usr/share/fonts/local
 xset fp rehash
-xrdb -load $HOME/.Xresources
+test -f $HOME/.Xresourges && xrdb -load $HOME/.Xresources
 setxkbmap -option caps:none -layout us -variant dvp
 xmodmap - <<EOF
 keysym Menu = Control_R
 add Control = Control_R
 EOF
-/home/cecile/bin/xrandr-auto
+xrandr-auto
 xhost +local:
 
-function autostart
+autostart()
 {
-	[ -f ".fehbg" ] && . .fehbg
+	test -f $HOME/.fehbg && . $HOME/.fehbg
 	redshift -l 50.72:4.86 -t 6500:3600 -g 0.9 -m vidmode &
-	[ -z "`ps -C rygel -o user,pid --no-headers | grep \"^$USER\>\"`" ] && dtach -n /tmp/rygel.$USER rygel
+	test -z "`ps -C rygel -o user,pid --no-headers | grep \"^$USER\>\"`" && dtach -n /tmp/rygel.$USER rygel
 	pulseaudio -D
 }
 
-cd
-autostart &
-cd -
+online()
+{
+	echo "Internet is available"
+	firefox &
+	gajim &
+}
 
+autostart &
+(ping -i 1 -c 3 -W 1 www.google.com &>/dev/null && online) &
+
+# Display the current time in dwm status bar
 #while true; do
 #	xsetroot -name "$(date +" %a %b %_d, %H:%M") | $(acpi | awk '{gsub(/^Battery [0-9]+: |Unknown, | remaining | until charged/, ""); print; exit}')"
 #	sleep 60
