@@ -1,9 +1,15 @@
 if status --is-interactive
 
 	init_ssh_agent
+	set PPID (ps -p %self -o ppid=)
+	# TODO parent_name is empty
+	#command ps ho comm -p "$PPID" | set parent_name
+	# TODO error: improper list
+	#set parent_name (command ps ho comm -p $PPID)
 
 	# starting on a linux console
-	if test "$TERM" = "linux"
+	if test "$parent_name" = "login"
+		# TODO temporary not working
 		function x
 			set tty (tty | grep -o '[0-9]\+')
 			set vt (printf "vt%02d" $tty)

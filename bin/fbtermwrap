@@ -1,0 +1,18 @@
+#!/bin/bash
+
+echo -ne "\e[?25l" # hide cursor
+
+fbv=`which fbv 2>/dev/null`
+if [ -f $HOME/.fehbg ] && [ -x "$fbv" ]; then
+	fehbg=(`cat $HOME/.fehbg`)
+	convert `eval echo ${fehbg[-1]}` \
+		-alpha set -channel A -evaluate divide 8 \
+		-background black -gravity center -extent 1366x768 \
+		/tmp/fbterm_background.png
+	fbv -ciuker "/tmp/fbterm_background.png" << EOF
+q
+EOF
+	export FBTERM_BACKGROUND_IMAGE=1
+fi
+
+exec fbterm --font-names Terminus -s 16 $*

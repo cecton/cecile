@@ -45,15 +45,25 @@ parent_name=`ps ho comm -p $PPID`
 # automatically start graphical session
 if [ "$parent_name" == login ]; then
 	echo -n "Starting graphical session, press return to cancel... "
-	read -s -t 1 answer
+	read -s -t 2 answer
 	if [ $? -eq 0 ] && [ "$answer" != x ]; then
 		echo canceled
 	else
 		x
 		echo done
 	fi
+
+	fbterm=`which fbterm 2>/dev/null`
+	groups | grep video >/dev/null
+	if [ $? == 0 ] && [ -x "$fbterm" ]; then
+		# starts fbterm
+		exec fbtermwrap
+	else
+		# change console font to terminus
+		setfont ter-116n
+	fi
 fi
 
 # exec fish depending who's the parent
-parent_want_fish=(st login tmux su)
+parent_want_fish=(st login tmux su fbterm)
 [ "${parent_want_fish[*]#$parent_name}" != "${parent_want_fish[*]}" -a ! -e /tmp/$USER-nofish ] && exec fish
