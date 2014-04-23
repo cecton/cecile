@@ -66,7 +66,7 @@ fi
 
 if [ "$parent_name" == tmux ]; then
 	if [ -z "$DISPLAY" ]; then
-		export TERM=linux
+		export TERM=screen
 	fi
 fi
 
