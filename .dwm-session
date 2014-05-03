@@ -18,7 +18,7 @@ autostart()
 {
 	test -f $HOME/.fehbg && . $HOME/.fehbg
 	redshift -l 50.72:4.86 -t 6500:3600 -g 0.9 -m vidmode &
-	test -z "`ps -C rygel -o user,pid --no-headers | grep \"^$USER\>\"`" && dtach -n /tmp/rygel.$USER rygel
+	test -z "`ps -C rygel -o user,pid --no-headers | grep \"^$USER\>\"`" && dtach -n /tmp/rygel.$USER rygel -d MediaExport
 	pulseaudio -D
 }
 
