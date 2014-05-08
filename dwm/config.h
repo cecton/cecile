@@ -71,6 +71,7 @@ static const char *brightnessdown[]  = { "sudo", "brightness", "down", NULL };
 static const char *volumeup[]  = { "amixer", "set", "Master", "2%+", NULL };
 static const char *volumedown[]  = { "amixer", "set", "Master", "2%-", NULL };
 static const char *volumemute[]  = { "amixer", "set", "Master", "toggle", NULL };
+static const char *display[]  = { "xrandr-auto", NULL };
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
@@ -80,6 +81,7 @@ static Key keys[] = {
 	{ 0,                            0x1008ff13, spawn,         {.v = volumeup } },
 	{ 0,                            0x1008ff11, spawn,         {.v = volumedown } },
 	{ 0,                            0x1008ff12, spawn,         {.v = volumemute } },
+	{ 0,                            0x1008ff59, spawn,         {.v = display } },
 	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
 	{ MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
