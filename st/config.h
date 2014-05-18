@@ -10,8 +10,8 @@ static int borderpx = 0;
 static char shell[] = "/bin/sh";
 
 /* Kerning / character bounding-box mutlipliers */
-float cwscale = 1.0;
-float chscale = 1.0;
+static float cwscale = 1.0;
+static float chscale = 1.0;
 
 /*
  * word delimiter string
@@ -115,21 +115,24 @@ static unsigned int defaultunderline = 7;
 /* Internal mouse shortcuts. */
 /* Beware that overloading Button1 will disable the selection. */
 static Mousekey mshortcuts[] = {
-	/* keysym		mask		string */
-	{ Button4,		XK_ANY_MOD,	"\031"},
-	{ Button5,		XK_ANY_MOD,	"\005"},
+	/* button               mask            string */
+	{ Button4,              XK_ANY_MOD,     "\031" },
+	{ Button5,              XK_ANY_MOD,     "\005" },
 };
 
 /* Internal keyboard shortcuts. */
 #define MODKEY Mod1Mask
 
 static Shortcut shortcuts[] = {
-	/* modifier		key		function	argument */
-	{ MODKEY|ShiftMask,	XK_Prior,	xzoom,		{.i = +1} },
-	{ MODKEY|ShiftMask,	XK_Next,	xzoom,		{.i = -1} },
-	{ ShiftMask,		XK_Insert,	selpaste,	{.i =  0} },
-	{ MODKEY|ShiftMask,	XK_Insert,	clippaste,	{.i =  0} },
-	{ MODKEY,		XK_Num_Lock,	numlock,	{.i =  0} },
+	/* mask                 keysym          function        argument */
+	{ ControlMask,          XK_Print,       toggleprinter,  {.i =  0} },
+	{ ShiftMask,            XK_Print,       printscreen,    {.i =  0} },
+	{ XK_ANY_MOD,           XK_Print,       printsel,       {.i =  0} },
+	{ MODKEY|ShiftMask,     XK_Prior,       xzoom,          {.i = +1} },
+	{ MODKEY|ShiftMask,     XK_Next,        xzoom,          {.i = -1} },
+	{ ShiftMask,            XK_Insert,      selpaste,       {.i =  0} },
+	{ MODKEY|ShiftMask,     XK_Insert,      clippaste,      {.i =  0} },
+	{ MODKEY,               XK_Num_Lock,    numlock,        {.i =  0} },
 };
 
 /*
@@ -138,12 +141,12 @@ static Shortcut shortcuts[] = {
  * Mask value:
  * * Use XK_ANY_MOD to match the key no matter modifiers state
  * * Use XK_NO_MOD to match the key alone (no modifiers)
- * keypad value:
+ * appkey value:
  * * 0: no value
  * * > 0: keypad application mode enabled
  * *   = 2: term.numlock = 1
  * * < 0: keypad application mode disabled
- * cursor value:
+ * appcursor value:
  * * 0: no value
  * * > 0: cursor application mode enabled
  * * < 0: cursor application mode disabled
@@ -169,7 +172,11 @@ static KeySym mappedkeys[] = { -1 };
  */
 static uint ignoremod = Mod2Mask|XK_SWITCH_MOD;
 
-/* key, mask, output, keypad, cursor, crlf */
+/* Override mouse-select while mask is active (when MODE_MOUSE is set).
+ * Note that if you want to use ShiftMask with selmasks, set this to an other
+ * modifier, set to 0 to not use it. */
+static uint forceselmod = ShiftMask;
+
 static Key key[] = {
 	/* keysym             mask         string         keypad cursor crlf */
 	{ XK_KP_Home,       ShiftMask,      "\033[1;2H",     0,    0,    0},
@@ -374,7 +381,6 @@ static Key key[] = {
  * ButtonRelease and MotionNotify.
  * If no match is found, regular selection is used.
  */
-
 static uint selmasks[] = {
 	[SEL_RECTANGULAR] = Mod1Mask,
 };
