@@ -101,15 +101,35 @@ if status --is-interactive
 	end
 
 	function repo-diff-cached
-		git diff --cached ^&-
-		or bzr cdiff ^&- | less -sFXR
-		or bzr diff ^&- | less -sFX
-		commandline -f repaint
+		set old_pwd $PWD
+		while test $PWD != "/"
+			if test -d ".git"
+				git diff --cached ^&-
+				commandline -f repaint
+				break
+			end
+			if test -d ".bzr"
+				bzr cdiff ^&- | less -sFXR
+				or bzr diff ^&- | less -sFX
+				commandline -f repaint
+				break
+			end
+			cd ..
+		end
+		cd $old_pwd
 	end
 
 	function repo-diff
-		git diff ^&-
-		commandline -f repaint
+		set old_pwd $PWD
+		while test $PWD != "/"
+			if test -d ".git"
+				git diff ^&-
+				commandline -f repaint
+				break
+			end
+			cd ..
+		end
+		cd $old_pwd
 	end
 
 	function repo-status
