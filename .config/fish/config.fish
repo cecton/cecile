@@ -127,7 +127,19 @@ if status --is-interactive
 	end
 
 	function repo-suffix
-		perl -we 'use Cwd;while(getcwd ne "/"){do{open IN,".bzr/branch/location" and do {print " $1" if <IN>=~m{([^/]+)/*$}}; last} if -e ".bzr/branch/location";chdir ".."}'
+		set old_pwd $PWD
+		while test $PWD != "/"
+			if test -d ".git"
+				git rev-parse --abbrev-ref HEAD | sed 's/^/ /'
+				break
+			end
+			if test -f ".bzr/branch/location"
+				awk 'match($0, /([^\/]+)\/*$/, a) {print " "a[1]}' ".bzr/branch/location"
+				break
+			end
+			cd ..
+		end
+		cd $old_pwd
 	end
 
 	# binds
