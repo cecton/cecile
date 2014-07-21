@@ -12,6 +12,8 @@ static const unsigned int borderpx  = 0;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const Bool showbar           = False;    /* False means no bar */
 static const Bool topbar            = True;     /* False means bottom bar */
+static const unsigned int forcewidth  = 1366;
+static const unsigned int forceheight = 768;
 
 /* tagging */
 static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9",
