@@ -1,6 +1,6 @@
 pkgname=dwm-git
 _pkgname=dwm
-pkgver=6.0.38.gcdec978
+pkgver=6.0.1.g3371c07
 pkgver(){
   cd $_pkgname
   #git checkout tags/6.0
@@ -18,7 +18,7 @@ makedepends=('git')
 provides=('dwm')
 conflicts=('dwm')
 epoch=1
-source=("$_pkgname::git+http://git.suckless.org/dwm")
+source=("$_pkgname::git+https://github.com/cecton/dwm.git")
 md5sums=('SKIP')
 
 prepare() {
