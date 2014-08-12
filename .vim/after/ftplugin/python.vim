@@ -17,6 +17,6 @@ highlight ColorColumn ctermbg=8
 "autocmd FileType python compiler pylint
 
 " try to keep the file clean when it's my repo
-if matchstr(expand('%:p'), '^/home/cecile/repos/') != ''
+if matchstr(expand('%:p'), '^/home/cecile/repos/(python-(ya)?fastimport)') != ''
 	au BufWrite <buffer> %s/\s\+$//e
 endif
