@@ -11,6 +11,11 @@ xmodmap - <<EOF
 keysym Menu = Control_R
 add Control = Control_R
 EOF
+synclient AreaTopEdge=2300 \
+	RightButtonAreaLeft=3600 RightButtonAreaRight=0\
+	RightButtonAreaTop=0 RightButtonAreaBottom=2300 \
+	VertTwoFingerScroll=1 VertScrollDelta=40 \
+	HorizTwoFingerScroll=1 HorizScrollDelta=14
 xrandr-auto
 xhost +local:
 
