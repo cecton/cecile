@@ -36,7 +36,9 @@ alias vborder='xrandr --output HDMI-0 --set "underscan vborder"'
 alias hborder='xrandr --output HDMI-0 --set "underscan hborder"'
 
 # disable speaker
-setterm -blength 0
+if [ "$TERM" == linux ]; then
+	setterm -blength 0
+fi
 
 # get the parent process name
 parent_name=`ps ho comm -p $PPID`
