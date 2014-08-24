@@ -30,11 +30,6 @@ alias mv='mv -iv'
 alias rm='rm -iv'
 alias cp='cp -iv'
 
-function x {
-	tty=`tty | grep -o '[0-9]\+'`
-	vt=`printf "vt%02d" $tty`
-	startx -- :$tty $vt &>>/tmp/dwm-session-${UID}.log
-}
 alias je="echo 'Hey! Dvorak keyboard here!'; cd"
 alias underscan="xrandr --output HDMI-0 --set underscan"
 alias vborder='xrandr --output HDMI-0 --set "underscan vborder"'
@@ -50,10 +45,10 @@ parent_name=`ps ho comm -p $PPID`
 if [ "$parent_name" == login ]; then
 	echo -n "Starting graphical session, press return to cancel... "
 	read -s -t 2 answer
-	if [ $? -eq 0 ] && [ "$answer" != x ]; then
+	if [ $? -eq 0 ]; then
 		echo canceled
 	else
-		x
+		startx
 		echo done
 	fi
 
