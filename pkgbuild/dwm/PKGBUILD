@@ -1,6 +1,6 @@
 pkgname=dwm-git
 _pkgname=dwm
-pkgver=6.0.1.g3371c07
+pkgver=6.0.1.g434c80e
 pkgver(){
   cd $_pkgname
   #git checkout tags/6.0
