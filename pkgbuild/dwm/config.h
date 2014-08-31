@@ -36,6 +36,7 @@ static const Rule rules[] = {
 	{ "MPlayer",  NULL,       NULL,       0,            True,        -1 },
 	{ "libreoffice-calc", NULL, NULL,     0,            True,        -1 },
 	{ "libreoffice-writer", NULL, NULL,   0,            True,        -1 },
+	{ "mednafen", NULL,       NULL,       0,            False,        1 },
 };
 
 /* layout(s) */
@@ -48,6 +49,7 @@ static const Layout layouts[] = {
 	{ "[]=",      tile },    /* first entry is default */
 	{ "[M]",      monocle },
 	{ "><>",      NULL },    /* no layout function means floating behavior */
+	{ "[+]",      centered },
 };
 
 /* key definitions */
@@ -99,6 +101,7 @@ static Key keys[] = {
 	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} }, /*ntile*/
 	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[2]} }, /*float*/
 	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[1]} }, /*monocle*/
+	{ MODKEY,                       XK_c,      setlayout,      {.v = &layouts[3]} }, /*centered*/
 	{ MODKEY,                       XK_space,  setlayout,      {0} },
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
 	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
