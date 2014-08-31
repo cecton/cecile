@@ -32,7 +32,7 @@ if status --is-interactive
 		# Use dsize to expand at most to the display resolution given while
 		# keeping aspect. Then use expand=:::::16/9 to stretch the drawable
 		# canvas to a 16/9 resolution.
-		alias mplayer "mplayer -geometry "(expr $w - 2 \* $bx)"x"(expr $h - 2 \* $by)"+$bx+$by"
+		alias mplayer-tv "mplayer -geometry "(expr $w - 2 \* $bx)"x"(expr $h - 2 \* $by)"+$bx+$by"
 		# NOTE: Using geometry argument stretch the picture without keeping
 		#       aspect on some systems (seems to be not the case from version
 		#       4.7.3 of mplayer
