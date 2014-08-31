@@ -16,8 +16,22 @@ synclient AreaTopEdge=2300 TapButton1=0 \
 	RightButtonAreaTop=0 RightButtonAreaBottom=2300 \
 	VertTwoFingerScroll=1 VertScrollDelta=40 \
 	HorizTwoFingerScroll=1 HorizScrollDelta=14
-xrandr-auto
 xhost +local:
+crt=`cat "/sys/devices/pci0000:00/0000:00:02.0/drm/card0/card0-VGA-1/status"`
+
+if [ $crt == "connected" ]; then
+	# Resolution setup for CRT: 640x480@160
+	xrandr --newmode gaming 73.00 640 688 752 864 480 483 487 530 -hsync +vsync
+	xrandr --addmode VGA1 gaming
+	xrandr --output VGA1 --mode gaming --below eDP1
+
+	# Resolution setup for TV: mirror with VGA1
+	xrandr --output HDMI1 --mode 640x480 --same-as VGA1
+
+else
+	# Resolution setup for TV: mirror with VGA1
+	xrandr --output HDMI1 --mode 1920x1080
+fi
 
 autostart()
 {
