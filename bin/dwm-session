@@ -1,6 +1,6 @@
 #!/bin/bash
 
-[ -x "$HOME/.dwm-session" ] && $HOME/.dwm-session &
+[ -x "$HOME/.dwm-session" ] && $HOME/.dwm-session start &
 
 while :
 do

@@ -1,65 +1,105 @@
-#!/bin/sh
+#!/bin/bash
 
-xsetroot -solid black
-xset -dpms -b
-xset s off
-test -d /usr/share/fonts/local && xset +fp /usr/share/fonts/local
-xset fp rehash
-test -f $HOME/.Xresourges && xrdb -load $HOME/.Xresources
-setxkbmap -option caps:none -layout us -variant dvp
-xmodmap - <<EOF
+
+setup()
+{
+	xsetroot -solid black
+	xset -dpms -b
+	xset s off
+	test -d /usr/share/fonts/local && xset +fp /usr/share/fonts/local
+	xset fp rehash
+	test -f $HOME/.Xresourges && xrdb -load $HOME/.Xresources
+	setxkbmap -option caps:none -layout us -variant dvp
+	xmodmap - <<EOF
 keysym Menu = Control_R
 add Control = Control_R
 EOF
-synclient AreaTopEdge=2300 TapButton1=0 \
-	RightButtonAreaLeft=3600 RightButtonAreaRight=0\
-	RightButtonAreaTop=0 RightButtonAreaBottom=2300 \
-	VertTwoFingerScroll=1 VertScrollDelta=40 \
-	HorizTwoFingerScroll=1 HorizScrollDelta=14
-xhost +local:
-crt=`cat "/sys/devices/pci0000:00/0000:00:02.0/drm/card0/card0-VGA-1/status"`
+	synclient AreaTopEdge=2300 TapButton1=0 \
+		RightButtonAreaLeft=3600 RightButtonAreaRight=0 \
+		RightButtonAreaTop=0 RightButtonAreaBottom=2300 \
+		VertTwoFingerScroll=1 VertScrollDelta=40 \
+		HorizTwoFingerScroll=1 HorizScrollDelta=14
+	xhost +local:
+}
 
-if [ $crt == "connected" ]; then
-	# Resolution setup for TV: 720p give the best result for recording
-	#  -  less artifacts
-	#  -  60fps
-	# But:
-	#  -  1080p: 30fps, sprites doesn't blink properly
-	#  -  4:3 resolutions: lot of artifact compressions
-	xrandr --output HDMI1 --mode 1280x720 --right-of eDP1
 
-	# Resolution setup for CRT: 640x480@160
-	#  -  highest refresh rate possible, scale 2
-	#  -  centered on the HDMI output
-	xrandr --newmode gaming 73.00 640 688 752 864 480 483 487 530 -hsync +vsync
-	xrandr --addmode VGA1 gaming
-	xrandr --output VGA1 --mode gaming --pos 1920x120
+xrandr-auto()
+{
+	crt=`cat "/sys/devices/pci0000:00/0000:00:02.0/drm/card0/card0-VGA-1/status"`
+	if [ $crt == "connected" ]; then
+		# Resolution setup for TV: 720p give the best result for recording
+		#  -  less artifacts
+		#  -  60fps
+		# But:
+		#  -  1080p: 30fps, sprites doesn't blink properly
+		#  -  4:3 resolutions: lot of artifact compressions
+		xrandr --output HDMI1 --mode 1280x720 --right-of eDP1
 
-else
-	# Resolution setup for TV: mirror with VGA1
-	xrandr --output HDMI1 --mode 1920x1080 --right-of eDP1
-fi
+		# Resolution setup for CRT: 640x480@160
+		#  -  highest refresh rate possible, scale 2
+		#  -  centered on the HDMI output
+		xrandr --newmode gaming 73.00 640 688 752 864 480 483 487 530 -hsync +vsync
+		xrandr --addmode VGA1 gaming
+		xrandr --output VGA1 --mode gaming --pos 1920x120
+		xsetroot -solid black
+		killall redshift
+
+	else
+		# Resolution setup for TV: mirror with VGA1
+		xrandr --output VGA1 --off
+		xrandr --output HDMI1 --mode 1920x1080 --right-of eDP1
+		test -f $HOME/.fehbg && . $HOME/.fehbg
+		redshift -l 50.72:4.86 -t 6500:3600 -g 0.9 -m vidmode &
+	fi
+}
+
 
 autostart()
 {
-	[ $crt == "disconnected" ] && test -f $HOME/.fehbg && . $HOME/.fehbg
-	[ $crt == "disconnected" ] && redshift -l 50.72:4.86 -t 6500:3600 -g 0.9 -m vidmode &
 	test -z "`ps -C rygel -o user,pid --no-headers | grep \"^$USER\>\"`" && dtach -n /tmp/rygel.$USER rygel -d MediaExport
 	pulseaudio -D
 }
 
+
 online()
 {
-	echo "Internet is available"
 	firefox &
 	gajim &
 }
 
-autostart &
-(ping -i 1 -c 3 -W 1 www.google.com &>/dev/null && online) &
 
-# Display the current time in dwm status bar
-#while true; do
-#	xsetroot -name "$(date +" %a %b %_d, %H:%M") | $(acpi | awk '{gsub(/^Battery [0-9]+: |Unknown, | remaining | until charged/, ""); print; exit}')"
-#	sleep 60
-#	done &
+clock()
+{
+	# Display the current time in dwm status bar
+	while true; do
+		xsetroot -name "$(/home/cecile/repos/tmux-statusbar/tmux-statusbar.pl 2>/dev/null | sed 's/#\[[^[]\+\]//g')"
+		sleep 4
+		done &
+}
+
+
+case "$1" in
+	start)
+		setup
+		xrandr-auto
+		autostart &
+		(ping -i 1 -c 3 -W 1 www.google.com &>/dev/null && online) &
+		#clock
+		;;
+	setup)
+		setup
+		;;
+	screens|xrandr|xrandr-auto|monitors)
+		xrandr-auto
+		;;
+	autostart)
+		autostart
+		;;
+	online)
+		onilne
+		;;
+	clock)
+		clock
+		;;
+	*)
+esac
