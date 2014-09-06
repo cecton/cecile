@@ -8,6 +8,7 @@
 alias ls='ls --color=auto'
 PS1='[\u@\h \W]\$ '
 
+export PAGER=less
 export EDITOR=/usr/bin/vim
 [ "$USER" == cecile ] && export BROWSER=firefox || export BROWSER=chromium
 
