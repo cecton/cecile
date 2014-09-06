@@ -37,7 +37,7 @@ if [ $crt == "connected" ]; then
 
 else
 	# Resolution setup for TV: mirror with VGA1
-	xrandr --output HDMI1 --mode 1920x1080
+	xrandr --output HDMI1 --mode 1920x1080 --right-of eDP1
 fi
 
 autostart()
