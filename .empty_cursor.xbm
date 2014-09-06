@@ -1,0 +1,6 @@
+#define a_width 1
+#define a_height 1
+#define a_x_hot 0
+#define a_y_hot 0
+static unsigned char a_bits[] = {
+ 0x01 };
