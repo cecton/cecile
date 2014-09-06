@@ -20,13 +20,20 @@ xhost +local:
 crt=`cat "/sys/devices/pci0000:00/0000:00:02.0/drm/card0/card0-VGA-1/status"`
 
 if [ $crt == "connected" ]; then
+	# Resolution setup for TV: 720p give the best result for recording
+	#  -  less artifacts
+	#  -  60fps
+	# But:
+	#  -  1080p: 30fps, sprites doesn't blink properly
+	#  -  4:3 resolutions: lot of artifact compressions
+	xrandr --output HDMI1 --mode 1280x720 --right-of eDP1
+
 	# Resolution setup for CRT: 640x480@160
+	#  -  highest refresh rate possible, scale 2
+	#  -  centered on the HDMI output
 	xrandr --newmode gaming 73.00 640 688 752 864 480 483 487 530 -hsync +vsync
 	xrandr --addmode VGA1 gaming
-	xrandr --output VGA1 --mode gaming --below eDP1
-
-	# Resolution setup for TV: mirror with VGA1
-	xrandr --output HDMI1 --mode 640x480 --same-as VGA1
+	xrandr --output VGA1 --mode gaming --pos 1920x120
 
 else
 	# Resolution setup for TV: mirror with VGA1
@@ -35,7 +42,7 @@ fi
 
 autostart()
 {
-	test -f $HOME/.fehbg && . $HOME/.fehbg
+	[ $crt == "disconnected" ] && test -f $HOME/.fehbg && . $HOME/.fehbg
 	[ $crt == "disconnected" ] && redshift -l 50.72:4.86 -t 6500:3600 -g 0.9 -m vidmode &
 	test -z "`ps -C rygel -o user,pid --no-headers | grep \"^$USER\>\"`" && dtach -n /tmp/rygel.$USER rygel -d MediaExport
 	pulseaudio -D
