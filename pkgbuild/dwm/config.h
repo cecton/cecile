@@ -34,6 +34,7 @@ static const Rule rules[] = {
 	{ "Dia",      NULL,       NULL,       0,            True,        -1 },
 	{ "Inkscape", NULL,       NULL,       0,            True,        -1 },
 	{ "MPlayer",  NULL,       NULL,       0,            True,        -1 },
+	{ "ffplay",   NULL,       NULL,       0,            True,         1 },
 	{ "libreoffice-calc", NULL, NULL,     0,            True,        -1 },
 	{ "libreoffice-writer", NULL, NULL,   0,            True,        -1 },
 	{ "mednafen", NULL,       NULL,       0,            False,        1 },
