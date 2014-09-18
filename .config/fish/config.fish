@@ -78,8 +78,10 @@ if status --is-interactive
 	# programs
 	alias lin "linphonec ^&-"
 	alias g git
+	alias t tig
 	alias b bzr
 	alias b-find "bzr log --line -n0 | grep"
+	alias d docker
 
 	# if port 5433 is opened, prefer PostgreSQL to use it
 	if fuser 5433/tcp >&-
