@@ -1,0 +1,5 @@
+#!/bin/sh
+for db in "$@"
+do
+	dropdb "$db"
+done

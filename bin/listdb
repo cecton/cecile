@@ -1,0 +1,2 @@
+#!/bin/sh
+psql -tX -P format=unaligned -d template1 -c "SELECT datname FROM pg_database" "$@"
