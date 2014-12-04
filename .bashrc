@@ -57,7 +57,7 @@ if [ "$parent_name" == login ]; then
 
 	fbterm=`which fbterm 2>/dev/null`
 	groups | grep video >/dev/null
-	if [ $? == 0 ] && [ -x "$fbterm" ]; then
+	if [ $? == 0 -a -x "$fbterm" -a ! -f /tmp/$USER-nofbterm ]; then
 		# starts fbterm
 		exec fbtermwrap
 	else
