@@ -14,6 +14,7 @@ static const Bool showbar           = False;    /* False means no bar */
 static const Bool topbar            = True;     /* False means bottom bar */
 static const unsigned int forcewidth  = 0;
 static const unsigned int forceheight = 0;
+static const unsigned int max_monitors = 2;
 
 /* tagging */
 static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9",
@@ -28,16 +29,17 @@ static const Rule rules[] = {
 	{ "Gimp",     NULL,       NULL,       0,            True,        -1 },
 	{ "Firefox",  NULL,       NULL,       1 << 8,       False,       -1 },
 	{ "Chromium", NULL,       NULL,       1 << 3,       False,        0 },
-	{ "Firefox",  NULL,       NULL,       1 << 5,       False,        0 },
-	{ "Gajim",    NULL,       NULL,       1 << 2,       False,        0 },
+	{ "Firefox",  NULL,       NULL,       1 << 5,       False,       -1 },
+	{ "Gajim",    NULL,       NULL,       1 << 2,       False,       -1 },
 	{ "Gimp",     NULL,       NULL,       0,            True,        -1 },
 	{ "Dia",      NULL,       NULL,       0,            True,        -1 },
 	{ "Inkscape", NULL,       NULL,       0,            True,        -1 },
-	{ "MPlayer",  NULL,       NULL,       0,            True,        -1 },
-	{ "ffplay",   NULL,       NULL,       0,            True,         1 },
+	{ "MPlayer",  NULL,       NULL,       0,            True,         0 },
+	{ "mpv",      NULL,       NULL,       0,            True,         0 },
+	{ "ffplay",   NULL,       NULL,       0,            True,         0 },
 	{ "libreoffice-calc", NULL, NULL,     0,            True,        -1 },
 	{ "libreoffice-writer", NULL, NULL,   0,            True,        -1 },
-	{ "mednafen", NULL,       NULL,       0,            False,        1 },
+	{ "mednafen", NULL,       NULL,       0,            False,        0 },
 };
 
 /* layout(s) */
@@ -77,6 +79,7 @@ static const char *volumeup[]  = { "amixer", "set", "Master", "2%+", NULL };
 static const char *volumedown[]  = { "amixer", "set", "Master", "2%-", NULL };
 static const char *volumemute[]  = { "amixer", "set", "Master", "toggle", NULL };
 static const char *display[]  = { "xrandr-auto", NULL };
+static const char *switchkbd[]  = { "switchkbd", NULL };
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
@@ -87,6 +90,7 @@ static Key keys[] = {
 	{ 0,                            0x1008ff11, spawn,         {.v = volumedown } },
 	{ 0,                            0x1008ff12, spawn,         {.v = volumemute } },
 	{ 0,                            0x1008ff59, spawn,         {.v = display } },
+	{ 0,                            0x1008ff4a, spawn,         {.v = switchkbd } },
 	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
 	{ MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
