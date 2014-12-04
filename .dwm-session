@@ -81,7 +81,7 @@ clock()
 	# Display the current time in dwm status bar
 	while true; do
 		xsetroot -name "$(/home/cecile/repos/tmux-statusbar/tmux-statusbar.pl 2>/dev/null | sed 's/#\[[^[]\+\]//g')"
-		sleep 4
+		sleep 60
 		done &
 }
 
