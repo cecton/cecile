@@ -23,6 +23,13 @@ EOF
 }
 
 
+addmode()
+{
+	cvt $2 $3 $4 | grep -Po 'Modeline \K.+' \
+		| xargs sh -c "echo \$0; xrandr --verbose --output $1 --newmode \$0 \$@; xrandr --addmode VGA1 \$0; xrandr --output VGA1 --mode \$0"
+}
+
+
 xrandr-auto()
 {
 	crt=`cat "/sys/devices/pci0000:00/0000:00:02.0/drm/card0/card0-VGA-1/status"`
@@ -33,21 +40,22 @@ xrandr-auto()
 		# But:
 		#  -  1080p: 30fps, sprites doesn't blink properly
 		#  -  4:3 resolutions: lot of artifact compressions
-		xrandr --output HDMI1 --mode 1280x720 --right-of eDP1
+		xrandr --output HDMI1 --mode 1280x720 --right-of eDP1 --primary
 
 		# Resolution setup for CRT: 640x480@160
 		#  -  highest refresh rate possible, scale 2
 		#  -  centered on the HDMI output
-		xrandr --newmode gaming 73.00 640 688 752 864 480 483 487 530 -hsync +vsync
-		xrandr --addmode VGA1 gaming
-		xrandr --output VGA1 --mode gaming --pos 1920x120
+		addmode VGA1 640 480 120
+		addmode VGA1 640 480 160
+		addmode VGA1 640 480 200
+		xrandr --output VGA1 --mode 640x480_120.00 --pos 1920x120
 		xsetroot -solid black
 		killall redshift
 
 	else
 		# Resolution setup for TV: mirror with VGA1
 		xrandr --output VGA1 --off
-		xrandr --output HDMI1 --mode 1920x1080 --right-of eDP1
+		xrandr --output HDMI1 --mode 1920x1080 --right-of eDP1 --primary
 		test -f $HOME/.fehbg && . $HOME/.fehbg
 		redshift -l 50.72:4.86 -t 6500:3600 -g 0.9 -m vidmode &
 	fi
