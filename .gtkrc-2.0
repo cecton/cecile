@@ -4,3 +4,4 @@ font_name = "Deja Vu Sans 10"
 }
 widget_class "*" style "font"
 gtk-font-name = "Deja Vu Sans 10"
+gtk-error-bell = 0
