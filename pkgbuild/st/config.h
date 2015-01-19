@@ -8,8 +8,12 @@
 static char font[] = "Terminus:bold:pixelsize=16";
 static int borderpx = 0;
 static char shell[] = "/bin/sh";
+static char *utmp = NULL;
 
-/* Kerning / character bounding-box mutlipliers */
+/* identification sequence returned in DA and DECID */
+static char vtiden[] = "\033[?6c";
+
+/* Kerning / character bounding-box multipliers */
 static float cwscale = 1.0;
 static float chscale = 1.0;
 
@@ -18,7 +22,7 @@ static float chscale = 1.0;
  *
  * More advanced example: " `'\"()[]{}"
  */
-static char worddelimiters[] = " │";
+static char worddelimiters[] = "  `'\"()│";
 
 /* selection timeouts (in milliseconds) */
 static unsigned int doubleclicktimeout = 300;
@@ -130,6 +134,7 @@ static Shortcut shortcuts[] = {
 	{ XK_ANY_MOD,           XK_Print,       printsel,       {.i =  0} },
 	{ MODKEY|ShiftMask,     XK_Prior,       xzoom,          {.i = +1} },
 	{ MODKEY|ShiftMask,     XK_Next,        xzoom,          {.i = -1} },
+	{ MODKEY|ShiftMask,     XK_Home,        xzoomreset,     {.i =  0} },
 	{ ShiftMask,            XK_Insert,      selpaste,       {.i =  0} },
 	{ MODKEY|ShiftMask,     XK_Insert,      clippaste,      {.i =  0} },
 	{ MODKEY,               XK_Num_Lock,    numlock,        {.i =  0} },
@@ -155,7 +160,7 @@ static Shortcut shortcuts[] = {
  * * > 0: crlf mode is enabled
  * * < 0: crlf mode is disabled
  *
- * Be careful with the order of the definitons because st searchs in
+ * Be careful with the order of the definitions because st searches in
  * this table sequentially, so any XK_ANY_MOD must be in the last
  * position for a key.
  */
@@ -178,8 +183,9 @@ static uint ignoremod = Mod2Mask|XK_SWITCH_MOD;
 static uint forceselmod = ShiftMask;
 
 static Key key[] = {
-	/* keysym             mask         string         keypad cursor crlf */
-	{ XK_KP_Home,       ShiftMask,      "\033[1;2H",     0,    0,    0},
+	/* keysym           mask            string      appkey appcursor crlf */
+	{ XK_KP_Home,       ShiftMask,      "\033[2J",       0,   -1,    0},
+	{ XK_KP_Home,       ShiftMask,      "\033[1;2H",     0,   +1,    0},
 	{ XK_KP_Home,       XK_ANY_MOD,     "\033[H",        0,   -1,    0},
 	{ XK_KP_Home,       XK_ANY_MOD,     "\033[1~",       0,   +1,    0},
 	{ XK_KP_Up,         XK_ANY_MOD,     "\033Ox",       +1,    0,    0},
@@ -210,12 +216,14 @@ static Key key[] = {
 	{ XK_KP_Insert,     ControlMask,    "\033[2;5~",    +1,    0,    0},
 	{ XK_KP_Insert,     XK_ANY_MOD,     "\033[4h",      -1,    0,    0},
 	{ XK_KP_Insert,     XK_ANY_MOD,     "\033[2~",      +1,    0,    0},
-	{ XK_KP_Delete,     ControlMask,    "\033[2J",      -1,    0,    0},
+	{ XK_KP_Delete,     ControlMask,    "\033[M",       -1,    0,    0},
 	{ XK_KP_Delete,     ControlMask,    "\033[3;5~",    +1,    0,    0},
-	{ XK_KP_Delete,     ShiftMask,      "\033[2K",      +1,    0,    0},
-	{ XK_KP_Delete,     ShiftMask,      "\033[3;2~",    -1,    0,    0},
+	{ XK_KP_Delete,     ShiftMask,      "\033[2K",      -1,    0,    0},
+	{ XK_KP_Delete,     ShiftMask,      "\033[3;2~",    +1,    0,    0},
+	//{ XK_KP_Delete,     XK_ANY_MOD,     "\033[P",       -1,    0,    0},
+	{ XK_KP_Delete,     XK_ANY_MOD,     "\177",         +1,    0,    0},
 	{ XK_KP_Delete,     XK_ANY_MOD,     "\033[3~",      -1,    0,    0},
-	{ XK_KP_Delete,     XK_ANY_MOD,     "\033[3~",      +1,    0,    0},
+	//{ XK_KP_Delete,     XK_ANY_MOD,     "\033[3~",      +1,    0,    0},
 	{ XK_KP_Multiply,   XK_ANY_MOD,     "\033Oj",       +2,    0,    0},
 	{ XK_KP_Add,        XK_ANY_MOD,     "\033Ok",       +2,    0,    0},
 	{ XK_KP_Enter,      XK_ANY_MOD,     "\033OM",       +2,    0,    0},
@@ -234,7 +242,6 @@ static Key key[] = {
 	{ XK_KP_7,          XK_ANY_MOD,     "\033Ow",       +2,    0,    0},
 	{ XK_KP_8,          XK_ANY_MOD,     "\033Ox",       +2,    0,    0},
 	{ XK_KP_9,          XK_ANY_MOD,     "\033Oy",       +2,    0,    0},
-	{ XK_BackSpace,     XK_NO_MOD,      "\177",          0,    0,    0},
 	{ XK_Up,            ShiftMask,      "\033[1;2A",     0,    0,    0},
 	{ XK_Up,            ControlMask,    "\033[1;5A",     0,    0,    0},
 	{ XK_Up,            Mod1Mask,       "\033[1;3A",     0,    0,    0},
@@ -266,13 +273,16 @@ static Key key[] = {
 	{ XK_Insert,        ControlMask,    "\033[2;5~",    +1,    0,    0},
 	{ XK_Insert,        XK_ANY_MOD,     "\033[4h",      -1,    0,    0},
 	{ XK_Insert,        XK_ANY_MOD,     "\033[2~",      +1,    0,    0},
-	{ XK_Delete,        ControlMask,    "\033[2J",      -1,    0,    0},
+	{ XK_Delete,        ControlMask,    "\033[M",       -1,    0,    0},
 	{ XK_Delete,        ControlMask,    "\033[3;5~",    +1,    0,    0},
-	{ XK_Delete,        ShiftMask,      "\033[2K",      +1,    0,    0},
-	{ XK_Delete,        ShiftMask,      "\033[3;2~",    -1,    0,    0},
+	{ XK_Delete,        ShiftMask,      "\033[2K",      -1,    0,    0},
+	{ XK_Delete,        ShiftMask,      "\033[3;2~",    +1,    0,    0},
+	//{ XK_Delete,        XK_ANY_MOD,     "\033[P",       -1,    0,    0},
 	{ XK_Delete,        XK_ANY_MOD,     "\033[3~",      -1,    0,    0},
-	{ XK_Delete,        XK_ANY_MOD,     "\033[3~",      +1,    0,    0},
-	{ XK_Home,          ShiftMask,      "\033[1;2H",     0,    0,    0},
+	//{ XK_Delete,        XK_ANY_MOD,     "\033[3~",      +1,    0,    0},
+	{ XK_Delete,        XK_ANY_MOD,     "\177",         +1,    0,    0},
+	{ XK_Home,          ShiftMask,      "\033[2J",       0,   -1,    0},
+	{ XK_Home,          ShiftMask,      "\033[1;2H",     0,   +1,    0},
 	{ XK_Home,          XK_ANY_MOD,     "\033[H",        0,   -1,    0},
 	{ XK_Home,          XK_ANY_MOD,     "\033[1~",       0,   +1,    0},
 	{ XK_End,           ControlMask,    "\033[J",       -1,    0,    0},
@@ -306,7 +316,7 @@ static Key key[] = {
 	{ XK_F3, /* F63 */  Mod3Mask,       "\033[1;4R",     0,    0,    0},
 	{ XK_F4,            XK_NO_MOD,      "\033OS" ,       0,    0,    0},
 	{ XK_F4, /* F16 */  ShiftMask,      "\033[1;2S",     0,    0,    0},
-	{ XK_F4, /* F28 */  ShiftMask,      "\033[1;5S",     0,    0,    0},
+	{ XK_F4, /* F28 */  ControlMask,    "\033[1;5S",     0,    0,    0},
 	{ XK_F4, /* F40 */  Mod4Mask,       "\033[1;6S",     0,    0,    0},
 	{ XK_F4, /* F52 */  Mod1Mask,       "\033[1;3S",     0,    0,    0},
 	{ XK_F5,            XK_NO_MOD,      "\033[15~",      0,    0,    0},

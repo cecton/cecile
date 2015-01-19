@@ -14,7 +14,8 @@ setup()
 keysym Menu = Control_R
 add Control = Control_R
 EOF
-	synclient AreaTopEdge=2300 TapButton1=0 \
+	synclient AreaTopEdge=2300 \
+		TapButton1=0 TapButton2=0 TapButton3=0 \
 		RightButtonAreaLeft=3600 RightButtonAreaRight=0 \
 		RightButtonAreaTop=0 RightButtonAreaBottom=2300 \
 		VertTwoFingerScroll=1 VertScrollDelta=40 \
@@ -79,10 +80,19 @@ online()
 clock()
 {
 	# Display the current time in dwm status bar
-	while true; do
-		xsetroot -name "$(/home/cecile/repos/tmux-statusbar/tmux-statusbar.pl 2>/dev/null | sed 's/#\[[^[]\+\]//g')"
-		sleep 60
-		done &
+	cat - <<EOF | perl &
+use strict;
+use warnings;
+
+use POSIX 'strftime';
+
+while( 1 ) {
+	system('xsetroot','-name',
+		strftime("%-H:%M UTC", gmtime)
+			.", ".strftime("%a %b %-d, %-I:%M%P", localtime));
+	sleep 60;
+}
+EOF
 }
 
 
@@ -99,6 +109,7 @@ case "$1" in
 		;;
 	screens|xrandr|xrandr-auto|monitors)
 		xrandr-auto
+		killall dwm
 		;;
 	autostart)
 		autostart
