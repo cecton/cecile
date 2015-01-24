@@ -1,0 +1,3 @@
+#!/bin/sh
+psql -Xc "ALTER DATABASE $1 OWNER TO $2;" template1 >/dev/null
+psql -Xtc "SELECT 'ALTER TABLE ' || tablename || ' OWNER TO $2;' FROM pg_tables WHERE schemaname NOT IN ('pg_catalog', 'information_schema');" $1 | psql -X $1 >/dev/null
