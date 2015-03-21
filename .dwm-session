@@ -18,8 +18,8 @@ EOF
 		TapButton1=0 TapButton2=0 TapButton3=0 \
 		RightButtonAreaLeft=3600 RightButtonAreaRight=0 \
 		RightButtonAreaTop=0 RightButtonAreaBottom=2300 \
-		VertTwoFingerScroll=1 VertScrollDelta=40 \
-		HorizTwoFingerScroll=1 HorizScrollDelta=14
+		VertTwoFingerScroll=1 VertScrollDelta=-40 \
+		HorizTwoFingerScroll=1 HorizScrollDelta=-14
 	xhost +local:
 }
 
@@ -41,7 +41,7 @@ xrandr-auto()
 		# But:
 		#  -  1080p: 30fps, sprites doesn't blink properly
 		#  -  4:3 resolutions: lot of artifact compressions
-		xrandr --output HDMI1 --mode 1280x720 --right-of eDP1 --primary
+		xrandr --output HDMI1 --mode 1280x720 --rate 60 --right-of eDP1 --primary
 
 		# Resolution setup for CRT: 640x480@160
 		#  -  highest refresh rate possible, scale 2
@@ -56,7 +56,7 @@ xrandr-auto()
 	else
 		# Resolution setup for TV: mirror with VGA1
 		xrandr --output VGA1 --off
-		xrandr --output HDMI1 --mode 1920x1080 --right-of eDP1 --primary
+		xrandr --output HDMI1 --mode 1920x1080 --rate 60 --right-of eDP1 --primary
 		test -f $HOME/.fehbg && . $HOME/.fehbg
 		redshift -l 50.72:4.86 -t 6500:3600 -g 0.9 -m vidmode &
 	fi
@@ -90,7 +90,7 @@ while( 1 ) {
 	system('xsetroot','-name',
 		strftime("%-H:%M UTC", gmtime)
 			.", ".strftime("%a %b %-d, %-I:%M%P", localtime));
-	sleep 60;
+	sleep (60 - strftime("%-S", localtime));
 }
 EOF
 }
@@ -101,8 +101,8 @@ case "$1" in
 		setup
 		xrandr-auto
 		autostart &
-		(ping -i 1 -c 3 -W 1 www.google.com &>/dev/null && online) &
-		#clock
+		(ping -i 1 -c 3 -W 1 8.8.8.8 &>/dev/null && online) &
+		clock
 		;;
 	setup)
 		setup
