@@ -1,11 +1,6 @@
 if status --is-interactive
 
 	init_ssh_agent
-	set PPID (ps -p %self -o ppid=)
-	# TODO parent_name is empty
-	#command ps ho comm -p "$PPID" | set parent_name
-	# TODO error: improper list
-	#set parent_name (command ps ho comm -p $PPID)
 
 	# starting on a linux console
 	if test "$parent_name" = "login"
@@ -24,24 +19,6 @@ if status --is-interactive
 		function gajim
 			sh -c (which gajim) $args ^/dev/null >/dev/null &
 		end
-		# how to make my videos fits well on my stupid tv
-		set w 1280
-		set h 720
-		set bx 31
-		set by 17
-		# Use dsize to expand at most to the display resolution given while
-		# keeping aspect. Then use expand=:::::16/9 to stretch the drawable
-		# canvas to a 16/9 resolution.
-		alias mplayer-tv "mplayer -geometry "(expr $w - 2 \* $bx)"x"(expr $h - 2 \* $by)"+$bx+$by"
-		# NOTE: Using geometry argument stretch the picture without keeping
-		#       aspect on some systems (seems to be not the case from version
-		#       4.7.3 of mplayer
-		# NOTE: expand permit the subtitles to be drawn on it but the
-		#       width/height values are calculated from the picture source and
-		#       doesn't give the expected result: expand=1280 doesn't display a
-		#       window of 1280px but probably much more
-		# NOTE: -subpos argument is needed when using expand but *not* if you
-		#       specify only the aspect
 	end
 
 	function sshterm
@@ -60,9 +37,8 @@ if status --is-interactive
 	alias je "echo 'Hey! Dvorak keyboard here!'; cd"
 
 	# shell builtins
-	alias ls 'ls --color=auto'
 	alias ls 'ls --color=auto -h'
-	alias ll 'ls -l --color=auto'
+	alias ll 'ls -l'
 	alias rm 'rm -iv'
 	alias mv 'mv -iv'
 	alias cp 'cp -ipv'
@@ -79,26 +55,12 @@ if status --is-interactive
 	alias lin "linphonec ^&-"
 	alias g git
 	alias t tig
-	alias b bzr
-	alias b-find "bzr log --line -n0 | grep"
 	alias d docker
-
-	# if port 5433 is opened, prefer PostgreSQL to use it
-	if fuser 5433/tcp >&-
-		set -x PGHOST localhost
-		set -x PGPORT 5433
-		echo "PostgreSQL default connection set to $PGHOST:$PGPORT"
-	# otherwise, erase the variables
-	else
-		set -e PGHOST
-		set -e PGPORT
-	end
 
 	# shortcuts
 	function repo-log
 		echo
 		git log --oneline ^&-
-		or bzr log --line ^&- | less -sFX
 		commandline -f repaint
 	end
 
@@ -107,12 +69,6 @@ if status --is-interactive
 		while test $PWD != "/"
 			if test -d ".git"
 				git diff --cached ^&-
-				commandline -f repaint
-				break
-			end
-			if test -d ".bzr"
-				bzr cdiff ^&- | less -sFXR
-				or bzr diff ^&- | less -sFX
 				commandline -f repaint
 				break
 			end
@@ -137,14 +93,12 @@ if status --is-interactive
 	function repo-status
 		echo
 		git status ^&-
-		or bzr status ^&- | less -sFX
 		commandline -f repaint
 	end
 
 	function repo-commit
 		echo
 		git commit ^&-
-		or bzr commit ^&-
 		commandline -f repaint
 	end
 
@@ -153,10 +107,6 @@ if status --is-interactive
 		while test $PWD != "/"
 			if test -d ".git"
 				git rev-parse --abbrev-ref HEAD | sed 's/^/ /'
-				break
-			end
-			if test -f ".bzr/branch/location"
-				awk 'match($0, /([^\/]+)\/*$/, a) {print " "a[1]}' ".bzr/branch/location"
 				break
 			end
 			cd ..
