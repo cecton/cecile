@@ -1,0 +1,8 @@
+#!/bin/sh
+
+# NOTE: it seems changing keyboard using -option of setxkbmap doesn't change
+#		the layout of some windows: like root and mednafen.
+
+setxkbmap -print | grep '+us(dvp)+' \
+	&& setxkbmap -layout us -variant basic \
+	|| setxkbmap -layout us -variant dvp
