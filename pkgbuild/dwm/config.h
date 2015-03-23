@@ -41,6 +41,7 @@ static const Rule rules[] = {
 	{ "libreoffice-writer", NULL, NULL,   0,            True,        -1 },
 	{ "mednafen", NULL,       NULL,       0,            False,        0 },
 	{ "openerp-client.py", NULL, NULL,    1 << 11,      False,       -1 },
+	{ "VirtualBox", NULL,     NULL,       0,            True,        -1 },
 };
 
 /* layout(s) */
