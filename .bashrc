@@ -2,30 +2,8 @@
 #[ -z "$PS1" ] && return
 [ -z "${-##*i*}" -a -n "$PS1" ] || return
 
-[ "$USER" == cecile ] || export PATH=/home/cecile/bin:$PATH
-[ -d $HOME/bin ] && export PATH=$HOME/bin:$PATH
-
 alias ls='ls --color=auto'
 PS1='[\u@\h \W]\$ '
-
-export PAGER=less
-export EDITOR=/usr/bin/vim
-[ "$USER" == cecile ] && export BROWSER=firefox || export BROWSER=chromium
-
-export HISTCONTROL=ignoreboth:erasedups
-
-export WINEARCH=win32
-export WINETRICKS_CONTINUE_DOWNLOAD=1
-
-export PYTHONDONTWRITEBYTECODE=1
-
-export XBMC_HOST=openelec
-
-export LC_TIME="en_GB.utf8"
-
-export PERL_MB_OPT="--install_base \"$HOME/perl5\""
-export PERL_MM_OPT="INSTALL_BASE=$HOME/perl5"
-export PERL5LIB="$HOME/perl5/lib/perl5"
 
 alias mv='mv -iv'
 alias rm='rm -iv'
@@ -43,6 +21,8 @@ fi
 
 # get the parent process name
 parent_name=`ps ho comm -p $PPID`
+
+[ -z "${0##-*}" ] && [ -f ~/.exports ] && echo "Exports loaded" && . ~/.exports
 
 # automatically start graphical session
 if [ "$parent_name" == login ]; then

@@ -1,0 +1,20 @@
+[ "$USER" == cecile ] && export PATH=/home/cecile/SailfishOS/bin:$PATH
+[ "$USER" == cecile ] || export PATH=/home/cecile/bin:$PATH
+[ -d $HOME/bin ] && export PATH=$HOME/bin:$PATH
+[ "$USER" == cecile ] && export BROWSER=firefox || export BROWSER=chromium
+
+export WINEARCH=win32
+export WINETRICKS_CONTINUE_DOWNLOAD=1
+
+export PYTHONDONTWRITEBYTECODE=1
+
+export LC_TIME="en_GB.utf8"
+
+export PERL_MB_OPT="--install_base \"$HOME/perl5\""
+export PERL_MM_OPT="INSTALL_BASE=$HOME/perl5"
+export PERL5LIB="$HOME/perl5/lib/perl5"
+
+export PAGER=less
+export EDITOR=/usr/bin/vim
+
+export HISTCONTROL=ignoreboth:erasedups
