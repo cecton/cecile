@@ -49,5 +49,4 @@ fi
 [ "$parent_name" == tmux -a -n "$DISPLAY" ] && export TERM=screen-256color
 
 # exec fish depending who's the parent
-parent_want_fish=(st login tmux su fbterm)
-[ "${parent_want_fish[*]#$parent_name}" != "${parent_want_fish[*]}" -a ! -e /tmp/$USER-nofish ] && exec fish
+[ "$parent_name" != fish ] && exec fish
