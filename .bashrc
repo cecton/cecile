@@ -22,17 +22,20 @@ parent_name=`ps o comm -p $PPID | awk 'NR>1'`
 # export environment variables if login shell
 [ -z "${0##-*}" ] && [ -f ~/.exports ] && . ~/.exports
 
-# automatically start graphical session
 if [ "$parent_name" == login ]; then
-	echo -n "Starting graphical session, press return to cancel... "
-	read -s -t 2 answer
-	if [ $? -eq 0 ]; then
-		echo canceled
-	else
-		startx
-		echo done
+	# automatically start graphical session
+	if [ -x ~/bin/dwm -a -x ~/bin/st ]; then
+		echo -n "Starting graphical session, press return to cancel... "
+		read -s -t 2 answer
+		if [ $? -eq 0 ]; then
+			echo canceled
+		else
+			startx
+			echo done
+		fi
 	fi
 
+	# ...or fbterm if available
 	fbterm=`which fbterm 2>/dev/null`
 	groups | grep video >/dev/null
 	if [ $? == 0 -a -x "$fbterm" -a ! -f /tmp/$USER-nofbterm ]; then
