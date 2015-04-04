@@ -48,4 +48,6 @@ fi
 [ "$parent_name" == tmux -a -n "$DISPLAY" ] && export TERM=screen-256color
 
 # exec fish depending who's the parent
-[ "$parent_name" != fish ] && exec fish
+if which fish >/dev/null && [ "$parent_name" != fish ]; then
+	exec fish
+fi
