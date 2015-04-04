@@ -20,7 +20,7 @@ if [ "$TERM" == linux ]; then
 fi
 
 # get the parent process name
-parent_name=`ps ho comm -p $PPID`
+parent_name=`ps o comm -p $PPID | awk 'NR>1'`
 
 [ -z "${0##-*}" ] && [ -f ~/.exports ] && echo "Exports loaded" && . ~/.exports
 
