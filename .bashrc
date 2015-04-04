@@ -46,11 +46,7 @@ if [ "$parent_name" == login ]; then
 	fi
 fi
 
-if [ "$parent_name" == tmux ]; then
-	if [ -z "$DISPLAY" ]; then
-		export TERM=screen
-	fi
-fi
+[ "$parent_name" == tmux -a -n "$DISPLAY" ] && export TERM=screen-256color
 
 # exec fish depending who's the parent
 parent_want_fish=(st login tmux su fbterm)
