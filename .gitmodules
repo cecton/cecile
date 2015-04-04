@@ -8,3 +8,6 @@
 	path = repos/fish
 	url = https://github.com/fish-shell/fish-shell.git
 	branch = 2.1.2
+[submodule "repos/tmux-statusbar"]
+	path = repos/tmux-statusbar
+	url = https://github.com/cecton/tmux-statusbar.git
