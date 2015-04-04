@@ -1,10 +1,10 @@
 [submodule "repos/dwm"]
 	path = repos/dwm
-	url = git@github.com:cecton/dwm.git
+	url = https://github.com/cecton/dwm.git
 [submodule "repos/st"]
 	path = repos/st
 	url = git://git.suckless.org/st
 [submodule "repos/fish"]
 	path = repos/fish
-	url = git@github.com:fish-shell/fish-shell.git
+	url = https://github.com/fish-shell/fish-shell.git
 	branch = 2.1.2
