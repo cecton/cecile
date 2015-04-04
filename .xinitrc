@@ -15,7 +15,7 @@ fi
 # exec startkde
 # exec startxfce4
 # ...or the Window Manager of your choice
-if [ -x ~/bin/dwm ]; then
+if [ -x ~/bin/dwm -a -x ~/bin/st ]; then
 	exec dbus-launch --exit-with-session dwm-session
 else
 	exec dbus-launch xterm
