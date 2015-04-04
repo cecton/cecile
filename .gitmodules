@@ -1,3 +1,6 @@
 [submodule "repos/dwm"]
 	path = repos/dwm
 	url = git@github.com:cecton/dwm.git
+[submodule "repos/st"]
+	path = repos/st
+	url = git://git.suckless.org/st
