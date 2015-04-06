@@ -130,7 +130,8 @@ if status --is-interactive
 
 	# prompt
 	function fish_prompt -d "Write out the prompt"
-		printf '[%s] %s%s%s%s%s > ' \
+		printf '[%s] [%s] %s%s%s%s%s > ' \
+			$status \
 			(date -u +'%H:%M:%S') \
 			(set_color green) (prompt_pwd) \
 			(set_color purple) \
