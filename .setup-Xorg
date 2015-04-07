@@ -1,7 +1,5 @@
 #!/bin/bash
 
-which tic >/dev/null || exit 1
-which autoconf >/dev/null || exit 1
 
 if [ ! -e ~/.nox -a ! -x ~/bin/dwm -a -e ~/repos/dwm/.git ]; then
 	(
@@ -25,19 +23,5 @@ if [ ! -e ~/.nox -a ! -x ~/bin/st -a -e ~/repos/st/.git ]; then
 	echo "Installing st..."
 	cp -v st ~/bin/st
 	tic st.info
-	)
-fi
-
-if [ ! -x ~/bin/fish -a -e ~/repos/fish/.git ]; then
-	(
-	set -e -x
-	cd ~/repos/fish
-	echo "Compiling fish..."
-	autoconf
-	./configure --prefix=$HOME/.local --bindir=$HOME/bin
-	make
-	echo -n > share/functions/grep.fish
-	echo "Installing fish..."
-	make install
 	)
 fi

@@ -1,0 +1,18 @@
+#!/bin/bash
+
+which tic >/dev/null || exit 1
+which autoconf >/dev/null || exit 1
+
+if [ ! -x ~/bin/fish -a -e ~/repos/fish/.git ]; then
+	(
+	set -e -x
+	cd ~/repos/fish
+	echo "Compiling fish..."
+	autoconf
+	./configure --prefix=$HOME/.local --bindir=$HOME/bin
+	make
+	echo -n > share/functions/grep.fish
+	echo "Installing fish..."
+	make install
+	)
+fi
