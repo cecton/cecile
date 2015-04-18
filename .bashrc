@@ -2,8 +2,12 @@
 #[ -z "$PS1" ] && return
 [ -z "${-##*i*}" -a -n "$PS1" ] || return
 
-[ -z "${0##-*}" -a -x ~/.setup-term ] && ~/.setup-term
-[ -z "${0##-*}" -a -x ~/.setup-Xorg -a -x "`which startx`" ] && ~/.setup-Xorg
+touch /tmp/setup-$USER
+if [ ! -e /tmp/setup-$USER ]; then
+	[ -z "${0##-*}" -a -x ~/.setup-term ] && ~/.setup-term
+	[ -z "${0##-*}" -a -x ~/.setup-Xorg -a -x "`which startx`" ] && ~/.setup-Xorg
+fi
+rm /tmp/setup-$USER
 
 PS1='[\u@\h \W]\$ '
 
