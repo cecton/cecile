@@ -1,33 +1,44 @@
-#!/usr/bin/env perl
+#!/usr/bin/env runhaskell
 
-use strict;
-use warnings;
-use utf8;
+import System.IO
+import System.Environment
+import Control.Exception
 
-use Digest::SHA qw/sha1/;
-use MIME::Base64 qw/encode_base64/;
+import Crypto.Hash.SHA1 (hash)
+import Data.ByteString.Char8 (pack, unpack)
+import Data.ByteString.Base64 (encode)
+import Data.Char (chr, ord)
 
-my @symbols = (
-	'!', '?', '+', '-', '=', '*', '/', '@', '#', '$', '%', '&', '(', ')', '[',
-	']', ';', ':', ',', '.', '<', '>');
+-- | main function
+main :: IO ()
+main = do
+    pwd <- finally (noecho $ ask "Password: ") (putStrLn "")
+    site <- ask "Site: "
+    putStrLn $ "Hint: " ++ (take 6 $ genpass pwd "foo")
+    putStrLn $ genpass pwd site
 
-sub genpass
-{
-	my($pwd, $site) = @_;
-	my $fin = encode_base64 sha1 "_${pwd}_${site}_";
-	chr(ord('A') + ord(substr($fin, 0, 1)) % 26) .
-	chr(ord('a') + ord(substr($fin, 1, 1)) % 26) .
-	chr(ord('0') + ord(substr($fin, 2, 1)) % 10) .
-	@symbols[ord(substr($fin, 3, 1)) % @symbols] .
-	substr($fin, 4, 22)
-}
+-- | genpass (from sailfish-passy)
+genpass :: String -> String -> String
+genpass p s = (take 26) . passwordify . unpack . encode . hash . pack $
+              '_' : p ++ '_' : s ++ ['_']
 
-$| = 1;
+passwordify :: String -> String
+passwordify (a:b:c:d:l) = chr ((ord 'A') + (ord a) `mod` 26) :
+                          chr ((ord 'a') + (ord b) `mod` 26) :
+                          chr ((ord '0') + (ord c) `mod` 10) :
+                          symbols !! ((ord d) `mod` (length symbols)) :
+                          l
 
-print "Password: "; chop(my $pwd = <STDIN>);
-print "Site: "; chop(my $site = <STDIN>);
+symbols = "!?+-=*/@#$%&()[];:,.<>"
 
+-- | helpers
+ask :: String -> IO String
+ask prompt = do
+    putStr prompt
+    hFlush stdout
+    getLine
 
-print
-	"Hint: " . substr(genpass($pwd, "foo"), 0, 6) . "\n" .
-	genpass($pwd, $site) . "\n";
+noecho :: IO a -> IO a
+noecho action = do
+    old <- hGetEcho stdin
+    bracket_ (hSetEcho stdin False) (hSetEcho stdin old) action
