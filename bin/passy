@@ -12,9 +12,9 @@ import Data.Char (chr, ord)
 -- | main function
 main :: IO ()
 main = do
-    pwd <- finally (noecho $ ask "Password: ") (putStrLn "")
+    pwd <- finally (noecho $ ask "Password: ") (hPutStrLn stderr "")
     site <- ask "Site: "
-    putStrLn $ "Hint: " ++ (take 6 $ genpass pwd "foo")
+    hPutStrLn stderr $ "Hint: " ++ (take 6 $ genpass pwd "foo")
     putStrLn $ genpass pwd site
 
 -- | genpass (from sailfish-passy)
@@ -34,8 +34,8 @@ symbols = "!?+-=*/@#$%&()[];:,.<>"
 -- | helpers
 ask :: String -> IO String
 ask prompt = do
-    putStr prompt
-    hFlush stdout
+    hPutStr stderr prompt
+    hFlush stderr
     getLine
 
 noecho :: IO a -> IO a
