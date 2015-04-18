@@ -12,12 +12,23 @@ import Data.Char (chr, ord)
 -- | main function
 main :: IO ()
 main = do
-    pwd <- finally (noecho $ ask "Password: ") (hPutStrLn stderr "")
-    site <- ask "Site: "
-    hPutStrLn stderr $ "Hint: " ++ (take 6 $ genpass pwd "foo")
-    putStrLn $ genpass pwd site
+    cmd <- getProgName
+    args <- getArgs
+    case args of
+        ["--help"] -> putStrLn $ "usage: " ++ cmd ++ " [<site>]"
+        [site] -> do
+            pwd <- finally (noecho $ ask "Password: ") (hPutStrLn stderr "")
+            hPutStrLn stderr $ "Hint: " ++ hint pwd
+            putStrLn $ genpass pwd site
+        _ -> do
+            pwd <- finally (noecho $ ask "Password: ") (hPutStrLn stderr "")
+            site <- ask "Site: "
+            hPutStrLn stderr $ "Hint: " ++ hint pwd
+            putStrLn $ genpass pwd site
 
 -- | genpass (from sailfish-passy)
+hint pwd = take 6 $ genpass pwd "foo"
+
 genpass :: String -> String -> String
 genpass p s = (take 26) . passwordify . unpack . encode . hash . pack $
               '_' : p ++ '_' : s ++ ['_']

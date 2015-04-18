@@ -1,2 +1,2 @@
 #!/bin/sh
-echo -n `passy | tail -n1` | xsel -b
+echo -n `passy "$@" | tail -n1` | xsel -b
