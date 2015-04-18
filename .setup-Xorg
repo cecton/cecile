@@ -1,7 +1,8 @@
 #!/bin/bash
 
+which tic >/dev/null || exit 1
 
-if [ ! -e ~/.nox -a ! -x ~/bin/dwm -a -e ~/repos/dwm/.git ]; then
+if [ ! -x ~/bin/dwm -a -e ~/repos/dwm/.git ]; then
 	(
 	set -e -x
 	cd ~/repos/dwm
@@ -13,7 +14,7 @@ if [ ! -e ~/.nox -a ! -x ~/bin/dwm -a -e ~/repos/dwm/.git ]; then
 	)
 fi
 
-if [ ! -e ~/.nox -a ! -x ~/bin/st -a -e ~/repos/st/.git ]; then
+if [ ! -x ~/bin/st -a -e ~/repos/st/.git ]; then
 	(
 	set -e -x
 	cd ~/repos/st

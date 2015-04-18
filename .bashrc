@@ -25,7 +25,7 @@ parent_name=`ps o comm -p $PPID | awk 'NR>1'`
 
 if [ "$parent_name" == login ]; then
 	# automatically start graphical session
-	if [ ! -e ~/.nox -a -x ~/bin/dwm -a -x ~/bin/st ]; then
+	if [ -x "`which startx`" -a -x ~/bin/dwm -a -x ~/bin/st ]; then
 		echo -n "Starting graphical session, press return to cancel... "
 		read -s -t 2 answer
 		if [ $? -eq 0 ]; then
