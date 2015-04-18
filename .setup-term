@@ -12,6 +12,6 @@ if [ ! -x ~/bin/fish -a -e ~/repos/fish/.git ]; then
 	make
 	echo -n > share/functions/grep.fish
 	echo "Installing fish..."
-	make install
+	make install clean
 	)
 fi

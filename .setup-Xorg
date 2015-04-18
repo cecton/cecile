@@ -11,6 +11,7 @@ if [ ! -x ~/bin/dwm -a -e ~/repos/dwm/.git ]; then
 	make
 	echo "Installing dwm..."
 	cp -v dwm ~/bin/dwm
+	make clean
 	)
 fi
 
@@ -24,5 +25,6 @@ if [ ! -x ~/bin/st -a -e ~/repos/st/.git ]; then
 	echo "Installing st..."
 	cp -v st ~/bin/st
 	tic st.info
+	make clean
 	)
 fi
