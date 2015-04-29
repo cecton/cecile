@@ -1,7 +1,5 @@
 if status --is-interactive
 
-	init_ssh_agent
-
 	# starting on a linux console
 	if test "$parent_name" = "login"
 		# TODO temporary not working
