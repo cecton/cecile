@@ -127,14 +127,24 @@ if status --is-interactive
 	end
 
 	# prompt
-	function fish_prompt -d "Write out the prompt"
-		printf '[%s] [%s] %s%s%s%s%s > ' \
-			$status \
-			(date -u +'%H:%M:%S') \
-			(set_color green) (prompt_pwd) \
-			(set_color purple) \
-			(repo-suffix) \
-			(set_color normal)
+	if which git >/dev/null ^/dev/null
+		function fish_prompt -d "Write out the prompt"
+			printf '[%s] [%s] %s%s%s%s%s > ' \
+				$status \
+				(date -u +'%H:%M:%S') \
+				(set_color green) (prompt_pwd) \
+				(set_color purple) \
+				(repo-suffix) \
+				(set_color normal)
+		end
+	else
+		function fish_prompt -d "Write out the prompt"
+			printf '[%s] [%s] %s%s%s%s%s > ' \
+				$status \
+				(date -u +'%H:%M:%S') \
+				(set_color green) (prompt_pwd) \
+				(set_color normal)
+		end
 	end
 
 end
