@@ -2,6 +2,7 @@ if stridx($TERM, "256color") > -1
 "if strlen($DISPLAY) > 0 && stridx($TERM, "xterm") < 0
     set background=dark
     colorscheme solarized
+    set spell
 endif
 
 nmap <F1> <NOP>
@@ -10,7 +11,6 @@ nmap <F12> :wa<CR>
 imap <F12> <Esc>:wa<CR>
 
 syntax on
-set spell
 set listchars=nbsp: ,tab:\ \ ,eol:↵
 set tabstop=4 softtabstop=4 shiftwidth=4
 " disable automatic indent of comments and sometimes automatic comment
