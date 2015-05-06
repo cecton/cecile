@@ -49,7 +49,7 @@ xrandr-auto()
 		addmode VGA1 640 480 120
 		addmode VGA1 640 480 160
 		addmode VGA1 640 480 200
-		xrandr --output VGA1 --mode 640x480_120.00 --pos 1920x120
+		xrandr --output VGA1 --mode 640x480_200.00 --pos 1920x120
 		xsetroot -solid black
 		killall redshift
 
