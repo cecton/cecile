@@ -18,6 +18,7 @@ fi
 if [ ! -x ~/bin/st -a -e ~/repos/st/.git ]; then
 	(
 	set -e -x
+	curl -sSLo ~/.config/dircolors.ansi-dark https://raw.githubusercontent.com/seebi/dircolors-solarized/master/dircolors.ansi-dark
 	cd ~/repos/st
 	echo "Compiling st..."
 	cp -fv ~/.config/st.h ./config.h
