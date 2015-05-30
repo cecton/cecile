@@ -10,7 +10,6 @@ match Invalid /\t\|\s\+$\|[^\x00-\xff]\+/
 
 " Highlight lines to big
 setlocal cc=80
-highlight ColorColumn ctermbg=8
 
 " Check file integrity on save -- too slow
 "autocmd FileType python compiler pylint

@@ -1,6 +1,7 @@
 if stridx($TERM, "256color") > -1
 "if strlen($DISPLAY) > 0 && stridx($TERM, "xterm") < 0
     set background=dark
+    let g:solarized_termcolors=256
     colorscheme solarized
     set spell
 endif
