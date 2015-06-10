@@ -1,5 +1,5 @@
 " For Python files, always use spaces instead of tabs
-setlocal expandtab tabstop=4 softtabstop=4 shiftwidth=4 smartindent rnu
+setlocal expandtab tabstop=4 softtabstop=4 shiftwidth=4 smartindent rnu number
 
 " Fix the stupid automatic indenting when typing comments
 inoremap # X<C-H>#
