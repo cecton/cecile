@@ -58,7 +58,7 @@ if status --is-interactive
 	# shortcuts
 	function repo-log
 		echo
-		git log --oneline ^&-
+		tig; or git log --oneline ^&-
 		commandline -f repaint
 	end
 
