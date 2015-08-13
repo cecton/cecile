@@ -147,4 +147,9 @@ if status --is-interactive
 		end
 	end
 
+	# default is ViM if available
+	if which vim >/dev/null ^/dev/null
+		alias vi vim
+	end
+
 end
