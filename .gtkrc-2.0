@@ -1,7 +1,8 @@
 style "font"
 {
-font_name = "Free Sans 18"
+font_name = "Free Sans 16"
 }
 widget_class "*" style "font"
-gtk-font-name = "Free Sans 18"
+gtk-font-name = "Free Sans 16"
 gtk-error-bell = 0
+gtk-theme-name = "Numix Solarized"
