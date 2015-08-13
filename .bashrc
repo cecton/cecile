@@ -48,7 +48,7 @@ if [ "$parent_name" == login ]; then
 		exec fbtermwrap
 	else
 		# change console font to terminus
-		setfont ter-116n
+		setfont ter-122b
 	fi
 fi
 

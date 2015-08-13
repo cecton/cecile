@@ -5,7 +5,7 @@
  *
  * font: see http://freedesktop.org/software/fontconfig/fontconfig-user.html
  */
-static char font[] = "Terminus:bold:pixelsize=16";
+static char font[] = "Terminus:bold:pixelsize=22";
 static int borderpx = 0;
 static char shell[] = "/bin/sh";
 static char *utmp = NULL;
