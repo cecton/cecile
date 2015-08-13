@@ -14,10 +14,8 @@ setup()
 keysym Menu = Control_R
 add Control = Control_R
 EOF
-	synclient AreaTopEdge=2300 \
-		TapButton1=0 TapButton2=0 TapButton3=0 \
-		RightButtonAreaLeft=3600 RightButtonAreaRight=0 \
-		RightButtonAreaTop=0 RightButtonAreaBottom=2300 \
+	synclient \
+		TapButton1=1 TapButton2=0 TapButton3=0 \
 		VertTwoFingerScroll=1 VertScrollDelta=-32 \
 		HorizTwoFingerScroll=1 HorizScrollDelta=-8
 	xhost +local:
