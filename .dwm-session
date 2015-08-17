@@ -18,6 +18,7 @@ EOF
 		TapButton1=1 TapButton2=0 TapButton3=0 \
 		VertTwoFingerScroll=1 VertScrollDelta=-32 \
 		HorizTwoFingerScroll=1 HorizScrollDelta=-8
+	syndaemon -d -i 1.5 -t
 	xhost +local:
 }
 
