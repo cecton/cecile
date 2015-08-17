@@ -1,4 +1,5 @@
 [ -e ~/SailfishOS/bin ] && export PATH=~/SailfishOS/bin:$PATH
+[ -d ~/.cabal/bin ] && export PATH=~/.cabal/bin:$PATH
 [ "$USER" == cecile ] || export PATH=~cecile/bin:$PATH
 [ -d ~/bin ] && export PATH=~/bin:$PATH
 
