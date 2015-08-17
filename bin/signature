@@ -1,0 +1,9 @@
+#!/bin/bash
+
+cat <<EOF
+Cecile Tonglet <cecile.tonglet@codabox.com>
+Developer
+
+EOF
+
+fortune
