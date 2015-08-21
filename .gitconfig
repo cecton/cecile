@@ -1,0 +1,7 @@
+[user]
+	name = Cecile Tonglet
+	email = cecile.tonglet@gmail.com
+[push]
+	default = simple
+[core]
+	excludesfile = /home/cecile/.gitignore_global
