@@ -26,7 +26,7 @@ EOF
 addmode()
 {
 	cvt $2 $3 $4 | grep -Po 'Modeline \K.+' \
-		| xargs sh -c "echo \$0; xrandr --verbose --output $1 --newmode \$0 \$@; xrandr --addmode VGA1 \$0; xrandr --output VGA1 --mode \$0"
+		| xargs sh -c "echo \$0; xrandr --verbose --output $1 --newmode \$0 \$@; xrandr --addmode $1 \$0; xrandr --output $1 --mode \$0"
 }
 
 
