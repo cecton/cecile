@@ -13,4 +13,4 @@
 	url = https://github.com/cecton/tmux-statusbar.git
 [submodule ".mutt/mutt-colors-solarized"]
 	path = .mutt/mutt-colors-solarized
-	url = git@github.com:altercation/mutt-colors-solarized.git
+	url = https://github.com/altercation/mutt-colors-solarized.git
