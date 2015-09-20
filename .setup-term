@@ -1,6 +1,7 @@
 #!/bin/bash
 
-which autoconf >/dev/null || exit 1
+which autoconf &>/dev/null || exit 1
+which fish &>/dev/null && exit 0
 
 if [ ! -x ~/bin/fish -a -e ~/repos/fish/.git ]; then
 	(
