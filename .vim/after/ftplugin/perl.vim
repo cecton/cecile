@@ -1,5 +1,5 @@
 " Highlight lines to big
-setlocal cc=80
+setlocal cc=80 relativenumber
 highlight ColorColumn ctermbg=8
 
 " Fix the stupid automatic indenting when typing comments
