@@ -104,7 +104,10 @@ if status --is-interactive
 		set old_pwd $PWD
 		while test $PWD != "/"
 			if test -d ".git"
-				git rev-parse --abbrev-ref HEAD | sed 's/^/ /'
+				set rev (git rev-parse --abbrev-ref HEAD)
+				if test (basename $old_pwd) != $rev -a \( $PWD != $HOME -o $rev != master \)
+					echo " $rev"
+				end
 				break
 			end
 			cd ..
