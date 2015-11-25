@@ -48,7 +48,11 @@ if [ "$parent_name" == login ]; then
 		exec fbtermwrap
 	else
 		# change console font to terminus
-		setfont ter-122b
+		if [ -e /usr/share/consolefonts/Uni2-Terminus22x11.psf.gz ]; then
+			setfont Uni2-TerminusBold22x11
+		else
+			setfont ter-122b
+		fi
 	fi
 fi
 
