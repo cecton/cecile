@@ -53,11 +53,9 @@ xrandr-auto()
 		killall redshift
 
 	else
-		# Resolution setup for TV: mirror with VGA1
-		xrandr --output VGA1 --off
-		xrandr --output HDMI1 --mode 1920x1080 --rate 60 --right-of eDP1 --primary
 		test -f $HOME/.fehbg && . $HOME/.fehbg
 		redshift -l 50.72:4.86 -t 6500:3600 -g 0.9 -m vidmode &
+		(ping -i 1 -c 3 -W 1 8.8.8.8 &>/dev/null && online) &
 	fi
 }
 
@@ -100,7 +98,6 @@ case "$1" in
 		setup
 		xrandr-auto
 		autostart &
-		(ping -i 1 -c 3 -W 1 8.8.8.8 &>/dev/null && online) &
 		clock
 		;;
 	setup)
