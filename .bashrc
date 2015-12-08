@@ -59,10 +59,9 @@ fi
 # if using X.org
 if [ -n "$DISPLAY" ]; then
 	eval "`dircolors -b ~/.config/dircolors.ansi-dark`"
+	# switch TERM to screen-256color if executed in tmux in X
+	[ "$parent_name" == tmux ] && export TERM=screen-256color
 fi
-
-# switch TERM to screen-256color if executed in tmux in X
-[ "$parent_name" == tmux -a -n "$DISPLAY" ] && export TERM=screen-256color
 
 # exec fish depending who's the parent
 if which fish >/dev/null && [ "$parent_name" != fish ]; then
