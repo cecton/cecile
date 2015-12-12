@@ -71,6 +71,8 @@
 *color14:                 S_base1
 *color15:                 S_base3
 
-*faceName:                Terminus:style=Bold:pixelsize=22
+!*faceName:                Terminus:style=Bold:pixelsize=22 ! use ttf font
+xterm*font:               -*-terminus-medium-*-*-*-22-*-*-*-*-*-*-*
+*charClass:               33:48,35:48,37:48,43-47:48,58:48,60-62:48,64:48,95:48,126:48
 xterm*internalBorder:     0
 xterm*termName:           xterm-256color
