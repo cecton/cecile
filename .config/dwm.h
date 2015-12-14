@@ -72,7 +72,7 @@ static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() 
 /* NOTE: require newer version of dmenu */
 //static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", font, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbgcolor, "-sf", selfgcolor, NULL };
 static const char *dmenucmd[] = { "dmenu_run", "-fn", font, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbgcolor, "-sf", selfgcolor, NULL };
-static const char *termcmd[]  = { "st", NULL };
+static const char *termcmd[]  = { "uxterm", NULL };
 static const char *suspendcmd[]  = { "systemctl", "suspend", "-i", NULL };
 static const char *brightnessup[]  = { "sudo", "brightness", "up", NULL };
 static const char *brightnessdown[]  = { "sudo", "brightness", "down", NULL };
