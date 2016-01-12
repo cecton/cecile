@@ -65,7 +65,7 @@ if status --is-interactive
 	function repo-diff-cached
 		set old_pwd $PWD
 		while test $PWD != "/"
-			if test -d ".git"
+			if test -e ".git"
 				git diff --cached ^&-
 				commandline -f repaint
 				break
@@ -78,7 +78,7 @@ if status --is-interactive
 	function repo-diff
 		set old_pwd $PWD
 		while test $PWD != "/"
-			if test -d ".git"
+			if test -e ".git"
 				git diff ^&-
 				commandline -f repaint
 				break
@@ -103,7 +103,7 @@ if status --is-interactive
 	function repo-suffix
 		set old_pwd $PWD
 		while test $PWD != "/"
-			if test -d ".git"
+			if test -e ".git"
 				set rev (git rev-parse --abbrev-ref HEAD)
 				if test (basename $old_pwd) != $rev -a \( $PWD != $HOME -o $rev != master \)
 					echo " $rev"
