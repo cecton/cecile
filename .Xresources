@@ -77,3 +77,4 @@ xterm*font:               -*-terminus-medium-*-*-*-22-*-*-*-*-*-*-*
 *eightBitInput:           false
 xterm*internalBorder:     0
 xterm*termName:           xterm-256color
+xterm*selectToClipboard:  true
