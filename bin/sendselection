@@ -1,2 +1,2 @@
 #!/bin/sh
-sleep 0.5 && echo string `xsel -o` | xmacroplay $DISPLAY
+sleep 0.5 && echo string `xsel -b -o` | xmacroplay $DISPLAY
