@@ -1,4 +1,4 @@
-setlocal expandtab tabstop=4 softtabstop=4 shiftwidth=4 smartindent rnu number
+setlocal expandtab tabstop=4 softtabstop=4 shiftwidth=4 smartindent number rnu
 
 " Show invalid and wrong characters
 highlight Invalid ctermbg=red guibg=red

@@ -1,5 +1,5 @@
 " always use spaces instead of tabs
-setlocal expandtab tabstop=2 softtabstop=2 shiftwidth=2 smartindent rnu number
+setlocal expandtab tabstop=2 softtabstop=2 shiftwidth=2 smartindent number rnu
 
 " Show invalid and wrong characters
 highlight Invalid ctermbg=red guibg=red
