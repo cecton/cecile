@@ -27,7 +27,7 @@ parent_name=`ps o comm -p $PPID | awk 'NR>1'`
 # export environment variables if login shell
 [ -z "${0##-*}" ] && [ -f ~/.exports ] && . ~/.exports
 
-if [ "$parent_name" == login ]; then
+if [ "$PLATFORM" == Linux ] && [ "$parent_name" == login ]; then
 	# automatically start graphical session
 	if [ -x "`which startx`" -a -x ~/bin/dwm -a -x ~/bin/st ]; then
 		echo -n "Starting graphical session, press return to cancel... "
