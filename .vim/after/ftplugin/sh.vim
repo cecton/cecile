@@ -1,8 +1,8 @@
-setlocal expandtab tabstop=2 softtabstop=2 shiftwidth=2 smartindent rnu number
+setlocal smartindent number rnu
 
 " Show invalid and wrong characters
 highlight Invalid ctermbg=red guibg=red
-match Invalid /\t\|\s\+$\|[^\x00-\xff]\+/
+match Invalid /^ \+\|\s\+$\|[^\x00-\xff]\+/
 
 " Highlight lines to big
 setlocal cc=80
