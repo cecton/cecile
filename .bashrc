@@ -56,9 +56,9 @@ if [ "$parent_name" == login ]; then
 	fi
 fi
 
-# if using X.org
-if [ -n "$DISPLAY" ]; then
-	eval "`dircolors -b ~/.config/dircolors.ansi-dark`"
+# if using X.org or on OSX
+if [ -n "$DISPLAY" ] || [ "$PLATFORM" == Darwin ]; then
+	[ "$PLATFORM" == Linux ] && eval "`dircolors -b ~/.config/dircolors.ansi-dark`"
 	# switch TERM to screen-256color if executed in tmux in X
 	[ "$parent_name" == tmux ] && export TERM=screen-256color
 fi
