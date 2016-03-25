@@ -7,9 +7,22 @@ if stridx($TERM, "256color") > -1
 endif
 
 nmap <F1> <NOP>
-nmap <F11> :set invhlsearch<CR>
 nmap <F12> :wa<CR>
 imap <F12> <Esc>:wa<CR>
+
+noremap <Leader>h :set invhlsearch<CR>
+if $PLATFORM == "Darwin"
+    noremap <Leader>p :r !pbpaste<CR>
+    noremap <Leader>P :-1r !pbpaste<CR>
+    noremap <Leader>yy :+0w !pbcopy<CR>
+    vnoremap <Leader>y :w !pbcopy<CR>
+endif
+if $PLATFORM == "Linux"
+    noremap <Leader>p :r !xsel -b -o<CR>
+    noremap <Leader>P :-1r !xsel -b -o<CR>
+    noremap <Leader>yy :+0w !xsel -b<CR>
+    vnoremap <Leader>y :w !xsel -b<CR>
+endif
 
 syntax on
 set listchars=nbsp: ,tab:\ \ ,eol:↵
