@@ -22,4 +22,4 @@ export BROWSER=firefox
 
 export HISTCONTROL=ignoreboth:erasedups
 
-[ "$USER" == openerp -o "$USER" == odoo ] && export BROWSER=chromium
+export PLATFORM=`uname`
