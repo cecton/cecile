@@ -1,2 +1,6 @@
-#!/bin/sh
-echo -n `passy "$@" | tail -n1` | xsel -b
+#!/bin/bash
+if [ "$PLATFORM" == Darwin ]; then
+	echo -n `passy "$@" | tail -n1` | pbcopy
+else
+	echo -n `passy "$@" | tail -n1` | xsel -b
+fi
