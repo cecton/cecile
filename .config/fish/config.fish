@@ -35,7 +35,11 @@ if status --is-interactive
 	alias je "echo 'Hey! Dvorak keyboard here!'; cd"
 
 	# shell builtins
-	alias ls 'ls --color=auto -h'
+	if test "$PLATFORM" = "Darwin"
+		alias ls 'ls -G -h'
+	else
+		alias ls 'ls --color=auto -h'
+	end
 	alias ll 'ls -l'
 	alias rm 'rm -iv'
 	alias mv 'mv -iv'
