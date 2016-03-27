@@ -1,6 +1,3 @@
-[submodule "repos/dwm"]
-	path = repos/dwm
-	url = https://github.com/cecton/dwm.git
 [submodule "repos/fish"]
 	path = repos/fish
 	url = https://github.com/fish-shell/fish-shell.git

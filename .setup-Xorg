@@ -1,18 +1,5 @@
 #!/bin/bash
 
-if [ ! -x ~/bin/dwm -a -e ~/repos/dwm/.git ]; then
-	(
-	set -e -x
-	cd ~/repos/dwm
-	echo "Compiling dwm..."
-	cp -fv ~/.config/dwm.h ./config.h
-	make
-	echo "Installing dwm..."
-	cp -v dwm ~/bin/dwm
-	make clean
-	)
-fi
-
 if [ ! -e ~/.config/dircolors.ansi-dark ]; then
 	curl -sSLo ~/.config/dircolors.ansi-dark https://raw.githubusercontent.com/seebi/dircolors-solarized/master/dircolors.ansi-dark
 fi

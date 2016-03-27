@@ -1,9 +1,0 @@
-#!/bin/bash
-
-[ -x "$HOME/.dwm-session" ] && $HOME/.dwm-session start &
-
-while :
-do
-	dwm
-	[ $? == 0 ] && break
-done
