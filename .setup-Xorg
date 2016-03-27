@@ -3,3 +3,21 @@
 if [ ! -e ~/.config/dircolors.ansi-dark ]; then
 	curl -sSLo ~/.config/dircolors.ansi-dark https://raw.githubusercontent.com/seebi/dircolors-solarized/master/dircolors.ansi-dark
 fi
+
+which qtile &>/dev/null
+if [ $? != 0 ] && [ "$PLATFORM" == Linux ]; then
+	(
+	which python3 &>/dev/null
+	if [ $? == 0 ]; then
+		python=python3
+		easy_install=`$python -c 'import sys; print("easy_install-{}.{}".format(*sys.version_info))'`
+	else
+		python=python2
+		easy_install=`$python -c 'import sys; print "easy_install-{}.{}".format(*sys.version_info)'`
+	fi
+	set -e -x
+	$easy_install --user -U 'xcffib>=0.3.2'
+	$easy_install --user -U cairocffi
+	$easy_install --user -U 'qtile<0.11'
+	)
+fi

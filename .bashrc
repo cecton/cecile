@@ -2,6 +2,9 @@
 #[ -z "$PS1" ] && return
 [ -z "${-##*i*}" -a -n "$PS1" ] || return
 
+# export environment variables if login shell
+[ -z "${0##-*}" ] && [ -f ~/.exports ] && . ~/.exports
+
 if [ ! -e /tmp/setup-$USER ]; then
 	touch /tmp/setup-$USER
 	[ -z "${0##-*}" -a -x ~/.setup-term ] && ~/.setup-term
@@ -23,9 +26,6 @@ alias je="echo 'Hey! Dvorak keyboard here!'; cd"
 
 # get the parent process name
 parent_name=`ps o comm -p $PPID | awk 'NR>1'`
-
-# export environment variables if login shell
-[ -z "${0##-*}" ] && [ -f ~/.exports ] && . ~/.exports
 
 if [ "$PLATFORM" == Linux ] && [ "$parent_name" == login ]; then
 	# automatically start graphical session

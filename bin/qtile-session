@@ -1,0 +1,10 @@
+#!/bin/bash
+
+[ -x "$HOME/.xorg-autostart" ] && $HOME/.xorg-autostart start &
+
+while :
+do
+	qtile &>>~/.qtile.log
+	[ $? == 0 ] && break
+	sleep 1
+done

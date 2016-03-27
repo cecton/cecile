@@ -15,8 +15,9 @@ fi
 # exec startkde
 # exec startxfce4
 # ...or the Window Manager of your choice
-if [ -x ~/bin/dwm ]; then
-	exec dbus-launch --exit-with-session dwm-session
+which qtile &>/dev/null
+if [ $? == 0 ]; then
+	exec dbus-launch --exit-with-session qtile-session
 else
 	exec dbus-launch xterm
 fi
