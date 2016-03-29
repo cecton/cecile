@@ -1,11 +1,14 @@
 #!/bin/bash
 
-if [ "$PLATFORM" == Linux ] && [ ! -e ~/.config/dircolors.ansi-dark ]; then
+which startx &>/dev/null
+[ $? == 0 ] || exit 0
+
+if [ ! -e ~/.config/dircolors.ansi-dark ]; then
 	curl -sSLo ~/.config/dircolors.ansi-dark https://raw.githubusercontent.com/seebi/dircolors-solarized/master/dircolors.ansi-dark
 fi
 
 which qtile &>/dev/null
-if [ $? != 0 ] && [ "$PLATFORM" == Linux ]; then
+if [ $? != 0 ]; then
 	(
 	which python3 &>/dev/null
 	if [ $? == 0 ]; then

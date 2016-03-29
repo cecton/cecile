@@ -1,0 +1,15 @@
+#!/bin/bash
+
+lock=/tmp/setup-$USER.pid
+if [ -f ${lock} ]
+then
+	exit 1
+else
+	echo $$ >${lock}
+	trap "rm -f ${lock}" EXIT
+fi
+
+for script in ~/.setup.d/*
+do
+	[ -x "$script" ] && $script
+done

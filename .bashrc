@@ -5,12 +5,7 @@
 # export environment variables if login shell
 [ -z "${0##-*}" ] && [ -f ~/.exports ] && . ~/.exports
 
-if [ ! -e /tmp/setup-$USER ]; then
-	touch /tmp/setup-$USER
-	[ -z "${0##-*}" -a -x ~/.setup-term ] && ~/.setup-term
-	[ -z "${0##-*}" -a -x ~/.setup-Xorg -a -x "`which startx 2>/dev/null`" ] && ~/.setup-Xorg
-	rm /tmp/setup-$USER
-fi
+[ -z "${0##-*}" -a -x ~/.setup ] && ~/.setup
 
 PS1='[\u@\h \W]\$ '
 

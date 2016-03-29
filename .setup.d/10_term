@@ -1,18 +1,23 @@
 #!/bin/bash
 
-which autoconf &>/dev/null || exit 1
 which fish &>/dev/null && exit 0
+which autoconf &>/dev/null || exit 1
 
 if [ ! -x ~/bin/fish -a -e ~/repos/fish/.git ]; then
 	(
-	set -e -x
 	cd ~/repos/fish
 	echo "Compiling fish..."
+	(
+	set -e -x
 	autoconf
 	./configure --prefix=$HOME/.local --bindir=$HOME/bin
 	make
 	echo -n > share/functions/grep.fish
+	)
 	echo "Installing fish..."
+	(
+	set -e -x
 	make install clean
+	)
 	)
 fi
