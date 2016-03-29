@@ -51,12 +51,18 @@ if [ "$PLATFORM" == Linux ] && [ "$parent_name" == login ]; then
 	fi
 fi
 
-# if using X.org or on OSX
-if [ -n "$DISPLAY" ] || [ "$PLATFORM" == Darwin ]; then
-	[ "$PLATFORM" == Linux ] && eval "`dircolors -b ~/.config/dircolors.ansi-dark`"
-	# switch TERM to screen-256color if executed in tmux in X
-	[ "$parent_name" == tmux ] && export TERM=screen-256color
+## workaround for handling TERM variable in multiple tmux sessions properly from http://sourceforge.net/p/tmux/mailman/message/32751663/ by Nicholas Marriott
+if [ -n "$TMUX" ];then
+	case $(tmux showenv TERM 2>/dev/null) in
+		TERM=*256color|TERM=fbterm)
+		TERM=screen-256color ;;
+		*)
+		TERM=screen
+	esac
+	export TERM
 fi
+
+[ "$PLATFORM" == Linux -a -z "${TERM##*-256color}" ] && eval "`dircolors -b ~/.config/dircolors.ansi-dark`"
 
 # exec fish depending who's the parent
 if which fish >/dev/null && [ "$parent_name" != fish ]; then
