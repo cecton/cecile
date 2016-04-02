@@ -54,6 +54,12 @@ keys = [
         lazy.layout.shuffle_up()
     ),
 
+    # Pull a group to the next screen
+    Key(
+        [mod, "shift"], "space",
+        lazy.group.toscreen(1)
+    ),
+
     Key([mod], "Return", lazy.spawn("xterm")),
     # NOTE: the bar can't be hidden easily at startup, and the spawncmd doesn't
     #       work anyway if the bar is hidden
