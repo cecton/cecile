@@ -54,6 +54,12 @@ keys = [
         lazy.layout.shuffle_up()
     ),
 
+    # Go to last group
+    Key(
+        [mod], "Tab",
+        lazy.go_to_last_group()
+    ),
+
     # Pull a group to the next screen
     Key(
         [mod, "shift"], "space",
@@ -103,6 +109,8 @@ keys = [
     ),
 
 ]
+
+last_group = None
 
 groups = []
 for i in range(1, 13):
@@ -155,7 +163,18 @@ def hook_floating_windows(client):
         client.floating = True
 
 @hook.subscribe.client_new
-def hoow_default_group(client):
+def hook_default_group(client):
     wm_class = client.window.get_wm_class()[1]
     if wm_class in default_windows_group:
         client.togroup(default_windows_group[wm_class])
+
+
+@hook.subscribe.setgroup
+def hook_go_to_last_group():
+    global last_group
+    to_group = last_group
+    if to_group is None:
+        hook.qtile.cmd_go_to_last_group = lambda: None
+    else:
+        hook.qtile.cmd_go_to_last_group = lambda: to_group.cmd_toscreen()
+    last_group = hook.qtile.currentGroup
