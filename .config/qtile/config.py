@@ -55,7 +55,13 @@ keys = [
     ),
 
     Key([mod], "Return", lazy.spawn("xterm")),
-    Key([mod], "p", lazy.spawncmd()),
+    # NOTE: the bar can't be hidden easily at startup, and the spawncmd doesn't
+    #       work anyway if the bar is hidden
+    #Key([mod], "b", lazy.hide_show_bar()),
+    # NOTE: without the bar, the spawncmd doesn't work
+    #Key([mod], "p", lazy.spawncmd()),
+    Key([mod], "f", lazy.window.disable_floating()),
+    Key([mod], "space", lazy.next_urgent()),
     Key([mod, "shift"], "c", lazy.window.kill()),
     Key([mod, "shift"], "q", lazy.shutdown()),
     # NOTE: make sure the process exits with an error code in order for
