@@ -58,7 +58,15 @@ keys = [
     Key([mod], "p", lazy.spawncmd()),
     Key([mod, "shift"], "c", lazy.window.kill()),
     Key([mod, "shift"], "q", lazy.shutdown()),
-    Key([mod, "shift"], "r", lazy.restart()),
+    # NOTE: make sure the process exits with an error code in order for
+    #       qtile-session to restart properly. When using lazy.restart(),
+    #       the process exec to itself and add --no-spawn which automatically
+    #       loads the default qtile configuration file if this file is broken.
+    #       (This is very annoying, I want to fix my errors myself).
+    Key(
+        [mod, "shift"], "r",
+        lazy.execute('/bin/sh', ['/bin/sh', '-c', 'exit 1'])
+    ),
 
     # Special keys
     Key(
