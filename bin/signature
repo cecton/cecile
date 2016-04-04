@@ -1,9 +1,9 @@
 #!/bin/bash
 
 cat <<EOF
-Cecile Tonglet <cecile.tonglet@codabox.com>
-Developer
+Cecile Tonglet <cecile.tonglet@tenforce.com>
+Software Developer
 
 EOF
 
-fortune -s computers linux
+#fortune -s computers linux
