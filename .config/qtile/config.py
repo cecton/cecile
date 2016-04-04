@@ -54,6 +54,16 @@ keys = [
         lazy.layout.shuffle_up()
     ),
 
+    # Resize window
+    Key(
+        [mod, "control"], "Left",
+        lazy.layout.grow_left()
+    ),
+    Key(
+        [mod, "control"], "Right",
+        lazy.layout.grow_right()
+    ),
+
     # Go to last group
     Key(
         [mod], "Tab",
