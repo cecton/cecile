@@ -7,6 +7,7 @@ if stridx($TERM, "256color") > -1
 endif
 
 nmap <F1> <NOP>
+imap <F1> <NOP>
 nmap <F12> :wa<CR>
 imap <F12> <Esc>:wa<CR>
 
