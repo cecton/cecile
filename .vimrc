@@ -6,19 +6,25 @@ if stridx($TERM, "256color") > -1
     set spell
 endif
 
+" disable some annoying bindings
+nmap Q <NOP>
 nmap <F1> <NOP>
 imap <F1> <NOP>
+
+" shortcut to save all the buffers
 nmap <F12> :wa<CR>
 imap <F12> <Esc>:wa<CR>
 
 noremap <Leader>h :set invhlsearch<CR>
 if $PLATFORM == "Darwin"
+    " copy/past clipboard on OS X
     noremap <Leader>p :r !pbpaste<CR>
     noremap <Leader>P :-1r !pbpaste<CR>
     noremap <Leader>yy :+0w !pbcopy<CR>
     vnoremap <Leader>y :w !pbcopy<CR>
 endif
 if $PLATFORM == "Linux"
+    " copy/past clipboard on Linux
     noremap <Leader>p :r !xsel -b -o<CR>
     noremap <Leader>P :-1r !xsel -b -o<CR>
     noremap <Leader>yy :+0w !xsel -b<CR>
