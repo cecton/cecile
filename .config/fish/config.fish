@@ -58,6 +58,7 @@ if status --is-interactive
 	alias g git
 	alias t tig
 	alias d docker
+	alias dc docker-compose
 
 	# shortcuts
 	function repo-log
