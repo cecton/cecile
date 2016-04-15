@@ -15,9 +15,9 @@ fi
 # exec startkde
 # exec startxfce4
 # ...or the Window Manager of your choice
-which qtile &>/dev/null
+which i3 &>/dev/null
 if [ $? == 0 ]; then
-	exec dbus-launch --exit-with-session qtile-session
+	exec dbus-launch --exit-with-session i3-session
 else
 	exec dbus-launch xterm
 fi
