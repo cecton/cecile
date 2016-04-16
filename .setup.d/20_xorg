@@ -2,21 +2,3 @@
 
 which startx &>/dev/null
 [ $? == 0 ] || exit 0
-
-which qtile &>/dev/null
-if [ $? != 0 ]; then
-	(
-	which python3 &>/dev/null
-	if [ $? == 0 ]; then
-		python=python3
-		easy_install=`$python -c 'import sys; print("easy_install-{}.{}".format(*sys.version_info))'`
-	else
-		python=python2
-		easy_install=`$python -c 'import sys; print "easy_install-{}.{}".format(*sys.version_info)'`
-	fi
-	set -e -x
-	$easy_install --user -U 'xcffib>=0.3.2'
-	$easy_install --user -U cairocffi
-	$easy_install --user -U 'qtile<0.11'
-	)
-fi
