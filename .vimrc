@@ -1,8 +1,7 @@
 if stridx($TERM, "256color") > -1
-"if strlen($DISPLAY) > 0 && stridx($TERM, "xterm") < 0
     set background=dark
     let g:solarized_termcolors=256
-    colorscheme solarized
+    colorscheme Tomorrow-Night-Eighties
     set spell
 endif
 
@@ -38,6 +37,13 @@ set tabstop=4 softtabstop=4 shiftwidth=4
 set formatoptions-=r
 set nohlsearch
 
+if stridx($TERM, "256color") > -1
+    " underline spell mistakes
+    hi clear SpellBad
+    hi SpellBad cterm=underline
+    hi clear SpellCap
+    hi SpellCap cterm=underline
+endif
 
 " move the cursor in the virtual lines instead of real lines
 noremap  <buffer> <silent> <Up>   gk
