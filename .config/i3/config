@@ -106,10 +106,10 @@ mode "resize" {
         # Pressing down will grow the window’s height.
 
         # same bindings, but for the arrow keys
-        bindsym Left resize shrink width 5 px or 5 ppt
-        bindsym Down resize grow height 5 px or 5 ppt
-        bindsym Up resize shrink height 5 px or 5 ppt
-        bindsym Right resize grow width 5 px or 5 ppt
+        bindsym Left resize shrink width 4 px or 4 ppt
+        bindsym Down resize grow height 4 px or 4 ppt
+        bindsym Up resize shrink height 4 px or 4 ppt
+        bindsym Right resize grow width 4 px or 4 ppt
 
         # back to normal: Enter or Escape
         bindsym Return mode "default"
@@ -124,11 +124,12 @@ hide_edge_borders both
 for_window [class=Chromium] move container to workspace 4
 for_window [class=Firefox] move container to workspace 6
 for_window [class=Iceweasel] move container to workspace 7
-for_window [class=Gimp] floating on
-for_window [class=Dia] floating on
-for_window [class=Inkscape] floating on
-for_window [class=MPlayer] floating on
-for_window [class=mpv] floating on
-for_window [class=ffplay] floating on
-for_window [class=mednafen] floating on
-for_window [class=VirtualBox] floating on
+for_window [class=Gimp] floating enable
+for_window [class=Dia] floating enable
+for_window [class=Inkscape] floating enable
+for_window [class=MPlayer] floating enable
+for_window [class=mpv] floating enable
+for_window [class=ffplay] floating enable
+for_window [class=mednafen] floating enable
+for_window [class=VirtualBox] floating enable
+for_window [class=qemu-system-i386] floating enable
