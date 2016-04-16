@@ -62,8 +62,6 @@ if [ -n "$TMUX" ];then
 	export TERM
 fi
 
-[ "$PLATFORM" == Linux -a -z "${TERM##*-256color}" ] && eval "`dircolors -b ~/.config/dircolors.ansi-dark`"
-
 # exec fish depending who's the parent
 if which fish >/dev/null && [ "$parent_name" != fish ]; then
 	exec fish
