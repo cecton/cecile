@@ -404,11 +404,11 @@ endif
 "}}}
 " Background value based on termtrans setting "{{{
 " ---------------------------------------------------------------------
-"if (has("gui_running") || g:solarized_termtrans == 0)
-"    let s:back        = s:base03
-"else
+if (has("gui_running") || g:solarized_termtrans == 0)
+    let s:back        = s:base03
+else
     let s:back        = "NONE"
-"endif
+endif
 "}}}
 " Alternate light scheme "{{{
 " ---------------------------------------------------------------------
