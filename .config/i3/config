@@ -136,3 +136,5 @@ for_window [class=ffplay] floating enable
 for_window [class=mednafen] floating enable
 for_window [class=VirtualBox] floating enable
 for_window [class=qemu-system-i386] floating enable
+for_window [class=Display] floating enable
+for_window [class=XFontSel] floating enable
