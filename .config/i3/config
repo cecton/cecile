@@ -23,13 +23,13 @@ font pango:monospace 8
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec i3-sensible-terminal
+bindsym $mod+Return exec --no-startup-id i3-sensible-terminal
 
 # kill focused window
 bindsym $mod+Shift+c kill
 
 # start dmenu (a program launcher)
-bindsym $mod+space exec dmenu_run
+bindsym $mod+space exec --no-startup-id dmenu_run
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Left focus left
@@ -38,16 +38,19 @@ bindsym $mod+Up focus up
 bindsym $mod+Right focus right
 
 # alternatively, you can use the cursor keys:
-bindsym $mod+Shift+Left move left
-bindsym $mod+Shift+Down move down
-bindsym $mod+Shift+Up move up
-bindsym $mod+Shift+Right move right
+bindsym $mod+Shift+Control+Left move left
+bindsym $mod+Shift+Control+Down move down
+bindsym $mod+Shift+Control+Up move up
+bindsym $mod+Shift+Control+Right move right
+
+# resize the current window
+bindsym $mod+Shift+Left resize shrink width 4 px or 4 ppt
+bindsym $mod+Shift+Down resize shrink height 4 px or 4 ppt
+bindsym $mod+Shift+Up resize grow height 4 px or 4 ppt
+bindsym $mod+Shift+Right resize grow width 4 px or 4 ppt
 
 # split in horizontal orientation
-bindsym $mod+d split h
-
-# split in vertical orientation
-bindsym $mod+k split v
+bindsym $mod+v split toggle
 
 # enter fullscreen mode for the focused container
 bindsym $mod+f fullscreen toggle
