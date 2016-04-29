@@ -70,7 +70,7 @@ autostart()
 online()
 {
 	firefox &
-	gajim &
+	franz &
 }
 
 
