@@ -59,6 +59,7 @@ if status --is-interactive
 	alias t tig
 	alias d docker
 	alias dc docker-compose
+	alias dm docker-machine
 	alias dip "docker inspect -f '{{ .NetworkSettings.IPAddress }}'"
 
 	# shortcuts
