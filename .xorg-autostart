@@ -32,6 +32,7 @@ addmode()
 
 xrandr-auto()
 {
+	xrandr --dpi 96
 	crt=`cat "/sys/devices/pci0000:00/0000:00:02.0/drm/card0/card0-VGA-1/status"`
 	if [ "$crt" == "connected" ]; then
 		# Resolution setup for TV: 720p give the best result for recording

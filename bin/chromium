@@ -1,2 +1,2 @@
 #!/bin/sh
-exec /usr/bin/chromium --force-device-scale-factor=1.4 "$@"
+exec /usr/bin/chromium --force-device-scale-factor=1.2 "$@"

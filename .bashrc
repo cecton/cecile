@@ -46,7 +46,7 @@ if [ "$PLATFORM" == Linux ] && [ "$parent_name" == login ]; then
 		if [ -e /usr/share/consolefonts/Uni2-Terminus22x11.psf.gz ]; then
 			setfont Uni2-TerminusBold22x11
 		else
-			setfont ter-122b
+			setfont ter-120b
 		fi
 	fi
 fi
