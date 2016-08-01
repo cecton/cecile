@@ -22,6 +22,10 @@ sub clock {
 	strftime("%a %b %-d, %-I:%M%P", localtime)
 }
 
+sub uptime {
+	`uptime` =~ /up ([^,]+),/; $1
+}
+
 sub login { chop($_=$ENV{USER}.'@'.`hostname`); $_ }
 
 sub battery {
@@ -72,5 +76,6 @@ print "$sep ",join(" $sep ", grep {$_}
         &load_avg,
         join(' ', grep {$_} &login, &ping),
         &battery,
+		&uptime,
         &clock.' ',
     ),"\n";
