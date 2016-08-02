@@ -32,8 +32,14 @@ addmode()
 
 xrandr-auto()
 {
-	xrandr --dpi 96
+	work=`cat "/sys/devices/pci0000:00/0000:00:02.0/drm/card0/card0-eDP-1/status"`
 	crt=`cat "/sys/devices/pci0000:00/0000:00:02.0/drm/card0/card0-VGA-1/status"`
+	if [ "$work" == "connected" ]; then
+		xrandr --output eDP1 --dpi 75
+		xrandr --output DP1-1 --same-as eDP1 --mode 1920x1080
+	else
+		xrandr --output eDP1 --dpi 175
+	fi
 	if [ "$crt" == "connected" ]; then
 		# Resolution setup for TV: 720p give the best result for recording
 		#  -  less artifacts
@@ -55,7 +61,8 @@ xrandr-auto()
 
 	else
 		test -f $HOME/.fehbg && . $HOME/.fehbg
-		redshift -l 50.72:4.86 -t 6500:3600 -g 0.9 -m vidmode &
+		killall redshift
+		redshift -l 50.72:4.86 -t 5500:3700 -g 0.9 -m vidmode &
 		(ping -i 1 -c 3 -W 1 8.8.8.8 &>/dev/null && online) &
 	fi
 }
@@ -106,7 +113,6 @@ case "$1" in
 		;;
 	screens|xrandr|xrandr-auto|monitors)
 		xrandr-auto
-		killall dwm
 		;;
 	autostart)
 		autostart
