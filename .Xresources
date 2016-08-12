@@ -51,6 +51,10 @@
 
 !*faceName:                Terminus:style=Bold:pixelsize=22 ! use ttf font
 xterm*font:               -*-terminus-medium-*-*-*-14-*-*-*-*-*-*-*
+xterm*font1:              -*-terminus-medium-*-*-*-12-*-*-*-*-*-*-*
+xterm*font2:              -*-terminus-bold-*-*-*-16-*-*-*-*-*-*-*
+xterm*font3:              -*-terminus-bold-*-*-*-18-*-*-*-*-*-*-*
+xterm*font4:              -*-terminus-bold-*-*-*-20-*-*-*-*-*-*-*
 xterm*font5:              -*-terminus-medium-*-*-*-22-*-*-*-*-*-*-*
 xterm*font6:              -*-terminus-bold-*-*-*-22-*-*-*-*-*-*-*
 *charClass:               33:48,35-38:48,42-47:48,58:48,61:48,63-64:48,95:48,126:48
