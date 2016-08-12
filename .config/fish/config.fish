@@ -56,6 +56,7 @@ if status --is-interactive
 	# programs
 	alias lin "linphonec ^&-"
 	alias g git
+	alias am 'git commit --amend'
 	alias t tig
 	alias d docker
 	alias dc docker-compose
