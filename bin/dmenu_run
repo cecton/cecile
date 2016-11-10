@@ -1,0 +1,4 @@
+#!/bin/bash
+
+command=`dmenu_path | dmenu "$@"`
+exec $command
