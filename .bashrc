@@ -63,6 +63,6 @@ if [ -n "$TMUX" ];then
 fi
 
 # exec fish depending who's the parent
-if which fish >/dev/null && [ "$parent_name" != fish ]; then
+if which fish >/dev/null && [ "$parent_name" != fish ] && [ "$parent_name" != mc ]; then
 	exec fish
 fi
