@@ -63,6 +63,9 @@ if status --is-interactive
 	alias dm docker-machine
 	alias dip "docker inspect -f '{{ .NetworkSettings.IPAddress }}'"
 
+	# nvm
+	set -U fish_user_paths
+
 	# shortcuts
 	function repo-log
 		echo
