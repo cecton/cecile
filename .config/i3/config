@@ -90,8 +90,6 @@ bindsym $mod+Shift+F11 move container to workspace 11
 bindsym $mod+Shift+F12 move container to workspace 12
 
 # use horizontal scroll button to switch workspace
-bindsym --whole-window button7 workspace next_on_output
-bindsym --whole-window button6 workspace prev_on_output
 bindsym --whole-window $mod+button4 workspace prev_on_output
 bindsym --whole-window $mod+button5 workspace next_on_output
 
