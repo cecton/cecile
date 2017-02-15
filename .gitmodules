@@ -1,7 +1,3 @@
-[submodule "repos/fish"]
-	path = repos/fish
-	url = https://github.com/fish-shell/fish-shell.git
-	branch = master
 [submodule ".mutt/mutt-colors-solarized"]
 	path = .mutt/mutt-colors-solarized
 	url = https://github.com/altercation/mutt-colors-solarized.git
