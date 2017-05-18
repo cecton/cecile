@@ -23,6 +23,11 @@ alias je="echo 'Hey! Dvorak keyboard here!'; cd"
 parent_name=`ps o comm -p $PPID | awk 'NR>1'`
 
 if [ "$PLATFORM" == Linux ] && [ "$parent_name" == login ]; then
+	# starting SSH agent
+	if [ -x "`which ssh-agent`"  ]; then
+		eval `ssh-agent`
+	fi
+
 	# automatically start graphical session
 	if [ -x "`which startx`"  ]; then
 		echo -n "Starting graphical session, press return to cancel... "
