@@ -13,7 +13,7 @@ my %bat_state_label = (
 		'full' => '',
 	);
 my $cpu_count = `nproc`;
-my($ping_host,$ping_timeout) = ("www.google.com",0.5);
+my($ping_host,$ping_timeout) = ("8.8.8.8",0.5);
 my @disks_monitored = qw(/ /tmp);
 
 sub clock {
