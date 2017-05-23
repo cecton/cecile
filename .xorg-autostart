@@ -78,7 +78,7 @@ autostart()
 online()
 {
 	firefox &
-	franz &
+	rambox &
 }
 
 
