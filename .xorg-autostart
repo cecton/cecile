@@ -82,31 +82,11 @@ online()
 }
 
 
-clock()
-{
-	# Display the current time in dwm status bar
-	cat - <<EOF | perl &
-use strict;
-use warnings;
-
-use POSIX 'strftime';
-
-while( 1 ) {
-	system('xsetroot','-name',
-		strftime("%-H:%M UTC", gmtime)
-			.", ".strftime("%a %b %-d, %-I:%M%P", localtime));
-	sleep (60 - strftime("%-S", localtime));
-}
-EOF
-}
-
-
 case "$1" in
 	start)
 		setup
 		xrandr-auto
 		autostart &
-		clock
 		;;
 	setup)
 		setup
