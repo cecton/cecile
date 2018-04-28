@@ -26,3 +26,5 @@ export BROWSER=firefox
 export HISTCONTROL=ignoreboth:erasedups
 
 export PLATFORM=`uname`
+
+[ -e ~/.nix-profile ] && . ~/.nix-profile/etc/profile.d/nix.sh
