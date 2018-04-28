@@ -1,2 +1,0 @@
-#!/bin/sh
-psql -d template1 -c "ALTER DATABASE \"$1\" RENAME TO \"$2\""
