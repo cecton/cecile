@@ -11,9 +11,6 @@ if status --is-interactive
 		set -x DISPLAY
 	# starting on a graphical session
 	else
-		function ff
-			firefox $args ^/dev/null >/dev/null &
-		end
 		function gajim
 			sh -c (which gajim) $args ^/dev/null >/dev/null &
 		end
@@ -56,6 +53,7 @@ if status --is-interactive
 	# programs
 	alias lin "linphonec ^&-"
 	alias g git
+	alias ff 'git pull --ff-only'
 	alias am 'git commit --amend'
 	alias fixup 'git commit --fixup'
 	alias t tig
