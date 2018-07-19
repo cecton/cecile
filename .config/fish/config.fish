@@ -61,6 +61,7 @@ if status --is-interactive
 	alias dc docker-compose
 	alias dm docker-machine
 	alias dip "docker inspect -f '{{ .NetworkSettings.IPAddress }}'"
+	alias v vim
 
 	# nvm
 	set -U fish_user_paths
