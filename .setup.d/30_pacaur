@@ -1,0 +1,16 @@
+#!/bin/bash
+
+which pacman &>/dev/null || exit 0
+which pacaur &>/dev/null && exit 0
+
+echo installing pacaur...
+
+set -x -e
+
+[ -e /tmp/cower ] || git clone https://aur.archlinux.org/cower.git /tmp/cower
+cd /tmp/cower
+makepkg -s -i
+
+[ -e /tmp/pacaur ] || git clone https://aur.archlinux.org/pacaur.git /tmp/pacaur
+cd /tmp/pacaur
+makepkg -s -i
