@@ -151,4 +151,5 @@ for_window [class=Display] floating enable
 for_window [class=XFontSel] floating enable
 for_window [class=Franz] move container to workspace 5
 
+output "*" bg #000000 solid_color
 exec --no-startup-id ~/.config/sway/autostart
