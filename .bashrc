@@ -29,8 +29,20 @@ if [ "$PLATFORM" == Linux ] && [ "$parent_name" == login ]; then
 	fi
 
 	# automatically start graphical session
+	if [ -x "`which sway`"  ]; then
+		echo -n "Starting sway, press return to cancel... "
+		read -s -t 2 answer
+		if [ $? -eq 0 ]; then
+			echo canceled
+		else
+			sway
+			echo done
+		fi
+	fi
+
+	# automatically start graphical session (X.org)
 	if [ -x "`which startx`"  ]; then
-		echo -n "Starting graphical session, press return to cancel... "
+		echo -n "Starting X.org graphical session, press return to cancel... "
 		read -s -t 2 answer
 		if [ $? -eq 0 ]; then
 			echo canceled
