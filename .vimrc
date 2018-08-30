@@ -36,6 +36,7 @@ set tabstop=4 softtabstop=4 shiftwidth=4
 " disable automatic indent of comments and sometimes automatic comment
 set formatoptions-=r
 set nohlsearch
+set ruler
 
 if stridx($TERM, "256color") > -1
     " underline spell mistakes
