@@ -9,7 +9,7 @@ setup()
 	test -d /usr/share/fonts/local && xset +fp /usr/share/fonts/local
 	xset fp rehash
 	test -f $HOME/.Xresources && xrdb -load $HOME/.Xresources
-	setxkbmap -option caps:none -layout us -variant dvp
+	#setxkbmap -option caps:none -layout us -variant dvp
 	xmodmap - <<EOF
 keysym Menu = Control_R
 add Control = Control_R
