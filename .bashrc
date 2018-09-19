@@ -24,12 +24,13 @@ parent_name=`ps o comm -p $PPID | awk 'NR>1'`
 
 if [ "$PLATFORM" == Linux ] && [ "$parent_name" == login ]; then
 	# starting SSH agent
-	if [ -x "`which ssh-agent`"  ]; then
+	if [ -x "`which ssh-agent 2> /dev/null`" ]; then
 		eval `ssh-agent`
 	fi
 
 	# automatically start graphical session
-	if [ -x "`which sway`"  ]; then
+	lsmod | grep -q nvidia
+	if [ $? -ne 0 ] && [ -x "`which sway 2> /dev/null`" ]; then
 		echo -n "Starting sway, press return to cancel... "
 		read -s -t 2 answer
 		if [ $? -eq 0 ]; then
@@ -41,7 +42,7 @@ if [ "$PLATFORM" == Linux ] && [ "$parent_name" == login ]; then
 	fi
 
 	# automatically start graphical session (X.org)
-	if [ -x "`which startx`"  ]; then
+	if [ -x "`which startx 2> /dev/null`" ]; then
 		echo -n "Starting X.org graphical session, press return to cancel... "
 		read -s -t 2 answer
 		if [ $? -eq 0 ]; then
