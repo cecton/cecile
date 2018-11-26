@@ -37,6 +37,9 @@ if status --is-interactive
 	else
 		alias ls 'ls --color=auto -h'
 	end
+	if which exa >/dev/null ^/dev/null
+		alias ls 'exa'
+	end
 	alias ll 'ls -l'
 	alias rm 'rm -iv'
 	alias mv 'mv -iv'
