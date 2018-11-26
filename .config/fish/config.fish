@@ -40,6 +40,9 @@ if status --is-interactive
 	if which exa >/dev/null ^/dev/null
 		alias ls 'exa'
 	end
+	if which bat >/dev/null ^/dev/null
+		alias cat 'bat'
+	end
 	alias ll 'ls -l'
 	alias rm 'rm -iv'
 	alias mv 'mv -iv'
