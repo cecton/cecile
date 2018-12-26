@@ -1,0 +1,22 @@
+#!/bin/bash
+
+which pacman &>/dev/null || exit 0
+which yay &>/dev/null && exit 0
+
+echo installing yay...
+
+set -x -e
+
+if [ "`uname -m`" == x86_64 ]; then
+
+	[ -e /tmp/yay-bin ] || git clone https://aur.archlinux.org/yay-bin.git /tmp/yay-bin
+	cd /tmp/yay-bin
+	makepkg -s -i
+
+else
+
+	[ -e /tmp/yay ] || git clone https://aur.archlinux.org/yay.git /tmp/yay
+	cd /tmp/yay
+	makepkg -s -i
+
+fi
