@@ -1,6 +1,6 @@
 #!/bin/bash
 
-[ -x "$HOME/.xorg-autostart" ] && $HOME/.xorg-autostart start &
+[ -x "$HOME/.xorg-autostart" ] && $HOME/.xorg-autostart &
 
 while :
 do

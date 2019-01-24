@@ -17,7 +17,7 @@ fi
 # ...or the Window Manager of your choice
 which i3 &>/dev/null
 if [ $? == 0 ]; then
-	exec dbus-launch --exit-with-session i3-session
+	exec i3-session
 else
-	exec dbus-launch xterm
+	exec xterm
 fi

@@ -4,12 +4,11 @@
 setup()
 {
 	xsetroot -solid black
-	xset -dpms -b
-	xset s off
+	xset -b
 	test -d /usr/share/fonts/local && xset +fp /usr/share/fonts/local
 	xset fp rehash
 	test -f $HOME/.Xresources && xrdb -load $HOME/.Xresources
-	#setxkbmap -option caps:none -layout us -variant dvp
+	setxkbmap -option caps:escape -layout us
 	xmodmap - <<EOF
 keysym Menu = Control_R
 add Control = Control_R
@@ -23,85 +22,23 @@ EOF
 }
 
 
-addmode()
-{
-	cvt $2 $3 $4 | grep -Po 'Modeline \K.+' \
-		| xargs sh -c "echo \$0; xrandr --verbose --output $1 --newmode \$0 \$@; xrandr --addmode $1 \$0; xrandr --output $1 --mode \$0"
-}
-
-
 xrandr-auto()
 {
-	work=`cat "/sys/devices/pci0000:00/0000:00:02.0/drm/card0/card0-eDP-1/status"`
-	crt=`cat "/sys/devices/pci0000:00/0000:00:02.0/drm/card0/card0-VGA-1/status"`
-	if [ "$work" == "connected" ]; then
-		xrandr --output eDP1 --dpi 75
-		xrandr --output DP1-1 --same-as eDP1 --mode 1920x1080
-	else
-		xrandr --output eDP1 --dpi 175
+	home=`cat "/sys/devices/pci0000:00/0000:00:02.0/drm/card0/card0-DP-2/status"`
+	if [ "$home" == "connected" ]; then
+		xrandr --output eDP-1 --off
+		xrandr --output DP-2 --mode 3440x1440
 	fi
-	if [ "$crt" == "connected" ]; then
-		# Resolution setup for TV: 720p give the best result for recording
-		#  -  less artifacts
-		#  -  60fps
-		# But:
-		#  -  1080p: 30fps, sprites doesn't blink properly
-		#  -  4:3 resolutions: lot of artifact compressions
-		xrandr --output HDMI1 --mode 1280x720 --rate 60 --right-of eDP1 --primary
-
-		# Resolution setup for CRT: 640x480@160
-		#  -  highest refresh rate possible, scale 2
-		#  -  centered on the HDMI output
-		addmode VGA1 640 480 120
-		addmode VGA1 640 480 160
-		addmode VGA1 640 480 200
-		xrandr --output VGA1 --mode 640x480_200.00 --pos 1920x120
-		xsetroot -solid black
-		killall redshift
-
-	else
-		test -f $HOME/.fehbg && . $HOME/.fehbg
-		killall redshift
-		redshift -l 50.72:4.86 -t 5500:3700 -g 0.9 -m vidmode &
-		(ping -i 1 -c 3 -W 1 8.8.8.8 &>/dev/null && online) &
-	fi
-}
-
-
-autostart()
-{
-	test -z "`ps -C rygel -o user,pid --no-headers | grep \"^$USER\>\"`" && dtach -n /tmp/rygel.$USER rygel -d MediaExport
-	pulseaudio -D
+	test -f $HOME/.fehbg && . $HOME/.fehbg
 }
 
 
 online()
 {
 	firefox &
-	rambox &
 }
 
 
-case "$1" in
-	start)
-		setup
-		xrandr-auto
-		autostart &
-		;;
-	setup)
-		setup
-		;;
-	screens|xrandr|xrandr-auto|monitors)
-		xrandr-auto
-		;;
-	autostart)
-		autostart
-		;;
-	online)
-		onilne
-		;;
-	clock)
-		clock
-		;;
-	*)
-esac
+setup
+xrandr-auto
+ping -i 1 -c 3 -W 1 8.8.8.8 &>/dev/null && online
