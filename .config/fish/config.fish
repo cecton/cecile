@@ -39,6 +39,7 @@ if status --is-interactive
 	end
 	if which exa >/dev/null ^/dev/null
 		alias ls 'exa'
+		alias tree 'exa -T'
 	end
 	if which bat >/dev/null ^/dev/null
 		alias cat 'bat'
