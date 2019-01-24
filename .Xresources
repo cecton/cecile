@@ -50,7 +50,7 @@
 *.color15:      t_current_line
 
 !*faceName:                Terminus:style=Bold:pixelsize=22 ! use ttf font
-xterm*font:               -*-terminus-medium-*-*-*-14-*-*-*-*-*-*-*
+xterm*font:               -*-terminus-medium-*-*-*-18-*-*-*-*-*-*-*
 xterm*font1:              -*-terminus-medium-*-*-*-12-*-*-*-*-*-*-*
 xterm*font2:              -*-terminus-bold-*-*-*-16-*-*-*-*-*-*-*
 xterm*font3:              -*-terminus-bold-*-*-*-18-*-*-*-*-*-*-*
