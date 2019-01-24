@@ -149,6 +149,5 @@ for_window [class=VirtualBox] floating enable
 for_window [class=qemu-system-i386] floating enable
 for_window [class=Display] floating enable
 for_window [class=XFontSel] floating enable
-for_window [class=Franz] move container to workspace 5
 for_window [class=Wine] floating enable
 for_window [class=Steam] floating enable
