@@ -11,6 +11,7 @@ nmap <F1> <NOP>
 imap <F1> <NOP>
 
 " shortcut to save all the buffers
+nmap s :w<CR>
 nmap <F12> :wa<CR>
 imap <F12> <Esc>:wa<CR>
 
@@ -37,6 +38,7 @@ set tabstop=4 softtabstop=4 shiftwidth=4
 set formatoptions-=r
 set nohlsearch
 set ruler
+inoremap # X<c-h>#
 
 if stridx($TERM, "256color") > -1
     " underline spell mistakes
