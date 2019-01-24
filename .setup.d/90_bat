@@ -1,7 +1,9 @@
 #!/bin/bash
 
 which bat &> /dev/null && exit 0
-which rustup &> /dev/null || exit 1
+which curl &> /dev/null || exit 1
+which unzip &> /dev/null || exit 1
 
-rustup target install x86_64-unknown-linux-musl
-cargo install --target=x86_64-unknown-linux-musl bat
+set -x -e
+curl -sSL https://github.com/sharkdp/bat/releases/download/v0.9.0/bat-v0.9.0-x86_64-unknown-linux-musl.tar.gz | tar xzO > ~/bin/bat
+chmod +x ~/bin/bat
