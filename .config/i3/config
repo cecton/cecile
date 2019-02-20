@@ -125,8 +125,9 @@ bindsym $mod+p mode "resize"
 bindsym XF86AudioLowerVolume exec amixer set Master "2%-"
 bindsym XF86AudioRaiseVolume exec amixer set Master "2%+"
 bindsym XF86AudioMute exec amixer set Master toggle
-bindsym XF86MonBrightnessUp exec sudo brightness up
-bindsym XF86MonBrightnessDown exec sudo brightness down
+bindsym XF86MonBrightnessUp exec brightness up
+bindsym XF86MonBrightnessDown exec brightness down
+bindsym XF86Display exec toggle_display
 
 new_window pixel 1
 hide_edge_borders both

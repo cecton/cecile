@@ -24,12 +24,7 @@ EOF
 
 xrandr-auto()
 {
-	home=`cat "/sys/devices/pci0000:00/0000:00:02.0/drm/card0/card0-DP-2/status"`
-	if [ "$home" == "connected" ]; then
-		xrandr --output eDP-1 --off
-		xrandr --output DP-2 --mode 3440x1440
-		day
-	fi
+	toggle_display
 	test -f $HOME/.fehbg && . $HOME/.fehbg
 }
 
