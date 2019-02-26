@@ -61,6 +61,7 @@ if status --is-interactive
 	alias lin "linphonec ^&-"
 	alias g git
 	alias ff 'git pull --ff-only'
+	alias fff 'git fetch --all -p; and git pull --ff-only'
 	alias am 'git commit --amend'
 	alias fixup 'git commit --fixup'
 	alias wip 'git commit -m WIP'
