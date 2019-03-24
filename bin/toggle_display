@@ -2,15 +2,15 @@
 
 on()
 {
-	xrandr --output DP-2 --mode 3440x1440 && xrandr --output eDP-1 --off && day
+	xrandr --output DP-1 --mode 3440x1440 && xrandr --output eDP-1 --off && night
 }
 
 off()
 {
-	xrandr --output eDP-1 --mode 1920x1080 && xrandr --output DP-2 --off
+	xrandr --output eDP-1 --mode 1920x1080 && xrandr --output DP-1 --off
 }
 
-home=`cat /sys/devices/pci0000:00/0000:00:02.0/drm/card0/card0-DP-2/status`
+home=`cat /sys/devices/pci0000:00/0000:00:02.0/drm/card0/card0-DP-1/status`
 enabled=`cat /sys/devices/pci0000:00/0000:00:02.0/drm/card0/card0-eDP-1/enabled`
 if [ "$home" == connected ]; then
 	if [ "$enabled" == disabled ]; then
