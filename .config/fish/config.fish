@@ -63,6 +63,7 @@ if status --is-interactive
 	alias ff 'git pull --ff-only'
 	alias fff 'git fetch --all -p; and git pull --ff-only'
 	alias am 'git commit --amend'
+	alias amm 'env EDITOR=true git commit --amend'
 	alias fixup 'git commit --fixup'
 	alias wip 'git commit -m WIP'
 	alias t tig
