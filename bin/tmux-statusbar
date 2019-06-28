@@ -29,7 +29,7 @@ sub uptime {
 sub login { chop($_=$ENV{USER}.'@'.`hostname`); $_ }
 
 sub battery {
-	$_ = [split /\n/,`acpi`]->[0];
+	$_ = [split /\n/,`acpi`]->[-1];
 	my $bat_time = /\d\d:\d\d:\d\d/ ? $& : undef;
 	return unless $bat_time;
 	my $bat_state = /Charging|Discharging|Full/ ? lc $& : undef;
