@@ -1,0 +1,9 @@
+#!/bin/bash
+
+which rls &> /dev/null && exit 0
+which rustup &> /dev/null || exit 1
+which vim &> /dev/null || exit 1
+
+set -x -e
+rustup default stable
+rustup component add rls rust-analysis rust-src

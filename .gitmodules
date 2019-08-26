@@ -1,3 +1,6 @@
 [submodule ".mutt/mutt-colors-solarized"]
 	path = .mutt/mutt-colors-solarized
 	url = https://github.com/altercation/mutt-colors-solarized.git
+[submodule ".local/share/dein/repos/github.com/Shougo/dein.vim"]
+	path = .local/share/dein/repos/github.com/Shougo/dein.vim
+	url = https://github.com/Shougo/dein.vim

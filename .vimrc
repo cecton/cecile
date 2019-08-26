@@ -1,3 +1,23 @@
+set runtimepath+=~/.local/share/dein/repos/github.com/Shougo/dein.vim
+
+if dein#load_state('~/.local/share/dein')
+    call dein#begin('~/.local/share/dein')
+
+    call dein#add('~/.local/share/dein/repos/github.com/Shougo/dein.vim')
+
+    call dein#add('prabirshrestha/asyncomplete.vim')
+    call dein#add('prabirshrestha/async.vim')
+    call dein#add('prabirshrestha/vim-lsp')
+    call dein#add('prabirshrestha/asyncomplete-lsp.vim')
+
+    call dein#end()
+    call dein#save_state()
+endif
+
+if dein#check_install()
+  call dein#install()
+endif
+
 if stridx($TERM, "256color") > -1
     set background=dark
     let g:solarized_termcolors=256
@@ -31,7 +51,10 @@ if $PLATFORM == "Linux"
     vnoremap <Leader>y :w !xsel -b<CR>
 endif
 
-syntax on
+syntax enable
+
+" Avoid errors parsing listchar on some environments
+set encoding=utf-8
 set listchars=nbsp: ,tab:\ \ ,eol:↵
 set tabstop=4 softtabstop=4 shiftwidth=4
 " disable automatic indent of comments and sometimes automatic comment
@@ -59,3 +82,18 @@ inoremap <buffer> <silent> <Home> <C-o>g<Home>
 inoremap <buffer> <silent> <End>  <C-o>g<End>
 
 filetype plugin on
+
+if executable('rls')
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'rls',
+        \ 'cmd': {server_info->['rustup', 'run', 'stable', 'rls']},
+        \ 'workspace_config': {'rust': {'clippy_preference': 'on'}},
+        \ 'whitelist': ['rust'],
+        \ })
+endif
+
+" optional, always show the sign column to avoid jumping (not sure if it's useful)
+" set signcolumn=yes
+
+" allow <CR> to be inserted when the popup is visible
+inoremap <expr> <CR> pumvisible() ? asyncomplete#close_popup() . "\<CR>" : "\<CR>"
