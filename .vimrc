@@ -6,6 +6,7 @@ if dein#load_state('~/.local/share/dein')
     call dein#add('~/.local/share/dein/repos/github.com/Shougo/dein.vim')
 
     call dein#add('prabirshrestha/asyncomplete.vim')
+    call dein#add('prabirshrestha/asyncomplete-buffer.vim')
     call dein#add('prabirshrestha/async.vim')
     call dein#add('prabirshrestha/vim-lsp')
     call dein#add('prabirshrestha/asyncomplete-lsp.vim')
@@ -82,6 +83,15 @@ inoremap <buffer> <silent> <Home> <C-o>g<Home>
 inoremap <buffer> <silent> <End>  <C-o>g<End>
 
 filetype plugin on
+
+call asyncomplete#register_source(asyncomplete#sources#buffer#get_source_options({
+    \ 'name': 'buffer',
+    \ 'whitelist': ['*'],
+    \ 'completor': function('asyncomplete#sources#buffer#completor'),
+    \ 'config': {
+    \    'max_buffer_size': 5000000,
+    \  },
+    \ }))
 
 if executable('rls')
     au User lsp_setup call lsp#register_server({
