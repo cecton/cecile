@@ -27,8 +27,6 @@ export HISTCONTROL=ignoreboth:erasedups
 
 export PLATFORM=`uname`
 
-[ -f ~/.nix-profile/etc/profile.d/nix.sh ] && . ~/.nix-profile/etc/profile.d/nix.sh
-
 [ -d ~/.cargo/bin ] && export PATH=$PATH:~/.cargo/bin
 
 [ -f /etc/profile.d/jre.sh ] && . /etc/profile.d/jre.sh
