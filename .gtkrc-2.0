@@ -5,4 +5,4 @@ font_name = "Free Sans 16"
 widget_class "*" style "font"
 gtk-font-name = "Free Sans 16"
 gtk-error-bell = 0
-gtk-theme-name = "Numix Solarized"
+gtk-theme-name = "Adwaita:dark"
