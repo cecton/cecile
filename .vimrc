@@ -9,6 +9,7 @@ if dein#load_state('~/.local/share/dein')
     call dein#add('prabirshrestha/async.vim')
     call dein#add('prabirshrestha/vim-lsp')
     call dein#add('prabirshrestha/asyncomplete-lsp.vim')
+    call dein#add('editorconfig/editorconfig-vim')
 
     call dein#end()
     call dein#save_state()
