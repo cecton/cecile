@@ -31,3 +31,6 @@ export PLATFORM=`uname`
 [ -d ~/.cargo/bin ] && export PATH=$PATH:~/.cargo/bin
 
 [ -f /etc/profile.d/jre.sh ] && . /etc/profile.d/jre.sh
+
+which sccache &>/dev/null
+[ "$?" == 0 ] && export RUSTC_WRAPPER=sccache
