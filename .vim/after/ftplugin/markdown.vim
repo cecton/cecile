@@ -2,7 +2,7 @@
 setlocal list listchars=nbsp: ,tab:\ \ 
 
 " always use tabs
-setlocal expandtab tabstop=4 softtabstop=4 shiftwidth=4
+setlocal expandtab tabstop=4 softtabstop=4 shiftwidth=4 smartindent
 
 " show invalid and wrong characters
 highlight Invalid ctermbg=red guibg=red
