@@ -22,7 +22,7 @@ function! HighlightInvalid(config)
 	" Show invalid and wrong characters
 	if a:config['indent_style'] == 'tab'
 		highlight Invalid ctermbg=red guibg=red
-		match Invalid /  \+\|\s\+$\|[^\x00-\xff]\+/
+		match Invalid /\t \|  \+\|\s\+$\|[^\x00-\xff]\+/
 	elseif a:config['indent_style'] == 'space'
 		highlight Invalid ctermbg=red guibg=red
 		match Invalid /\t\|\s\+$\|[^\x00-\xff]\+/
