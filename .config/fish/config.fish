@@ -87,7 +87,11 @@ if status --is-interactive
 		set old_pwd $PWD
 		while test $PWD != "/"
 			if test -e ".git"
-				git diff --cached ^&-
+				if test -e Cargo.lock && which cargo-git >/dev/null ^/dev/null
+					cargo git diff --cached ^&-
+				else
+					git diff --cached ^&-
+				end
 				commandline -f repaint
 				break
 			end
@@ -100,7 +104,11 @@ if status --is-interactive
 		set old_pwd $PWD
 		while test $PWD != "/"
 			if test -e ".git"
-				git diff ^&-
+				if test -e Cargo.lock && which cargo-git >/dev/null ^/dev/null
+					cargo git diff ^&-
+				else
+					git diff ^&-
+				end
 				commandline -f repaint
 				break
 			end
