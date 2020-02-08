@@ -60,23 +60,53 @@ if status --is-interactive
 	# programs
 	alias lin "linphonec ^&-"
 	alias g git
+	if which cargo-git >/dev/null ^/dev/null
+		alias cg "cargo git"
+	end
+	alias p pijul
 	alias ff 'git pull --ff-only'
 	alias fff 'git fetch --all -p; and git pull --ff-only'
 	alias am 'git commit --amend'
 	alias amm 'env EDITOR=true git commit --amend'
 	alias fixup 'git commit --fixup'
-	alias wip 'git commit -m WIP'
 	alias t tig
 	alias d docker
 	alias dc docker-compose
 	alias dm docker-machine
 	alias dip "docker inspect -f '{{ .NetworkSettings.IPAddress }}'"
 	alias v vim
+	alias c cargo
 
 	# nvm
 	set -U fish_user_paths
 
 	# shortcuts
+	function wip
+		if which cargo-git >/dev/null ^/dev/null
+			cargo git commit
+		else
+			git commit -m WIP
+		end
+	end
+
+	function repo-add
+		set old_pwd $PWD
+		while test $PWD != "/"
+			if test -e ".git"
+				echo
+				if test -e Cargo.lock && which cargo-git >/dev/null ^/dev/null
+					cargo git add -p ^&-
+				else
+					git add -p ^&-
+				end
+				commandline -f repaint
+				break
+			end
+			cd ..
+		end
+		cd $old_pwd
+	end
+
 	function repo-log
 		echo
 		tig; or git log --oneline ^&-
