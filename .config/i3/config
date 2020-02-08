@@ -23,7 +23,7 @@ font pango:monospace 8
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec --no-startup-id xterm
+bindsym $mod+Return exec --no-startup-id xterm &
 
 # kill focused window
 bindsym $mod+Shift+c kill
@@ -150,5 +150,8 @@ for_window [class=Wine] floating enable
 for_window [class=Steam] floating enable
 for_window [class=steam] floating enable
 for_window [class=ShadowOfTheTombRaider] floating enable
+for_window [class=TombRaider] floating enable
 for_window [class=Transistor.bin.x86_64] floating enable
 for_window [title=Gunpoint] floating enable
+for_window [class=ARobotNamedFight.x86_64] floating enable
+for_window [title=Dex] floating enable
