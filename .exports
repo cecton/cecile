@@ -33,4 +33,4 @@ export PLATFORM=`uname`
 [ -f /etc/profile.d/jre.sh ] && . /etc/profile.d/jre.sh
 
 which sccache &>/dev/null
-[ "$?" == 0 ] && export RUSTC_WRAPPER=sccache
+[ "$?" == 0 ] && export RUSTC_WRAPPER=sccache && export SCCACHE_CACHE_SIZE=60G
