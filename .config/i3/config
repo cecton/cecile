@@ -155,3 +155,4 @@ for_window [class=Transistor.bin.x86_64] floating enable
 for_window [title=Gunpoint] floating enable
 for_window [class=ARobotNamedFight.x86_64] floating enable
 for_window [title=Dex] floating enable
+for_window [title=Picture-in-Picture] sticky enable
