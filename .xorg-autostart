@@ -19,6 +19,13 @@ EOF
 		HorizTwoFingerScroll=1 HorizScrollDelta=-8
 	syndaemon -d -i 1.5 -t
 	xhost +local:
+	xinput set-prop "ELECOM TrackBall Mouse EX-G Pro TrackBall Mouse" \
+		"Coordinate Transformation Matrix" \
+			0.500000, 0.000000, 0.000000, \
+			0.000000, 0.500000, 0.000000, \
+			0.000000, 0.000000, 1.000000
+	xinput set-prop "ELECOM TrackBall Mouse EX-G Pro TrackBall Mouse" \
+		"libinput Accel Speed" 1
 }
 
 
