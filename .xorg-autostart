@@ -4,6 +4,9 @@
 setup()
 {
 	xsetroot -solid black
+	# disable screen saver
+	xset -dpms
+	xset s off
 	xset -b
 	test -d /usr/share/fonts/local && xset +fp /usr/share/fonts/local
 	xset fp rehash
