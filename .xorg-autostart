@@ -24,11 +24,11 @@ EOF
 	xhost +local:
 	xinput set-prop "ELECOM TrackBall Mouse EX-G Pro TrackBall Mouse" \
 		"Coordinate Transformation Matrix" \
-			0.500000, 0.000000, 0.000000, \
-			0.000000, 0.500000, 0.000000, \
+			0.250000, 0.000000, 0.000000, \
+			0.000000, 0.250000, 0.000000, \
 			0.000000, 0.000000, 1.000000
 	xinput set-prop "ELECOM TrackBall Mouse EX-G Pro TrackBall Mouse" \
-		"libinput Accel Speed" 1
+		"libinput Accel Speed" 0.8
 }
 
 
