@@ -58,7 +58,6 @@ if status --is-interactive
 	end
 
 	# programs
-	alias lin "linphonec ^&-"
 	alias g git
 	if which cargo-git >/dev/null ^/dev/null
 		alias cg "cargo git"
@@ -80,7 +79,6 @@ if status --is-interactive
 	# nvm
 	set -U fish_user_paths
 
-	# shortcuts
 	function wip
 		if which cargo-git >/dev/null ^/dev/null
 			cargo git commit
@@ -89,15 +87,29 @@ if status --is-interactive
 		end
 	end
 
+	function cleanup
+		if which cargo-git >/dev/null ^/dev/null
+			cargo git commit -m CLEANUP
+		else
+			git commit -m CLEANUP
+		end
+	end
+
+	function mkcd
+		mkdir -p $argv
+		cd $argv
+	end
+
+	# shortcuts
 	function repo-add
 		set old_pwd $PWD
 		while test $PWD != "/"
 			if test -e ".git"
 				echo
 				if test -e Cargo.lock && which cargo-git >/dev/null ^/dev/null
-					cargo git add -p ^&-
+					cargo git add -p
 				else
-					git add -p ^&-
+					git add -p
 				end
 				commandline -f repaint
 				break
@@ -109,7 +121,7 @@ if status --is-interactive
 
 	function repo-log
 		echo
-		tig; or git log --oneline ^&-
+		tig; or git log --oneline
 		commandline -f repaint
 	end
 
@@ -118,9 +130,9 @@ if status --is-interactive
 		while test $PWD != "/"
 			if test -e ".git"
 				if test -e Cargo.lock && which cargo-git >/dev/null ^/dev/null
-					cargo git diff --cached ^&-
+					cargo git diff --cached
 				else
-					git diff --cached ^&-
+					git diff --cached
 				end
 				commandline -f repaint
 				break
@@ -135,9 +147,9 @@ if status --is-interactive
 		while test $PWD != "/"
 			if test -e ".git"
 				if test -e Cargo.lock && which cargo-git >/dev/null ^/dev/null
-					cargo git diff ^&-
+					cargo git diff
 				else
-					git diff ^&-
+					git diff
 				end
 				commandline -f repaint
 				break
@@ -149,13 +161,13 @@ if status --is-interactive
 
 	function repo-status
 		echo
-		git status ^&-
+		git status
 		commandline -f repaint
 	end
 
 	function repo-commit
 		echo
-		git commit ^&-
+		git commit
 		commandline -f repaint
 	end
 
