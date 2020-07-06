@@ -1,6 +1,7 @@
 [Added Associations]
 application/pdf=firefox.desktop;
 text/plain=firefox.desktop;
+image/jpeg=firefox.desktop;
 
 [Default Applications]
 text/html=firefox.desktop
