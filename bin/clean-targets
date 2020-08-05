@@ -1,0 +1,3 @@
+#!/bin/sh
+
+find ~/repos -name target -print0 | xargs -0 -l rm -vfR
