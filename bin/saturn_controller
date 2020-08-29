@@ -1,0 +1,5 @@
+#!/bin/bash
+
+exec xboxdrv --evdev /dev/input/by-id/usb-HuiJia_USB_GamePad-event-joystick \
+        --evdev-keymap BTN_TRIGGER=a,BTN_THUMB=b,BTN_THUMB2=rb,BTN_TOP=x,BTN_TOP2=y,BTN_BASE=lb,BTN_PINKIE=lt,BTN_BASE2=rt,BTN_BASE4=start,KEY_#300=du,KEY_#301=dr,KEY_#302=dd,BTN_DEAD=dl \
+        --mimic-xpad
