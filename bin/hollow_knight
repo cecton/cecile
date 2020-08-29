@@ -1,0 +1,12 @@
+#!/bin/bash
+
+xboxdrv --evdev /dev/input/by-id/usb-HuiJia_USB_GamePad-event-joystick \
+	--evdev-keymap BTN_TRIGGER=a,BTN_THUMB=b,BTN_THUMB2=rb,BTN_TOP=x,BTN_TOP2=y,BTN_BASE=lb,BTN_PINKIE=lt,BTN_BASE2=rt,BTN_BASE4=start,KEY_#300=du,KEY_#301=dr,KEY_#302=dd,BTN_DEAD=dl \
+	--ui-clear \
+	--ui-buttonmap DU=KEY_UP,DD=KEY_DOWN,DL=KEY_LEFT,DR=KEY_RIGHT,rb=KEY_Z,b=KEY_X,rt=KEY_C,a=KEY_A,start=KEY_I,x=KEY_TAB,y=KEY_D,lb=KEY_S \
+	--silent --pid-file /tmp/xboxdrv.pid &
+
+cd "/mnt/ssd/Steam/steamapps/common/Hollow Knight"
+./hollow_knight.x86_64
+
+kill -INT %1
