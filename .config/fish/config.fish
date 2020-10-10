@@ -1,21 +1,5 @@
 if status --is-interactive
 
-	# starting on a linux console
-	if test "$parent_name" = "login"
-		# TODO temporary not working
-		function x
-			set tty (tty | grep -o '[0-9]\+')
-			set vt (printf "vt%02d" $tty)
-			sh -c "exec xinit -- :$tty $vt &>>/tmp/dwm-session-\${UID}.log"
-		end
-		set -x DISPLAY
-	# starting on a graphical session
-	else
-		function gajim
-			sh -c (which gajim) $args ^/dev/null >/dev/null &
-		end
-	end
-
 	function sshterm
 		infocmp $TERM | ssh $argv "mkdir -p ~/.terminfo && cat >/tmp/ti && tic /tmp/ti"
 	end
@@ -25,7 +9,7 @@ if status --is-interactive
 	end
 
 	function sshallow
-		cat ~/.ssh/id_rsa.pub | ssh $argv "mkdir ~/.ssh; cat - >> ~/.ssh/authorized_keys"
+		cat ~/.ssh/id_rsa.pub | ssh $argv "mkdir -p ~/.ssh; cat - >> ~/.ssh/authorized_keys"
 	end
 
 	# funny ones
@@ -71,10 +55,9 @@ if status --is-interactive
 	alias t tig
 	alias d docker
 	alias dc docker-compose
-	alias dm docker-machine
 	alias dip "docker inspect -f '{{ .NetworkSettings.IPAddress }}'"
-	alias v vim
 	alias c cargo
+	alias nw 'emacs -nw'
 
 	# nvm
 	set -U fish_user_paths
