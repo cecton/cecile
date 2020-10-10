@@ -2,6 +2,7 @@
 application/pdf=firefox.desktop;
 text/plain=firefox.desktop;
 image/jpeg=firefox.desktop;
+image/png=gimp.desktop;
 
 [Default Applications]
 text/html=firefox.desktop
