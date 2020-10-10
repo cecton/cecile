@@ -136,7 +136,7 @@ new_window pixel 1
 hide_edge_borders both
 
 for_window [class=Chromium] move container to workspace 4
-for_window [class=firefox] move container to workspace 6
+#for_window [class=firefox] move container to workspace 6
 for_window [class=Iceweasel] move container to workspace 7
 for_window [class=Gimp] floating enable
 for_window [class=Dia] floating enable
