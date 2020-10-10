@@ -4,3 +4,6 @@
 [submodule ".local/share/dein/repos/github.com/Shougo/dein.vim"]
 	path = .local/share/dein/repos/github.com/Shougo/dein.vim
 	url = https://github.com/Shougo/dein.vim
+[submodule "repos/fish-cargo-completions"]
+	path = repos/fish-cargo-completions
+	url = git@github.com:thomcc/fish-cargo-completions.git

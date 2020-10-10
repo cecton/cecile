@@ -1,0 +1,1 @@
+/home/cecile/repos/fish-cargo-completions/functions/__tcsc_command_opt_value.fish
