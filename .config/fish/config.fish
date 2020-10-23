@@ -63,19 +63,11 @@ if status --is-interactive
 	set -U fish_user_paths
 
 	function wip
-		if which cargo-git >/dev/null ^/dev/null
-			cargo git commit
-		else
-			git commit -m WIP
-		end
+		git commit -m WIP
 	end
 
 	function cleanup
-		if which cargo-git >/dev/null ^/dev/null
-			cargo git commit -m CLEANUP
-		else
-			git commit -m CLEANUP
-		end
+		git commit -m CLEANUP
 	end
 
 	function mkcd
