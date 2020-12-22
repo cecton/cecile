@@ -48,22 +48,6 @@ let g:fzf_layout = { 'window': { 'width': 0.8, 'height': 0.5 } }
 let g:completion_enable_auto_popup = 0
 let g:completion_enalbe_auto_paren = 1
 let g:completion_enable_snippet = 'vim-vsnip'
-let g:completion_customize_lsp_label = {
-  \ 'Function': ' [function]',
-  \ 'Method': ' [method]',
-  \ 'Reference': ' [refrence]',
-  \ 'Enum': ' [enum]',
-  \ 'Field': 'ﰠ [field]',
-  \ 'Keyword': ' [key]',
-  \ 'Variable': ' [variable]',
-  \ 'Folder': ' [folder]',
-  \ 'Snippet': ' [snippet]',
-  \ 'Operator': ' [operator]',
-  \ 'Module': ' [module]',
-  \ 'Text': 'ﮜ[text]',
-  \ 'Class': ' [class]',
-  \ 'Interface': ' [interface]'
-  \}
 
 imap <silent> <c-n>   <Plug>(completion_trigger)
 imap <silent> <c-p>   <Plug>(completion_trigger)
@@ -82,7 +66,7 @@ nnoremap <silent> gd    <cmd>lua vim.lsp.buf.definition()<CR>
 nnoremap <silent> K     <cmd>lua vim.lsp.buf.hover()<CR>
 nnoremap <silent> gi    <cmd>lua vim.lsp.buf.implementation()<CR>
 nnoremap <silent> <c-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
-nnoremap <silent> gtd   <cmd>lua vim.lsp.buf.type_definition()<CR>
+"nnoremap <silent> gtd   <cmd>lua vim.lsp.buf.type_definition()<CR>
 nnoremap <silent> gr    <cmd>lua vim.lsp.buf.references()<CR>
 nnoremap <silent> g0    <cmd>lua vim.lsp.buf.document_symbol()<CR>
 nnoremap <silent> gW    <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
@@ -105,3 +89,33 @@ nnoremap <silent> <C-l> <C-w>l
 " Make C-a and C-e work in command mode
 cnoremap <C-a> <Home>
 cnoremap <C-e> <End>
+
+set guicursor=
+
+noremap <Leader>h :set invhlsearch<CR>
+if $PLATFORM == "Darwin"
+	" copy/past clipboard on OS X
+	noremap <Leader>p :r !pbpaste<CR>
+	noremap <Leader>P :-1r !pbpaste<CR>
+	noremap <Leader>yy :+0w !pbcopy<CR>
+	vnoremap <Leader>y :w !pbcopy<CR>
+endif
+if $PLATFORM == "Linux"
+	" copy/past clipboard on Linux
+	noremap <Leader>p :r !xsel -b -o<CR>
+	noremap <Leader>P :-1r !xsel -b -o<CR>
+	noremap <Leader>yy :+0w !xsel -b<CR>
+	vnoremap <Leader>y :w !xsel -b<CR>
+endif
+
+" disable some annoying bindings
+nmap Q <NOP>
+nmap <F1> <NOP>
+imap <F1> <NOP>
+
+" shortcut to save all the buffers
+nmap s :w<CR>
+nmap <F12> :wa<CR>
+imap <F12> <Esc>:wa<CR>
+
+set spell

@@ -196,9 +196,14 @@ if status --is-interactive
 		end
 	end
 
-	# default is ViM if available
-	if which vim >/dev/null ^/dev/null
-		alias vi vim
+	# default is Neo ViM if available
+	if which nvim >/dev/null ^/dev/null
+		alias vi nvim
+	else
+		# default is ViM if available
+		if which vim >/dev/null ^/dev/null
+			alias vi vim
+		end
 	end
 
 end
