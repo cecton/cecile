@@ -12,7 +12,7 @@
 [advice]
 	detachedHead = false
 [delta]
-	side-by-side = true
+	#side-by-side = true
 [filter "lfs"]
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
