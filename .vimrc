@@ -33,6 +33,8 @@ endfunction
 
 call editorconfig#AddNewHook(function('HighlightInvalid'))
 
+let g:EditorConfig_preserve_formatoptions = 1
+
 if dein#check_install()
   call dein#install()
 endif
@@ -77,6 +79,7 @@ set listchars=nbsp: ,tab:\ \ ,eol:↵
 set formatoptions-=r
 set nohlsearch
 set ruler
+set matchpairs+=<:> " match angle brackets
 inoremap # X<c-h>#
 
 if stridx($TERM, "256color") > -1
@@ -99,14 +102,15 @@ inoremap <buffer> <silent> <End>  <C-o>g<End>
 
 filetype plugin on
 
-if executable('rls')
-	au User lsp_setup call lsp#register_server({
-		\ 'name': 'rls',
-		\ 'cmd': {server_info->['rustup', 'run', 'stable', 'rls']},
-		\ 'workspace_config': {'rust': {'clippy_preference': 'on'}},
-		\ 'whitelist': ['rust'],
-		\ })
-endif
+"if executable('rls')
+"	au User lsp_setup call lsp#register_server({
+"		\ 'name': 'rls',
+"		\ 'cmd': {server_info->['rustup', 'run', 'stable', 'rls']},
+"		\ 'workspace_config': {'rust': {'clippy_preference': 'on'}},
+"		\ 'whitelist': ['rust'],
+"		\ })
+"endif
+
 
 " optional, always show the sign column to avoid jumping (not sure if it's useful)
 " set signcolumn=yes
