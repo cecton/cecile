@@ -8,9 +8,14 @@ lspconfig.rust_analyzer.setup{
   capabilities = capabilities,
   settings = {
     ['rust-analyzer'] = {
+      checkOnSave = {
+        extraArgs = {
+          ['--target-dir'] = '/tmp/rust-analyzer-check'
+        },
+      },
       procMacro = {
         enable = true,
-      }
+      },
     },
   }
 }
