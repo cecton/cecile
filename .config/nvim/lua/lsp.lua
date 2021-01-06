@@ -8,9 +8,14 @@ lspconfig.rust_analyzer.setup{
   capabilities = capabilities,
   settings = {
     ['rust-analyzer'] = {
+      checkOnSave = {
+        extraArgs = {
+          '--target-dir', '/home/cecile/repos/target'
+        },
+      },
       procMacro = {
         enable = true,
-      }
+      },
     },
   }
 }
