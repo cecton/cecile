@@ -1,6 +1,6 @@
 lua require'plugins'
 lua require'lsp'
-lua require'treesitter'
+"lua require'treesitter'
 
 autocmd BufWritePost plugins.lua PackerCompile
 
@@ -77,7 +77,8 @@ nnoremap <silent>d[     <cmd>lua vim.lsp.diagnostic.goto_prev()<CR>
 nnoremap <silent>d]     <cmd>lua vim.lsp.diagnostic.goto_next()<CR>
 
 " Fuzzy finder
-map <leader><leader> :Files<cr>
+"map <leader><leader> :GFiles<cr>
+map <leader><leader> :call fzf#vim#gitfiles('.', {'sink': 'tabedit'})<cr>
 map <space>,         :Buffers<cr>
 
 " Navigation between windows
@@ -119,3 +120,5 @@ nmap <F12> :wa<CR>
 imap <F12> <Esc>:wa<CR>
 
 set spell
+autocmd VimResume * silent! checktime
+let g:EditorConfig_preserve_formatoptions = 1
