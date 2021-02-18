@@ -1,6 +1,6 @@
 lua require'plugins'
 lua require'lsp'
-"lua require'treesitter'
+lua require'treesitter'
 
 autocmd BufWritePost plugins.lua PackerCompile
 
