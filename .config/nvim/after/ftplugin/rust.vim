@@ -6,3 +6,5 @@ match Invalid /\s*\t \s*\|\s* \t\s*\|\s\+$\|[^\x00-\xff]\+/
 
 " Highlight lines to big
 setlocal cc=100
+
+setlocal matchpairs+=<:> " match angle brackets
