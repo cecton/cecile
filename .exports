@@ -32,5 +32,10 @@ export PLATFORM=`uname`
 
 [ -f /etc/profile.d/jre.sh ] && . /etc/profile.d/jre.sh
 
-which sccache &>/dev/null
-[ "$?" == 0 ] && export RUSTC_WRAPPER=sccache && export SCCACHE_CACHE_SIZE=60G
+#which sccache &>/dev/null
+#[ "$?" == 0 ] && export RUSTC_WRAPPER=sccache && export SCCACHE_CACHE_SIZE=60G
+
+export GALLIUM_HUD="simple,fps"
+#export vblank_mode=0 #disable vsync
+
+#[ -f ~/.nix-profile/etc/profile.d/nix.sh ] && . ~/.nix-profile/etc/profile.d/nix.sh
