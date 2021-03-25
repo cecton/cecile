@@ -151,7 +151,7 @@ if status --is-interactive
 		while test $PWD != "/"
 			if test -e ".git"
 				set rev (git rev-parse --abbrev-ref HEAD ^/dev/null)
-				if test (basename $old_pwd) != $rev -a \( $PWD != $HOME -o $rev != master \)
+				if test (basename $old_pwd) != $rev -a \( $PWD != $HOME -o $rev != main \)
 					echo " $rev"
 				end
 				break
