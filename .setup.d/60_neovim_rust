@@ -1,0 +1,9 @@
+#!/bin/bash
+
+which rust-analyzer &> /dev/null && exit 0
+which rustup &> /dev/null || exit 1
+which nvim &> /dev/null || exit 1
+
+set -x -e
+rustup default stable
+yay -S neovim-nightly-bin rust-analyzer
