@@ -1,0 +1,15 @@
+[package]
+name = "windows-vm"
+version = "0.1.0"
+authors = ["Cecile Tonglet <cecile.tonglet@cecton.com>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+anyhow = "1.0"
+#libc = "0.2"
+nix = "0.20"
+#signal-hook = "0.3"
+ctrlc = "3"
+structopt = "0.3"
