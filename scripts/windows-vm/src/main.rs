@@ -10,6 +10,7 @@ use std::io::prelude::*;
 use std::mem;
 use std::os::unix::net::UnixStream;
 use std::os::unix::process::CommandExt;
+use std::path;
 use std::process;
 use std::thread;
 use std::time;
@@ -79,36 +80,41 @@ impl Cli {
         let mut threads = 1;
         let cores = (0..)
             .map(|i| {
-                let cpu_freq = match fs::read_to_string(format!(
-                    "{}/cpu{}/cpufreq/cpuinfo_max_freq",
-                    CPU_DEVICES, i
-                )) {
-                    Ok(content) => u32::from_str_radix(content.trim(), 10)
-                        .context("could not parse value of CPU max frequency")
-                        .map(|freq| (freq as f64) / 1000.0)?,
-                    Err(err) if i == 0 => return Err(err).context("could not get CPU infos"),
-                    Err(_) => return Ok(None),
-                };
+                let cpu_path = path::PathBuf::from(CPU_DEVICES).join(format!("cpu{}", i));
 
-                let core_id = match fs::read_to_string(format!(
-                    "{}/cpu{}/topology/core_id",
-                    CPU_DEVICES, i
-                )) {
-                    Ok(content) => u32::from_str_radix(content.trim(), 10)
-                        .context("could not parse value of CPU core ID")?,
-                    Err(err) if i == 0 => return Err(err).context("could not get CPU infos"),
-                    Err(_) => return Ok(None),
-                };
+                macro_rules! read_info {
+                    ($path:expr) => {
+                        match fs::read_to_string(cpu_path.join($path)) {
+                            Ok(content) => u32::from_str_radix(content.trim(), 10)
+                                .context("could not parse value of CPU info")?,
+                            Err(err) if i == 0 => {
+                                return Err(err).context("could not get CPU infos")
+                            }
+                            Err(_) => return Ok(None),
+                        }
+                    };
+                }
 
-                Ok(Some((i, cpu_freq, core_id)))
+                let core_id = read_info!("topology/core_id");
+                let physical_package_id = read_info!("topology/physical_package_id");
+                let index_0 = read_info!("cache/index0/id");
+                let index_1 = read_info!("cache/index1/id");
+                let index_2 = read_info!("cache/index2/id");
+                let index_3 = read_info!("cache/index3/id");
+
+                Ok(Some((
+                    i,
+                    core_id,
+                    (physical_package_id, index_3, index_2, index_1, index_0, core_id),
+                )))
             })
             // TODO: replace by map_while when it becomes available
             //       https://doc.rust-lang.org/std/iter/trait.Iterator.html#method.map_while
             .map(|x| x.transpose())
             .take_while(|x| x.is_some())
             .flatten()
-            .try_fold(HashMap::<u32, Core>::new(), |mut acc, x| {
-                x.and_then(|(i, max_freq, core_id)| {
+            .try_fold(HashMap::<u32, Core<_>>::new(), |mut acc, x| {
+                x.and_then(|(i, core_id, sort_key)| {
                     match acc.entry(core_id) {
                         Entry::Occupied(mut entry) => {
                             let core = entry.get_mut();
@@ -122,7 +128,7 @@ impl Cli {
                             entry.insert(Core {
                                 core_id,
                                 cpu_id: i,
-                                max_freq,
+                                sort_key,
                                 hyperthread_id: None,
                             });
                         }
@@ -136,9 +142,14 @@ impl Cli {
         let mut it = cores.values();
         let mut cores = (0..self.cores).flat_map(|_| it.next()).collect::<Vec<_>>();
         let other_cores = it.collect::<Vec<_>>();
+
+        if other_cores.is_empty() {
+            bail!("Not enough core left to start the VM");
+        }
+
         cores.sort_unstable_by(|a, b| {
-            a.max_freq
-                .partial_cmp(&b.max_freq)
+            a.sort_key
+                .partial_cmp(&b.sort_key)
                 .unwrap_or(a.cpu_id.cmp(&b.cpu_id))
                 .reverse()
         });
@@ -335,10 +346,10 @@ fn nr_hugepages() -> Result<u64> {
 }
 
 #[derive(Debug, Clone, Copy)]
-struct Core {
+struct Core<S: PartialOrd> {
     cpu_id: usize,
     core_id: u32,
-    max_freq: f64,
+    sort_key: S,
     hyperthread_id: Option<usize>,
 }
 
