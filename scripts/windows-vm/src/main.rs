@@ -72,8 +72,8 @@ struct Cli {
 impl Cli {
     fn run(&self) -> Result<()> {
         let mut logger = SimpleLogger::new();
-        if self.debug {
-            logger = logger.with_level(log::LevelFilter::Debug);
+        if !self.debug {
+            logger = logger.with_level(log::LevelFilter::Info);
         }
         logger.init().unwrap();
 
