@@ -78,7 +78,7 @@ impl Cli {
         logger.init().unwrap();
 
         let mut threads = 1;
-        let cores = (0..)
+        let mut cores = (0..)
             .map(|i| {
                 let cpu_path = path::PathBuf::from(CPU_DEVICES).join(format!("cpu{}", i));
 
@@ -105,7 +105,14 @@ impl Cli {
                 Ok(Some((
                     i,
                     core_id,
-                    (physical_package_id, index_3, index_2, index_1, index_0, core_id),
+                    (
+                        physical_package_id,
+                        index_3,
+                        index_2,
+                        index_1,
+                        index_0,
+                        core_id,
+                    ),
                 )))
             })
             // TODO: replace by map_while when it becomes available
@@ -135,17 +142,12 @@ impl Cli {
                     }
                     Ok(acc)
                 })
-            })?;
-
-        log::debug!("Threads detected: {}", threads);
-
-        let mut it = cores.values();
-        let mut cores = (0..self.cores).flat_map(|_| it.next()).collect::<Vec<_>>();
-        let other_cores = it.collect::<Vec<_>>();
-
-        if other_cores.is_empty() {
-            bail!("Not enough core left to start the VM");
-        }
+            })?
+            // TODO: replace by into_values when it becomes available
+            //       https://doc.rust-lang.org/std/collections/struct.HashMap.html#method.into_values
+            .values()
+            .cloned()
+            .collect::<Vec<_>>();
 
         cores.sort_unstable_by(|a, b| {
             a.sort_key
@@ -153,6 +155,16 @@ impl Cli {
                 .unwrap_or(a.cpu_id.cmp(&b.cpu_id))
                 .reverse()
         });
+
+        log::debug!("Threads detected: {}", threads);
+
+        let mut it = cores.into_iter();
+        let cores = (0..self.cores).flat_map(|_| it.next()).collect::<Vec<_>>();
+        let other_cores = it.collect::<Vec<_>>();
+
+        if other_cores.is_empty() {
+            bail!("Not enough core left to start the VM");
+        }
 
         log::debug!("Cores for the virtual CPUs: {:?}", &cores);
         log::debug!("Cores for the other tasks: {:?}", &other_cores);
@@ -162,7 +174,7 @@ impl Cli {
                 cpu_id,
                 hyperthread_id: Some(hyperthread_id),
                 ..
-            } => *hyperthread_id == cpu_id + 1,
+            } => hyperthread_id == cpu_id + 1,
             _ => false,
         };
 
