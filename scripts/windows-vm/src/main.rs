@@ -18,12 +18,12 @@ use structopt::StructOpt;
 
 const NR_HUGEPAGES: &str = "/proc/sys/vm/nr_hugepages";
 const HUGEPAGE_SIZE: u64 = 512;
-const QEMU_COMMAND: &str = "qemu-system-x86_64";
+const QEMU_COMMAND: &str = "/usr/bin/qemu-system-x86_64";
 #[rustfmt::skip]
 const QEMU_ARGS: &[&str] = &[
     "-enable-kvm",
     "-overcommit", "mem-lock=off",
-    "-machine", "pc-i440fx-2.9,accel=kvm,usb=off,vmport=off,dump-guest-core=off",
+    "-machine", "q35,accel=kvm,usb=off,vmport=off,dump-guest-core=off",
     "-msg", "timestamp=on",
     //"-cpu", "host,kvm=off,hv_vendor_id=null,hv-time,hv-relaxed,hv-vapic,hv-spinlocks=0x1fff,+topoext",
     //"-cpu", "host,kvm=off,hv_vendor_id=null",
