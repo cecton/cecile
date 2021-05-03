@@ -20,6 +20,6 @@ lspconfig.rust_analyzer.setup{
   }
 }
 
-vim.lsp.callbacks["textDocument/publishDiagnostics"] = function() end
+vim.lsp.handlers["textDocument/publishDiagnostics"] = function() end
 
 require'lspfuzzy'.setup{}
