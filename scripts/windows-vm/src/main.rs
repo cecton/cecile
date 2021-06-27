@@ -36,8 +36,10 @@ const QEMU_ARGS: &[&str] = &[
     // USB card
     "-device", "vfio-pci,host=05:00.0",
     //"-device", "vfio-pci,host=0f:00.3",
-    "-drive", "file=/dev/nvme0n1,format=raw,discard=unmap",
-    "-drive", "file=/dev/nvme1n1,format=raw,discard=unmap",
+    "-drive", "file=/dev/nvme0n1,format=raw,discard=unmap,id=NVME0",
+    //"-device", "nvme,drive=NVME0,serial=nvme-0",
+    "-drive", "file=/dev/nvme1n1,format=raw,discard=unmap,if=none,id=NVME1",
+    "-device", "nvme,drive=NVME1,serial=nvme-1",
     "-drive", "file=/dev/sda,format=raw,discard=unmap",
     "-net", "nic,model=e1000,macaddr=52:54:00:12:34:56", "-net", "bridge,br=br0",
     "-vga", "none", "-display", "none",
@@ -50,8 +52,10 @@ const QEMU_ARGS: &[&str] = &[
     "-usb", "-device", "usb-host,vendorid=0x046d,productid=0xc21d,id=f310",        // Logitech gamepad
     "-usb", "-device", "usb-host,vendorid=0x0433,productid=0x0004,id=fps1",        // FPS keyboard (old)
     "-usb", "-device", "usb-host,vendorid=0x0c45,productid=0x760a,id=fps2",        // FPS keyboard
-    "-usb", "-device", "usb-host,vendorid=0x0e8f,productid=0x3010,id=sat",        // Saturn gamepads
+    "-usb", "-device", "usb-host,vendorid=0x0e8f,productid=0x3010,id=sat",         // Saturn gamepads
+    //"-usb", "-device", "usb-host,vendorid=0x2f24,productid=0x00ae,id=f500_blue",   // F500 blue
     //"-usb", "-device", "usb-host,vendorid=0x0483,productid=0xcdab",    // U2F
+    "-serial", "pty",
 ];
 const MONITOR_SOCKET: &str = "/tmp/win.monitor";
 const CPU_DEVICES: &str = "/sys/bus/cpu/devices/";
