@@ -21,11 +21,11 @@ if status --is-interactive
 	else
 		alias ls 'ls --color=auto -h'
 	end
-	if which exa >/dev/null ^/dev/null
+	if which exa &>/dev/null
 		alias ls 'exa'
 		alias tree 'exa -T'
 	end
-	if which bat >/dev/null ^/dev/null
+	if which bat &>/dev/null
 		alias cat 'bat'
 	end
 	alias ll 'ls -l'
@@ -43,7 +43,7 @@ if status --is-interactive
 
 	# programs
 	alias g git
-	if which cargo-git >/dev/null ^/dev/null
+	if which cargo-git &>/dev/null
 		alias cg "cargo git"
 	end
 	alias p pijul
@@ -81,7 +81,7 @@ if status --is-interactive
 		while test $PWD != "/"
 			if test -e ".git"
 				echo
-				if test -e Cargo.lock && which cargo-git >/dev/null ^/dev/null
+				if test -e Cargo.lock && which cargo-git &>/dev/null
 					cargo git add -p
 				else
 					git add -p
@@ -104,7 +104,7 @@ if status --is-interactive
 		set old_pwd $PWD
 		while test $PWD != "/"
 			if test -e ".git"
-				if test -e Cargo.lock && which cargo-git >/dev/null ^/dev/null
+				if test -e Cargo.lock && which cargo-git &>/dev/null
 					cargo git diff --cached
 				else
 					git diff --cached
@@ -121,7 +121,7 @@ if status --is-interactive
 		set old_pwd $PWD
 		while test $PWD != "/"
 			if test -e ".git"
-				if test -e Cargo.lock && which cargo-git >/dev/null ^/dev/null
+				if test -e Cargo.lock && which cargo-git &>/dev/null
 					cargo git diff
 				else
 					git diff
@@ -150,7 +150,7 @@ if status --is-interactive
 		set old_pwd $PWD
 		while test $PWD != "/"
 			if test -e ".git"
-				set rev (git rev-parse --abbrev-ref HEAD ^/dev/null)
+				set rev (git rev-parse --abbrev-ref HEAD 2>/dev/null)
 				if test (basename $old_pwd) != $rev -a \( $PWD != $HOME -o $rev != main \)
 					echo " $rev"
 				end
@@ -176,7 +176,7 @@ if status --is-interactive
 	end
 
 	# prompt
-	if which git >/dev/null ^/dev/null
+	if which git &>/dev/null
 		function fish_prompt -d "Write out the prompt"
 			printf '[%s] [%s] %s%s%s%s%s > ' \
 				$status \
@@ -197,7 +197,7 @@ if status --is-interactive
 	end
 
 	# default is Neo ViM if available
-	if which nvim >/dev/null ^/dev/null
+	if which nvim &>/dev/null
 		alias vi nvim
 	else
 		# default is ViM if available
