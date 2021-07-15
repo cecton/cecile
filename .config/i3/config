@@ -85,13 +85,6 @@ bindsym $mod+Shift+8 move container to workspace 8
 bindsym $mod+Shift+9 move container to workspace 9
 bindsym $mod+Shift+0 move container to workspace 10
 
-# use horizontal scroll button to switch workspace
-bindsym --whole-window button6 workspace prev_on_output
-bindsym --whole-window button7 workspace next_on_output
-bindsym --whole-window button9 workspace next_on_output
-bindsym --whole-window button8 workspace prev_on_output
-bindsym --whole-window button11 workspace back_and_forth
-
 # reload the configuration file
 bindsym $mod+Shift+l reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
