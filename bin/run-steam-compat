@@ -1,0 +1,2 @@
+#!/bin/sh
+exec $HOME/.local/share/Steam/ubuntu12_32/reaper SteamLaunch AppId=3118202085 -- $HOME/.local/share/Steam/steamapps/common/SteamLinuxRuntime_soldier/_v2-entry-point --verb=waitforexitandrun -- $HOME/.local/share/Steam/steamapps/common/SteamLinuxRuntime/scout-on-soldier-entry-point-v2 -- "$@"
