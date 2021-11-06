@@ -1,25 +1,25 @@
 source ~/.mutt/mutt-colors-solarized/mutt-colors-solarized-dark-256.muttrc
 source ~/.mutt/credentials
 
-set folder='imaps://imap.gmail.com:993'
+set folder='imaps://imap.mailfence.com:993'
 set imap_user=$my_user
-set imap_pass=$my_pass
+set imap_pass=$my_pass_imap
 set spoolfile='+INBOX'
 mailboxes +INBOX
 set realname="Cecile Tonglet"
-set from="cecile.tonglet@tenforce.com"
+set from="cecile.tonglet@cecton.com"
 set use_from=yes
-set smtp_url=smtp://$my_user:$my_pass@smtp.gmail.com:587
+set smtp_url=smtps://$my_user:$my_pass_smtp@smtp.mailfence.com:465
 set ssl_force_tls=yes
 
-#set record='=Sent Mail'
+set record='=Sent'
 
 bind index G imap-fetch-mail
 macro compose \em "<enter-command>unset wait_key\n<pipe-entry>pandoc -s -f markdown -t html >/tmp/html\n<attach-file>/tmp/html\n<edit-type>^Utext/html; charset=us-ascii\n<enter-command>set wait_key\n"
 
 set sort=reverse-threads
-set signature='signature|'
 
 set mailcap_path=~/.mutt/mailcap
 auto_view text/html
 alternative_order text/html text/plain text/enriched
+set header_cache=~/.cache/mutt/header
