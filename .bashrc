@@ -22,7 +22,9 @@ alias je="echo 'Hey! Dvorak keyboard here!'; cd"
 # get the parent process name
 parent_name=`ps o comm -p $PPID | awk 'NR>1'`
 
-if [ "$PLATFORM" == Linux ] && [ "$parent_name" == login ]; then
+tty=`tty`
+
+if [ "$PLATFORM" == Linux ] && [ "$parent_name" == login ] && [ "$tty" == /dev/tty1 ]; then
 	# starting SSH agent
 	if [ -x "`which ssh-agent 2> /dev/null`" ]; then
 		eval `ssh-agent`
@@ -64,7 +66,7 @@ if [ "$PLATFORM" == Linux ] && [ "$parent_name" == login ]; then
 		if [ -e /usr/share/consolefonts/Uni2-Terminus22x11.psf.gz ]; then
 			setfont Uni2-TerminusBold22x11
 		else
-			setfont ter-232b
+			setfont ter-224b
 		fi
 	fi
 fi
