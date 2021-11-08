@@ -54,7 +54,7 @@ if status --is-interactive
 	alias fixup 'git commit --fixup'
 	alias t tig
 	alias d docker
-	alias dc docker-compose
+	alias dc 'docker compose'
 	alias dip "docker inspect -f '{{ .NetworkSettings.IPAddress }}'"
 	alias c cargo
 	alias nw 'emacs -nw'
