@@ -65,9 +65,9 @@ struct Cli {
     /// Memory (in GB)
     #[structopt(long, short = "m", default_value = "16")]
     memory: u64,
-    /// Cores
-    #[structopt(long, default_value = "9")]
-    cores: usize,
+    /// Cores (half by default)
+    #[structopt(long)]
+    cores: Option<usize>,
     /// Debug logs
     #[structopt(long, short = "d")]
     debug: bool,
@@ -160,18 +160,34 @@ impl Cli {
                 .reverse()
         });
 
+        for core in cores.iter() {
+            log::debug!(
+                "core={:02} cpu={:02} sort={:?}",
+                core.core_id,
+                core.cpu_id,
+                core.sort_key,
+            );
+        }
+
         log::debug!("Threads detected: {}", threads);
 
+        let num_cores = self.cores.unwrap_or_else(|| cores.len() / 2);
         let mut it = cores.into_iter();
-        let cores = (0..self.cores).flat_map(|_| it.next()).collect::<Vec<_>>();
+        let cores = (0..num_cores).flat_map(|_| it.next()).collect::<Vec<_>>();
         let other_cores = it.collect::<Vec<_>>();
 
         if other_cores.is_empty() {
             bail!("Not enough core left to start the VM");
         }
 
-        log::debug!("Cores for the virtual CPUs: {:?}", &cores);
-        log::debug!("Cores for the other tasks: {:?}", &other_cores);
+        log::debug!(
+            "Cores for the virtual CPUs: {:?}",
+            cores.iter().map(|x| x.core_id).collect::<Vec<_>>()
+        );
+        log::debug!(
+            "Cores for the other tasks: {:?}",
+            other_cores.iter().map(|x| x.core_id).collect::<Vec<_>>()
+        );
 
         let interleave_cpus = match cores[0] {
             Core {
@@ -220,6 +236,7 @@ impl Cli {
                         let _ = stream.set_write_timeout(Some(time::Duration::from_secs(3)));
                         let _ = writeln!(stream, "system_powerdown\n");
                         let _ = io::copy(&mut stream, &mut io::stdout());
+                        thread::sleep(time::Duration::from_secs(1));
                     }
                 })
                 .context("failed to set CTRL-C handler")?;
@@ -294,20 +311,21 @@ impl Cli {
                     .chain(other_cores.iter().flat_map(|core| core.hyperthread_id))
                     .collect::<Vec<_>>();
 
-                for (cpu_id, (task_id, task_type)) in other_cpus.iter().cycle().zip(other_tasks) {
+                let mut other_cpus_set = unsafe { mem::zeroed::<cpu_set_t>() };
+                for cpu_id in other_cpus.iter() {
+                    unsafe { CPU_SET(*cpu_id, &mut other_cpus_set) };
+                }
+
+                for (task_id, task_type) in other_tasks {
                     log::debug!(
-                        "Assigning task {task_id} ({task_type:?}) to CPU {cpu_id}",
-                        cpu_id = cpu_id,
+                        "Assigning task {task_id} ({task_type:?}) to CPUs: {other_cpus:?}",
                         task_id = task_id,
                         task_type = task_type,
+                        other_cpus = other_cpus,
                     );
 
-                    let mut set = unsafe { mem::zeroed::<cpu_set_t>() };
-
-                    unsafe { CPU_SET(*cpu_id, &mut set) };
-
                     unsafe {
-                        sched_setaffinity(task_id, mem::size_of::<cpu_set_t>(), &set);
+                        sched_setaffinity(task_id, mem::size_of::<cpu_set_t>(), &other_cpus_set);
                     }
                 }
 
@@ -332,8 +350,8 @@ impl Cli {
                     .arg("-smp")
                     .arg(format!(
                         "{},sockets=1,cores={},threads={}",
-                        self.cores * threads,
-                        self.cores,
+                        num_cores * threads,
+                        num_cores,
                         threads,
                     ))
                     .args(QEMU_ARGS)
