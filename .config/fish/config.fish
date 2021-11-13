@@ -26,7 +26,7 @@ if status --is-interactive
 		alias tree 'exa -T'
 	end
 	if which bat &>/dev/null
-		alias cat 'bat'
+		alias cat 'bat --tabs=0'
 	end
 	alias ll 'ls -l'
 	alias rm 'rm -iv'
