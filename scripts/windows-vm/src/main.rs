@@ -1,4 +1,4 @@
-use anyhow::{bail, Context, Result};
+use anyhow::{bail, ensure, Context, Result};
 use libc::{cpu_set_t, sched_setaffinity, CPU_SET};
 use once_cell::sync::Lazy;
 use regex::Regex;
@@ -23,13 +23,13 @@ const QEMU_COMMAND: &str = "/usr/bin/qemu-system-x86_64";
 const QEMU_ARGS: &[&str] = &[
     "-enable-kvm",
     "-overcommit", "mem-lock=off",
-    "-machine", "q35,accel=kvm,usb=off,vmport=off,dump-guest-core=off",
+    "-machine", "q35,accel=kvm,usb=off,vmport=off,dump-guest-core=off,mem-merge=off",
     "-msg", "timestamp=on",
+    //"-cpu", "host,kvm=off,topoext=on,host-cache-info=on,hv_relaxed,hv_vapic,hv_time,hv_vpindex,hv_synic,hv_frequencies,hv_vendor_id=1234567890ab,hv_spinlocks=0x1fff",
     //"-cpu", "host,kvm=off,hv_vendor_id=null,hv-time,hv-relaxed,hv-vapic,hv-spinlocks=0x1fff,+topoext",
     //"-cpu", "host,kvm=off,hv_vendor_id=null",
-    "-cpu", "host,+topoext",
-    //"-smp", "1,sockets=1,cores=1,threads=1",
-    "-mem-path", "/dev/hugepages",
+    //"-cpu", "host,+topoext,host-cache-info=on",
+    "-mem-prealloc", "-mem-path", "/dev/hugepages",
     "-rtc", "base=utc,clock=host",
     "-device", "vfio-pci,host=0a:00.0,multifunction=on,x-vga=on",
     "-device", "vfio-pci,host=0a:00.1",
@@ -66,11 +66,14 @@ struct Cli {
     #[structopt(long, short = "m", default_value = "16")]
     memory: u64,
     /// Cores (half by default)
-    #[structopt(long)]
+    #[structopt(long, short = "c")]
     cores: Option<usize>,
     /// Debug logs
     #[structopt(long, short = "d")]
     debug: bool,
+    /// Disable hyperthread.
+    #[structopt(long)]
+    no_hyperthread: bool,
 }
 
 impl Cli {
@@ -101,23 +104,9 @@ impl Cli {
 
                 let core_id = read_info!("topology/core_id");
                 let physical_package_id = read_info!("topology/physical_package_id");
-                let index_0 = read_info!("cache/index0/id");
-                let index_1 = read_info!("cache/index1/id");
-                let index_2 = read_info!("cache/index2/id");
                 let index_3 = read_info!("cache/index3/id");
 
-                Ok(Some((
-                    i,
-                    core_id,
-                    (
-                        physical_package_id,
-                        index_3,
-                        index_2,
-                        index_1,
-                        index_0,
-                        core_id,
-                    ),
-                )))
+                Ok(Some((i, core_id, (physical_package_id, index_3))))
             })
             // TODO: replace by map_while when it becomes available
             //       https://doc.rust-lang.org/std/iter/trait.Iterator.html#method.map_while
@@ -125,21 +114,23 @@ impl Cli {
             .take_while(|x| x.is_some())
             .flatten()
             .try_fold(HashMap::<u32, Core<_>>::new(), |mut acc, x| {
-                x.and_then(|(i, core_id, sort_key)| {
+                x.and_then(|(i, core_id, topology_key)| {
                     match acc.entry(core_id) {
                         Entry::Occupied(mut entry) => {
-                            let core = entry.get_mut();
-                            if core.hyperthread_id.is_some() {
-                                bail!("more than 2 CPUs detected for a single core");
+                            if !self.no_hyperthread {
+                                let core = entry.get_mut();
+                                if core.hyperthread_id.is_some() {
+                                    bail!("more than 2 CPUs detected for a single core");
+                                }
+                                core.hyperthread_id = Some(i);
+                                threads = 2;
                             }
-                            core.hyperthread_id = Some(i);
-                            threads = 2;
                         }
                         Entry::Vacant(entry) => {
                             entry.insert(Core {
                                 core_id,
                                 cpu_id: i,
-                                sort_key,
+                                topology_key,
                                 hyperthread_id: None,
                             });
                         }
@@ -154,18 +145,18 @@ impl Cli {
             .collect::<Vec<_>>();
 
         cores.sort_unstable_by(|a, b| {
-            a.sort_key
-                .partial_cmp(&b.sort_key)
-                .unwrap_or(a.cpu_id.cmp(&b.cpu_id))
-                .reverse()
+            b.topology_key
+                .cmp(&a.topology_key)
+                .then(a.cpu_id.cmp(&b.cpu_id))
         });
 
         for core in cores.iter() {
             log::debug!(
-                "core={:02} cpu={:02} sort={:?}",
+                "core={:02} cpu={:02} hyperthread={:02?} sort={:?}",
                 core.core_id,
                 core.cpu_id,
-                core.sort_key,
+                core.hyperthread_id,
+                core.topology_key,
             );
         }
 
@@ -175,9 +166,36 @@ impl Cli {
         let mut it = cores.into_iter();
         let cores = (0..num_cores).flat_map(|_| it.next()).collect::<Vec<_>>();
         let other_cores = it.collect::<Vec<_>>();
+        let mut numa_nodes = cores
+            .iter()
+            .enumerate()
+            .fold(HashMap::<_, Vec<_>>::new(), |mut acc, (i, core)| {
+                let vec = acc.entry(core.topology_key).or_default();
+                vec.push(i);
+                if core.hyperthread_id.is_some() {
+                    vec.push(i + cores.len());
+                }
+                acc
+            })
+            .into_iter()
+            .map(|(_, vcpus)| vcpus)
+            .collect::<Vec<_>>();
+        numa_nodes.sort_unstable_by(|a, b| a.cmp(&b));
+
+        ensure!(
+            self.memory % numa_nodes.len() as u64 == 0,
+            "memory size must be a multiple of {}",
+            numa_nodes.len()
+        );
+
+        let memory_per_numa = self.memory / numa_nodes.len() as u64;
 
         if other_cores.is_empty() {
             bail!("Not enough core left to start the VM");
+        }
+
+        for vcpus in numa_nodes.iter() {
+            log::debug!("NUMA node: memory={}G vcpus={:?}", memory_per_numa, vcpus);
         }
 
         log::debug!(
@@ -341,7 +359,9 @@ impl Cli {
             }
             Ok(nix::unistd::ForkResult::Child) => {
                 nix::unistd::setsid().context("could not create new session")?;
-                Err(process::Command::new(QEMU_COMMAND)
+
+                let mut command = process::Command::new(QEMU_COMMAND);
+                command
                     .args(&["-name", "windows,debug-threads=on"])
                     .arg("-monitor")
                     .arg(format!("unix:{},server,nowait", MONITOR_SOCKET))
@@ -353,10 +373,23 @@ impl Cli {
                         num_cores * threads,
                         num_cores,
                         threads,
-                    ))
-                    .args(QEMU_ARGS)
-                    .exec())
-                .context("failed to run qemu")
+                    ));
+                for (i, vcpus) in numa_nodes.iter().enumerate() {
+                    command.arg("-object");
+                    command.arg(format!(
+                        "memory-backend-ram,size={}G,id=m{}",
+                        memory_per_numa, i
+                    ));
+                    command.arg("-numa");
+                    let mut arg = format!("node,memdev=m{}", i);
+                    for vcpu_id in vcpus {
+                        arg.push_str(",cpus=");
+                        arg.push_str(&vcpu_id.to_string());
+                    }
+                    command.arg(arg);
+                }
+
+                Err(command.args(QEMU_ARGS).exec()).context("failed to run qemu")
             }
             Err(err) => Err(err).context("failed to fork"),
         }
@@ -383,7 +416,7 @@ fn nr_hugepages() -> Result<u64> {
 struct Core<S: PartialOrd> {
     cpu_id: usize,
     core_id: u32,
-    sort_key: S,
+    topology_key: S,
     hyperthread_id: Option<usize>,
 }
 
