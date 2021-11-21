@@ -29,6 +29,8 @@ const QEMU_ARGS: &[&str] = &[
     //"-cpu", "host,kvm=off,hv_vendor_id=null,hv-time,hv-relaxed,hv-vapic,hv-spinlocks=0x1fff,+topoext",
     //"-cpu", "host,kvm=off,hv_vendor_id=null",
     //"-cpu", "host,+topoext,host-cache-info=on",
+    //"-cpu", "qemu64,+ssse3,+sse4.1,+sse4.2,+x2apic,+topoext", // fastest
+    "-cpu", "qemu64,+ssse3,+sse4.1,+sse4.2,+x2apic,+topoext,+kvm,+mmxext,+sse2,+aes,+avx,+avx2,+fma,+sha-ni", // fastest with most features
     "-mem-prealloc", "-mem-path", "/dev/hugepages",
     "-rtc", "base=utc,clock=host",
     "-device", "vfio-pci,host=0a:00.0,multifunction=on,x-vga=on",
@@ -169,11 +171,10 @@ impl Cli {
         let mut numa_nodes = cores
             .iter()
             .enumerate()
-            .fold(HashMap::<_, Vec<_>>::new(), |mut acc, (i, core)| {
+            .fold(HashMap::<_, Vec<_>>::new(), |mut acc, (cpu_id, core)| {
                 let vec = acc.entry(core.topology_key).or_default();
-                vec.push(i);
-                if core.hyperthread_id.is_some() {
-                    vec.push(i + cores.len());
+                for thread_id in 0..threads {
+                    vec.push((cpu_id, thread_id));
                 }
                 acc
             })
@@ -366,27 +367,33 @@ impl Cli {
                     .arg("-monitor")
                     .arg(format!("unix:{},server,nowait", MONITOR_SOCKET))
                     .arg("-m")
-                    .arg(format!("{}G", self.memory))
-                    .arg("-smp")
-                    .arg(format!(
-                        "{},sockets=1,cores={},threads={}",
-                        num_cores * threads,
-                        num_cores,
-                        threads,
-                    ));
-                for (i, vcpus) in numa_nodes.iter().enumerate() {
+                    .arg(format!("{}G", self.memory));
+
+                for (i, _vcpus) in numa_nodes.iter().enumerate() {
                     command.arg("-object");
                     command.arg(format!(
                         "memory-backend-ram,size={}G,id=m{}",
                         memory_per_numa, i
                     ));
                     command.arg("-numa");
-                    let mut arg = format!("node,memdev=m{}", i);
-                    for vcpu_id in vcpus {
-                        arg.push_str(",cpus=");
-                        arg.push_str(&vcpu_id.to_string());
+                    command.arg(&format!("node,nodeid={},memdev=m{}", i, i));
+                }
+
+                command.arg("-smp").arg(format!(
+                    "{},sockets=1,cores={},threads={}",
+                    num_cores * threads,
+                    num_cores,
+                    threads,
+                ));
+
+                for (i, vcpus) in numa_nodes.iter().enumerate() {
+                    for (core_id, thread_id) in vcpus {
+                        command.arg("-numa");
+                        command.arg(&format!(
+                            "cpu,node-id={},socket-id=0,core-id={},thread-id={}",
+                            i, core_id, thread_id
+                        ));
                     }
-                    command.arg(arg);
                 }
 
                 Err(command.args(QEMU_ARGS).exec()).context("failed to run qemu")
