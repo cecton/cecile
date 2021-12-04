@@ -1,0 +1,29 @@
+[package]
+name = "my-leftwm"
+version = "0.1.0"
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[[bin]]
+name = "leftwm-cecile"
+path = "src/cecile.rs"
+
+[[bin]]
+name = "leftwm-steam"
+path = "src/steam.rs"
+
+[dependencies]
+anyhow = "1"
+leftwm-core = { path = "/home/cecile/repos/leftwm/leftwm-core" }
+
+# pulled from leftwm's bin
+tokio = { version = "1.2.0", features = ["fs", "io-util", "macros", "net", "rt-multi-thread", "sync", "time"] }
+slog = { version = "2.5.2" }
+chrono = { version = "0.4.19" }
+slog-scope = { version = "4.3.0" }
+slog-stdlog = { version = "4.0.0" }
+slog-async = { version = "2.4.0" }
+slog-envlogger = { version = "2.2.0" }
+slog-term = { version = "2.5.0" }
+log = "0.4.8"
