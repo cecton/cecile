@@ -121,7 +121,7 @@ impl leftwm_core::Config for Config {
         ];
 
         // add "goto workspace"
-        for i in 1..WORKSPACES_NUM {
+        for i in 1..=WORKSPACES_NUM {
             commands.push(Keybind {
                 command: Command::GotoTag(i),
                 modifier: vec![MOD_KEY.to_owned()],
@@ -130,7 +130,7 @@ impl leftwm_core::Config for Config {
         }
 
         // and "move to workspace"
-        for i in 1..WORKSPACES_NUM {
+        for i in 1..=WORKSPACES_NUM {
             commands.push(Keybind {
                 command: Command::SendWindowToTag(i),
                 modifier: vec![MOD_KEY.to_owned(), "Shift".to_owned()],
@@ -151,7 +151,7 @@ impl leftwm_core::Config for Config {
     }
 
     fn create_list_of_tag_labels(&self) -> Vec<String> {
-        (1..WORKSPACES_NUM).map(|i| i.to_string()).collect()
+        (1..=WORKSPACES_NUM).map(|i| i.to_string()).collect()
     }
 
     fn workspaces(&self) -> Option<Vec<Workspace>> {
