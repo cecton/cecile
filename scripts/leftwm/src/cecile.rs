@@ -88,6 +88,16 @@ impl leftwm_core::Config for Config {
                 key: "j".to_owned(),
             },
             // TODO implement MoveWindowLeft & MoveWindowRight?
+            Keybind {
+                command: Command::MoveWindowUp,
+                modifier: vec![MOD_KEY.to_owned(), "Shift".to_owned()],
+                key: "Left".to_owned(),
+            },
+            Keybind {
+                command: Command::MoveWindowDown,
+                modifier: vec![MOD_KEY.to_owned(), "Shift".to_owned()],
+                key: "Right".to_owned(),
+            },
 
             // Window focus change
             Keybind {
@@ -111,6 +121,16 @@ impl leftwm_core::Config for Config {
                 key: "j".to_owned(),
             },
             // TODO implement FocusWindowLeft & FocusWindowRight?
+            Keybind {
+                command: Command::FocusWindowUp,
+                modifier: vec![MOD_KEY.to_owned()],
+                key: "Left".to_owned(),
+            },
+            Keybind {
+                command: Command::FocusWindowDown,
+                modifier: vec![MOD_KEY.to_owned()],
+                key: "Right".to_owned(),
+            },
 
             // Scratch pads
             Keybind {
