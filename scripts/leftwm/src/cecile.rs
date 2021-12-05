@@ -65,6 +65,11 @@ impl leftwm_core::Config for Config {
                 modifier: vec![MOD_KEY.to_owned()],
                 key: "f".to_owned(),
             },
+            Keybind {
+                command: Command::ToggleFloating,
+                modifier: vec![MOD_KEY.to_owned(), "Shift".to_owned()],
+                key: "space".to_owned(),
+            },
 
             // Move windows
             Keybind {
