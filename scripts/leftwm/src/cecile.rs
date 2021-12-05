@@ -89,7 +89,7 @@ impl leftwm_core::Config for Config {
             },
             // TODO implement MoveWindowLeft & MoveWindowRight?
             Keybind {
-                command: Command::MoveWindowUp,
+                command: Command::MoveWindowTop,
                 modifier: vec![MOD_KEY.to_owned(), "Shift".to_owned()],
                 key: "Left".to_owned(),
             },
@@ -198,8 +198,8 @@ impl leftwm_core::Config for Config {
                 x: Some(Size::Pixel(0)),
                 y: Some(Size::Pixel(0)),
                 // NOTE: not per-cent! it's a ratio (per 1)
-                width: Some(Size::Percentage(1.0)),
-                height: Some(Size::Percentage(0.5)),
+                width: Some(Size::Ratio(1.0)),
+                height: Some(Size::Ratio(0.5)),
             }
         ]
     }
