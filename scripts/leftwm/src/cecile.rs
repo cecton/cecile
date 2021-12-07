@@ -192,7 +192,7 @@ impl leftwm_core::Config for Config {
     }
 
     fn disable_current_tag_swap(&self) -> bool {
-        false
+        true
     }
 
     fn create_list_of_scratchpads(&self) -> Vec<ScratchPad> {
