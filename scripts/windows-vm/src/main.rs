@@ -20,17 +20,24 @@ const NR_HUGEPAGES: &str = "/proc/sys/vm/nr_hugepages";
 const HUGEPAGE_SIZE: u64 = 512;
 const QEMU_COMMAND: &str = "/usr/bin/qemu-system-x86_64";
 #[rustfmt::skip]
+const QEMU_ARGS_CPU_HOST: &[&str] = &[
+    //"-cpu", "host,kvm=off,topoext=on,host-cache-info=on,hv_relaxed,hv_vapic,hv_time,hv_vpindex,hv_synic,hv_frequencies,hv_vendor_id=1234567890ab,hv_spinlocks=0x1fff",
+    //"-cpu", "host,kvm=off,hv_vendor_id=null,hv-time,hv-relaxed,hv-vapic,hv-spinlocks=0x1fff,+topoext",
+    //"-cpu", "host,kvm=off,hv_vendor_id=null",
+    //"-cpu", "host,+topoext,host-cache-info=on",
+    "-cpu", "host,+topoext,host-cache-info=on",
+];
+#[rustfmt::skip]
+const QEMU_ARGS_CPU_QEMU: &[&str] = &[
+    //"-cpu", "qemu64,+ssse3,+sse4.1,+sse4.2,+x2apic,+topoext", // fastest
+    "-cpu", "qemu64,+ssse3,+sse4.1,sse4a,+sse4.2,+x2apic,+topoext,+kvm,+mmxext,+sse2,+aes,+avx,+avx2,+fma,+sha-ni", // fastest with most features
+];
+#[rustfmt::skip]
 const QEMU_ARGS: &[&str] = &[
     "-enable-kvm",
     "-overcommit", "mem-lock=off",
     "-machine", "q35,accel=kvm,usb=off,vmport=off,dump-guest-core=off,mem-merge=off",
     "-msg", "timestamp=on",
-    //"-cpu", "host,kvm=off,topoext=on,host-cache-info=on,hv_relaxed,hv_vapic,hv_time,hv_vpindex,hv_synic,hv_frequencies,hv_vendor_id=1234567890ab,hv_spinlocks=0x1fff",
-    //"-cpu", "host,kvm=off,hv_vendor_id=null,hv-time,hv-relaxed,hv-vapic,hv-spinlocks=0x1fff,+topoext",
-    //"-cpu", "host,kvm=off,hv_vendor_id=null",
-    //"-cpu", "host,+topoext,host-cache-info=on",
-    //"-cpu", "qemu64,+ssse3,+sse4.1,+sse4.2,+x2apic,+topoext", // fastest
-    "-cpu", "qemu64,+ssse3,+sse4.1,+sse4.2,+x2apic,+topoext,+kvm,+mmxext,+sse2,+aes,+avx,+avx2,+fma,+sha-ni", // fastest with most features
     "-mem-prealloc", "-mem-path", "/dev/hugepages",
     "-rtc", "base=utc,clock=host",
     "-device", "vfio-pci,host=0a:00.0,multifunction=on,x-vga=on",
@@ -76,6 +83,9 @@ struct Cli {
     /// Disable hyperthread.
     #[structopt(long)]
     no_hyperthread: bool,
+    /// Run with -cpu host
+    #[structopt(long = "host")]
+    cpu_host: bool,
 }
 
 impl Cli {
@@ -369,14 +379,29 @@ impl Cli {
                     .arg("-m")
                     .arg(format!("{}G", self.memory));
 
-                for (i, _vcpus) in numa_nodes.iter().enumerate() {
-                    command.arg("-object");
-                    command.arg(format!(
-                        "memory-backend-ram,size={}G,id=m{}",
-                        memory_per_numa, i
-                    ));
-                    command.arg("-numa");
-                    command.arg(&format!("node,nodeid={},memdev=m{}", i, i));
+                if self.cpu_host {
+                    command.args(QEMU_ARGS_CPU_HOST);
+                } else {
+                    command.args(QEMU_ARGS_CPU_QEMU);
+                    for (i, _vcpus) in numa_nodes.iter().enumerate() {
+                        command.arg("-object");
+                        command.arg(format!(
+                            "memory-backend-ram,size={}G,id=m{}",
+                            memory_per_numa, i
+                        ));
+                        command.arg("-numa");
+                        command.arg(&format!("node,nodeid={},memdev=m{}", i, i));
+                    }
+
+                    for (i, vcpus) in numa_nodes.iter().enumerate() {
+                        for (core_id, thread_id) in vcpus {
+                            command.arg("-numa");
+                            command.arg(&format!(
+                                "cpu,node-id={},socket-id=0,core-id={},thread-id={}",
+                                i, core_id, thread_id
+                            ));
+                        }
+                    }
                 }
 
                 command.arg("-smp").arg(format!(
@@ -385,16 +410,6 @@ impl Cli {
                     num_cores,
                     threads,
                 ));
-
-                for (i, vcpus) in numa_nodes.iter().enumerate() {
-                    for (core_id, thread_id) in vcpus {
-                        command.arg("-numa");
-                        command.arg(&format!(
-                            "cpu,node-id={},socket-id=0,core-id={},thread-id={}",
-                            i, core_id, thread_id
-                        ));
-                    }
-                }
 
                 Err(command.args(QEMU_ARGS).exec()).context("failed to run qemu")
             }
