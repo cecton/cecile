@@ -1,0 +1,446 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="210mm"
+   height="297mm"
+   viewBox="0 0 210 297"
+   version="1.1"
+   id="svg5"
+   inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20, custom)"
+   sodipodi:docname="invoice_template.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:document-units="mm"
+     showgrid="false"
+     inkscape:zoom="1.6017536"
+     inkscape:cx="347.74387"
+     inkscape:cy="748.24243"
+     inkscape:window-width="1720"
+     inkscape:window-height="1440"
+     inkscape:window-x="1720"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs2">
+    <rect
+       x="164.49496"
+       y="225.74838"
+       width="526.79913"
+       height="47.041184"
+       id="rect2527" />
+    <rect
+       x="164.49496"
+       y="225.74838"
+       width="63.54641"
+       height="24.63696"
+       id="rect31914" />
+    <rect
+       x="164.49496"
+       y="225.74838"
+       width="305.11987"
+       height="27.079847"
+       id="rect32874" />
+    <rect
+       x="164.49496"
+       y="225.74838"
+       width="179.65105"
+       height="31.583303"
+       id="rect34608" />
+    <rect
+       x="164.49496"
+       y="225.74838"
+       width="526.79913"
+       height="47.041184"
+       id="rect58352" />
+    <rect
+       x="164.49496"
+       y="225.74838"
+       width="309.60249"
+       height="106.58522"
+       id="rect59470" />
+    <rect
+       x="164.49496"
+       y="225.74838"
+       width="179.65105"
+       height="31.583303"
+       id="rect61310" />
+    <rect
+       x="164.49496"
+       y="225.74838"
+       width="179.65105"
+       height="31.583303"
+       id="rect76739" />
+    <rect
+       x="164.49496"
+       y="225.74838"
+       width="179.65105"
+       height="31.583303"
+       id="rect76751" />
+    <rect
+       x="164.49496"
+       y="225.74838"
+       width="179.65105"
+       height="31.583303"
+       id="rect76757" />
+    <rect
+       x="164.49496"
+       y="225.74838"
+       width="179.65105"
+       height="31.583303"
+       id="rect76769" />
+    <rect
+       x="164.49496"
+       y="225.74838"
+       width="179.65105"
+       height="31.583303"
+       id="rect78885" />
+    <rect
+       x="164.49496"
+       y="225.74838"
+       width="179.65105"
+       height="31.583303"
+       id="rect81083" />
+    <rect
+       x="164.49496"
+       y="225.74838"
+       width="470.65751"
+       height="237.61379"
+       id="rect83077" />
+    <rect
+       x="164.49496"
+       y="225.74838"
+       width="379.38209"
+       height="23.761942"
+       id="rect92151" />
+    <rect
+       x="164.49496"
+       y="225.74838"
+       width="384.74555"
+       height="218.9456"
+       id="rect102713" />
+    <rect
+       x="164.49496"
+       y="225.74838"
+       width="350.00895"
+       height="130.04496"
+       id="rect119229" />
+  </defs>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.264583;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.264583, 0.529166;stroke-dashoffset:0;stroke-opacity:1"
+       d="M 40.693703,121.47878 H 165.18656"
+       id="path14448"
+       sodipodi:nodetypes="cc" />
+    <text
+       xml:space="preserve"
+       transform="matrix(0.26458333,0,0,0.26458333,-2.8434475,53.643409)"
+       id="text2525"
+       style="font-style:normal;font-weight:bold;font-size:18px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect2527);fill:#000000;fill-opacity:1;stroke:none"><tspan
+         x="164.49414"
+         y="242.1258"
+         id="tspan18181"><tspan
+           style="font-family:'Noto Serif';-inkscape-font-specification:'Noto Serif, Normal'"
+           id="tspan18179">Invoice #{invoice_year}-{invoice_id:02}</tspan></tspan></text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 40.693703,133.04602 H 165.18656"
+       id="path15849"
+       sodipodi:nodetypes="cc" />
+    <text
+       xml:space="preserve"
+       transform="matrix(0.26458333,0,0,0.26458333,-2.5085536,65.017824)"
+       id="text31912"
+       style="font-style:normal;font-weight:bold;font-size:13.3333px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect31914);fill:#000000;fill-opacity:1;stroke:none"><tspan
+         x="164.49414"
+         y="237.87969"
+         id="tspan18185"><tspan
+           style="font-family:'Noto Serif';-inkscape-font-specification:'Noto Serif, Normal'"
+           id="tspan18183">Pos.</tspan></tspan></text>
+    <text
+       xml:space="preserve"
+       transform="matrix(0.26458333,0,0,0.26458333,16.245051,65.017824)"
+       id="text32872"
+       style="font-style:normal;font-weight:bold;font-size:13.3333px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect32874);fill:#000000;fill-opacity:1;stroke:none"><tspan
+         x="164.49414"
+         y="237.87969"
+         id="tspan18189"><tspan
+           style="font-family:'Noto Serif';-inkscape-font-specification:'Noto Serif, Normal'"
+           id="tspan18187">Description</tspan></tspan></text>
+    <text
+       xml:space="preserve"
+       transform="matrix(0.26458333,0,0,0.26458333,74.209178,65.017824)"
+       id="text34606"
+       style="font-style:normal;font-weight:bold;font-size:13.3333px;line-height:1.25;font-family:sans-serif;text-align:end;letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect34608);fill:#000000;fill-opacity:1;stroke:none"
+       x="151.728"
+       y="0"><tspan
+         x="254.21337"
+         y="237.87969"
+         id="tspan18193"><tspan
+           style="font-family:'Noto Serif';-inkscape-font-specification:'Noto Serif, Normal'"
+           id="tspan18191">Prices in EUR</tspan></tspan></text>
+    <text
+       xml:space="preserve"
+       transform="matrix(0.26458333,0,0,0.26458333,-2.5085536,75.786119)"
+       id="text58350"
+       style="font-style:normal;font-weight:normal;font-size:13.3333px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect58352);fill:#000000;fill-opacity:1;stroke:none"><tspan
+         x="164.49414"
+         y="237.87969"
+         id="tspan18197"><tspan
+           style="font-family:'Noto Serif';-inkscape-font-specification:'Noto Serif, Normal'"
+           id="tspan18195">1</tspan></tspan></text>
+    <text
+       xml:space="preserve"
+       transform="matrix(0.26458333,0,0,0.26458333,16.245051,75.786127)"
+       id="text59468"
+       style="font-style:normal;font-weight:normal;font-size:13.3333px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;white-space:pre;fill:#000000;fill-opacity:1;stroke:none;shape-inside:url(#rect59470)"><tspan
+         x="164.49414"
+         y="237.87969"
+         id="tspan18201"><tspan
+           style="font-family:'Noto Serif';-inkscape-font-specification:'Noto Serif, Normal'"
+           id="tspan18199">Agreed daily consulting fee, {period}
+</tspan></tspan><tspan
+         x="164.49414"
+         y="254.8811"
+         id="tspan18205"><tspan
+           style="font-family:'Noto Serif';-inkscape-font-specification:'Noto Serif, Normal'"
+           id="tspan18203">{description}
+</tspan></tspan><tspan
+         x="164.49414"
+         y="271.88252"
+         id="tspan18209"><tspan
+           style="font-family:'Noto Serif';-inkscape-font-specification:'Noto Serif, Normal'"
+           id="tspan18207">{days} day(s) at {rate:.02} EUR</tspan></tspan></text>
+    <text
+       xml:space="preserve"
+       transform="matrix(0.26458333,0,0,0.26458333,74.209178,75.786119)"
+       id="text61308"
+       style="font-style:normal;font-weight:normal;font-size:13.3333px;line-height:1.25;font-family:sans-serif;text-align:end;letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect61310);fill:#000000;fill-opacity:1;stroke:none"
+       x="151.728"
+       y="0"><tspan
+         x="278.25333"
+         y="237.87969"
+         id="tspan18213"><tspan
+           style="font-family:'Noto Serif';-inkscape-font-specification:'Noto Serif, Normal'"
+           id="tspan18211">{price:.02}</tspan></tspan></text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 142.45469,171.20897 h 22.73187"
+       id="path76552"
+       sodipodi:nodetypes="cc" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 142.45469,177.93235 h 22.73187"
+       id="path76729"
+       sodipodi:nodetypes="cc" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 142.45469,184.7303 h 22.73187"
+       id="path76731"
+       sodipodi:nodetypes="cc" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 40.693703,165.40079 H 165.18656"
+       id="path76733"
+       sodipodi:nodetypes="cc" />
+    <text
+       xml:space="preserve"
+       transform="matrix(0.26458333,0,0,0.26458333,74.209178,106.74702)"
+       id="text76737"
+       style="font-style:normal;font-weight:normal;font-size:13.3333px;line-height:1.25;font-family:sans-serif;text-align:end;letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect76739);fill:#000000;fill-opacity:1;stroke:none"
+       x="151.728"
+       y="0"><tspan
+         x="278.25333"
+         y="237.87969"
+         id="tspan18217"><tspan
+           style="font-family:'Noto Serif';-inkscape-font-specification:'Noto Serif, Normal'"
+           id="tspan18215">{price:.02}</tspan></tspan></text>
+    <text
+       xml:space="preserve"
+       transform="matrix(0.26458333,0,0,0.26458333,74.209178,113.25286)"
+       id="text76749"
+       style="font-style:normal;font-weight:normal;font-size:13.3333px;line-height:1.25;font-family:sans-serif;text-align:end;letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect76751);fill:#000000;fill-opacity:1;stroke:none"
+       x="151.728"
+       y="0"><tspan
+         x="252.2134"
+         y="237.87969"
+         id="tspan18221"><tspan
+           style="font-family:'Noto Serif';-inkscape-font-specification:'Noto Serif, Normal'"
+           id="tspan18219">{price_vat:.02}</tspan></tspan></text>
+    <text
+       xml:space="preserve"
+       transform="matrix(0.26458333,0,0,0.26458333,74.209178,119.91762)"
+       id="text76755"
+       style="font-style:normal;font-weight:bold;font-size:13.3333px;line-height:1.25;font-family:sans-serif;text-align:end;letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect76757);fill:#000000;fill-opacity:1;stroke:none"
+       x="151.728"
+       y="0"><tspan
+         x="277.82661"
+         y="237.87969"
+         id="tspan18225"><tspan
+           style="font-family:'Noto Serif';-inkscape-font-specification:'Noto Serif, Normal'"
+           id="tspan18223">{total:.02}</tspan></tspan></text>
+    <text
+       xml:space="preserve"
+       transform="matrix(0.26458333,0,0,0.26458333,49.684464,106.74702)"
+       id="text76767"
+       style="font-style:normal;font-weight:normal;font-size:13.3333px;line-height:1.25;font-family:sans-serif;text-align:end;letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect76769);fill:#000000;fill-opacity:1;stroke:none"
+       x="151.728"
+       y="0"><tspan
+         x="287.70666"
+         y="237.87969"
+         id="tspan18229"><tspan
+           style="font-family:'Noto Serif';-inkscape-font-specification:'Noto Serif, Normal'"
+           id="tspan18227">Subtotal:</tspan></tspan></text>
+    <text
+       xml:space="preserve"
+       transform="matrix(0.26458333,0,0,0.26458333,49.684464,113.25286)"
+       id="text78883"
+       style="font-style:normal;font-weight:normal;font-size:13.3333px;line-height:1.25;font-family:sans-serif;text-align:end;letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect78885);fill:#000000;fill-opacity:1;stroke:none"
+       x="151.728"
+       y="0"><tspan
+         x="268.88003"
+         y="237.87969"
+         id="tspan18233"><tspan
+           style="font-family:'Noto Serif';-inkscape-font-specification:'Noto Serif, Normal'"
+           id="tspan18231">VAT {vat}%:</tspan></tspan></text>
+    <text
+       xml:space="preserve"
+       transform="matrix(0.26458333,0,0,0.26458333,49.684464,119.91762)"
+       id="text81081"
+       style="font-style:normal;font-weight:bold;font-size:13.3333px;line-height:1.25;font-family:sans-serif;text-align:end;letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect81083);fill:#000000;fill-opacity:1;stroke:none"
+       x="151.728"
+       y="0"><tspan
+         x="305.53322"
+         y="237.87969"
+         id="tspan18237"><tspan
+           style="font-family:'Noto Serif';-inkscape-font-specification:'Noto Serif, Normal'"
+           id="tspan18235">Total:</tspan></tspan></text>
+    <text
+       xml:space="preserve"
+       transform="matrix(0.26458333,0,0,0.26458333,-2.8434475,140.67233)"
+       id="text83075"
+       style="font-style:normal;font-weight:normal;font-size:13.3333px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect83077);fill:#000000;fill-opacity:1;stroke:none"><tspan
+         x="164.49414"
+         y="237.87969"
+         id="tspan18241"><tspan
+           style="font-family:'Noto Serif';-inkscape-font-specification:'Noto Serif, Normal'"
+           id="tspan18239">Please transfer the following amount within the next {grace_period_days} days:
+</tspan></tspan><tspan
+         x="164.49414"
+         y="254.8811"
+         id="tspan18245"><tspan
+           style="font-family:'Noto Serif';-inkscape-font-specification:'Noto Serif, Normal'"
+           id="tspan18243">
+</tspan></tspan><tspan
+         x="164.49414"
+         y="271.88252"
+         id="tspan18251"><tspan
+   style="font-weight:bold;font-family:'Noto Serif';-inkscape-font-specification:'Noto Serif, Normal'"
+   id="tspan18247">Account owner:</tspan> <tspan
+   style="font-family:'Noto Serif';-inkscape-font-specification:'Noto Serif, Normal'"
+   id="tspan18249">{company_name}
+</tspan></tspan><tspan
+         x="164.49414"
+         y="288.88393"
+         id="tspan18257"><tspan
+   style="font-weight:bold;font-family:'Noto Serif';-inkscape-font-specification:'Noto Serif, Normal'"
+   id="tspan18253">Bank:</tspan> <tspan
+   style="font-family:'Noto Serif';-inkscape-font-specification:'Noto Serif, Normal'"
+   id="tspan18255">{bank}
+</tspan></tspan><tspan
+         x="164.49414"
+         y="305.88533"
+         id="tspan18263"><tspan
+   style="font-weight:bold;font-family:'Noto Serif';-inkscape-font-specification:'Noto Serif, Normal'"
+   id="tspan18259">IBAN:</tspan> <tspan
+   style="font-family:'Noto Serif';-inkscape-font-specification:'Noto Serif, Normal'"
+   id="tspan18261">{iban}
+</tspan></tspan><tspan
+         x="164.49414"
+         y="322.88673"
+         id="tspan18269"><tspan
+   style="font-weight:bold;font-family:'Noto Serif';-inkscape-font-specification:'Noto Serif, Normal'"
+   id="tspan18265">BIC:</tspan> <tspan
+   style="font-family:'Noto Serif';-inkscape-font-specification:'Noto Serif, Normal'"
+   id="tspan18267">{bic}
+</tspan></tspan><tspan
+         x="164.49414"
+         y="339.88814"
+         id="tspan18273"><tspan
+           style="font-family:'Noto Serif';-inkscape-font-specification:'Noto Serif, Normal'"
+           id="tspan18271">
+</tspan></tspan><tspan
+         x="164.49414"
+         y="356.88954"
+         id="tspan18277"><tspan
+           style="font-family:'Noto Serif';-inkscape-font-specification:'Noto Serif, Normal'"
+           id="tspan18275">Sincerly yours,
+</tspan></tspan><tspan
+         x="164.49414"
+         y="373.89095"
+         id="tspan18281"><tspan
+           style="font-family:'Noto Serif';-inkscape-font-specification:'Noto Serif, Normal'"
+           id="tspan18279">
+</tspan></tspan><tspan
+         x="164.49414"
+         y="390.89235"
+         id="tspan18285"><tspan
+           style="font-family:'Noto Serif';-inkscape-font-specification:'Noto Serif, Normal'"
+           id="tspan18283">{company_name}
+</tspan></tspan><tspan
+         x="164.49414"
+         y="407.89375"
+         id="tspan18289"><tspan
+           style="font-family:'Noto Serif';-inkscape-font-specification:'Noto Serif, Normal'"
+           id="tspan18287">
+</tspan></tspan></text>
+    <text
+       xml:space="preserve"
+       transform="matrix(0.26458333,0,0,0.26458333,21.607244,42.010623)"
+       id="text92149"
+       style="font-style:normal;font-weight:normal;font-size:13.3333px;line-height:1.25;font-family:sans-serif;text-align:end;letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect92151);fill:#000000;fill-opacity:1;stroke:none"
+       x="151.728"
+       y="0"><tspan
+         x="277.11763"
+         y="237.87969"
+         id="tspan18293"><tspan
+           style="font-family:'Noto Serif';-inkscape-font-specification:'Noto Serif, Normal'"
+           id="tspan18291">{date_and_location}</tspan></tspan></text>
+    <text
+       xml:space="preserve"
+       transform="matrix(0.26458333,0,0,0.26458333,20.047097,-52.6562)"
+       id="text102711"
+       style="font-style:normal;font-weight:normal;font-size:13.3333px;line-height:1.25;font-family:sans-serif;text-align:end;letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect102713);fill:#000000;fill-opacity:1;stroke:none"
+       x="151.728"
+       y="0"><tspan
+         x="495.68037"
+         y="237.87969"
+         id="tspan18297"><tspan
+           style="font-family:'Noto Serif';-inkscape-font-specification:'Noto Serif, Normal'"
+           id="tspan18295">{source}</tspan></tspan></text>
+    <text
+       xml:space="preserve"
+       transform="matrix(0.26458333,0,0,0.26458333,-2.8434475,-10.593791)"
+       id="text119227"
+       style="font-style:normal;font-weight:normal;font-size:13.3333px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect119229);fill:#000000;fill-opacity:1;stroke:none"><tspan
+         x="164.49414"
+         y="237.87969"
+         id="tspan18301"><tspan
+           style="font-family:'Noto Serif';-inkscape-font-specification:'Noto Serif, Normal'"
+           id="tspan18299">{destination}</tspan></tspan></text>
+  </g>
+</svg>
