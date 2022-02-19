@@ -1,0 +1,9 @@
+#!/bin/bash
+
+appid=${1:?}
+location=${2:?}
+
+export STEAM_COMPAT_DATA_PATH=$location/SteamLibrary/steamapps/compatdata/$appid
+export STEAM_COMPAT_CLIENT_INSTALL_PATH=$HOME/.local/share/Steam
+
+$HOME/.local/share/Steam/ubuntu12_32/reaper SteamLaunch AppId=$appid -- "$HOME/.local/share/Steam/steamapps/common/SteamLinuxRuntime_soldier/_v2-entry-point" --verb=waitforexitandrun -- "$HOME/.local/share/Steam/steamapps/common/Proton - Experimental/proton" waitforexitandrun winecfg
