@@ -277,16 +277,18 @@ impl leftwm_core::Config for Config {
     }
 
     fn setup_predefined_window(&self, window: &mut Window) -> bool {
-        match window.res_class.as_deref() {
-            // TODO there are multiple classes per window. It seems only the last one is taken into
-            //      account... this should be fixed
-            /*
-            Some("XTerm") => {
+        match (window.res_class.as_deref(), window.res_name.as_deref()) {
+            // TODO apparently the 2 classes from xprop are in res_class and res_name. It doesn't
+            //      seem to be an array but more like a tuple that identify a specific window's
+            //      program and role
+            (Some("firefox"), Some("Toolkit")) => {
                 window.set_floating(true);
                 true
             }
-            */
-            _ => false,
+            (class, name) => {
+                log::info!("setup_predefined_window: {:?} {:?}", class, name);
+                false
+            }
         }
     }
 
