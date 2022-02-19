@@ -2,7 +2,7 @@ use leftwm_core::{
     config::{Keybind, ScratchPad, Workspace},
     layouts::Layout,
     models::{FocusBehaviour, Gutter, LayoutMode, Margins, Size},
-    Manager, State, XlibDisplayServer,
+    Manager, State, Window, XlibDisplayServer,
 };
 use slog::{o, Drain};
 use std::panic;
@@ -95,12 +95,8 @@ impl leftwm_core::Config for Config {
         FocusBehaviour::Sloppy
     }
 
-    fn mousekey(&self) -> String {
-        MOD_KEY.to_string()
-    }
-
-    fn disable_current_tag_swap(&self) -> bool {
-        false
+    fn mousekey(&self) -> Vec<String> {
+        vec![MOD_KEY.to_string()]
     }
 
     fn create_list_of_scratchpads(&self) -> Vec<ScratchPad> {
@@ -177,6 +173,14 @@ impl leftwm_core::Config for Config {
 
     fn layout_mode(&self) -> LayoutMode {
         LayoutMode::Workspace
+    }
+
+    fn setup_predefined_window(&self, _window: &mut Window) -> bool {
+        false
+    }
+
+    fn disable_tile_drag(&self) -> bool {
+        true
     }
 
     /*

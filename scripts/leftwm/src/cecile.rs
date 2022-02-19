@@ -2,8 +2,7 @@ use leftwm_core::{
     config::{Keybind, ScratchPad, Workspace},
     layouts::Layout,
     models::{FocusBehaviour, Gutter, LayoutMode, Margins, Size},
-    Manager, State, XlibDisplayServer,
-    Command, DisplayServer,
+    Command, DisplayServer, Manager, State, Window, XlibDisplayServer,
 };
 use slog::{o, Drain};
 use std::panic;
@@ -30,7 +29,6 @@ impl leftwm_core::Config for Config {
                 modifier: vec![MOD_KEY.to_owned()],
                 key: "Return".to_owned(),
             },
-
             /*
             // NOTE: not working for now... seems to be trying to load theme
             Keybind {
@@ -39,21 +37,18 @@ impl leftwm_core::Config for Config {
                 key: "l".to_owned(),
             },
             */
-
             // hard reload
             Keybind {
                 command: Command::Execute("kill $PPID".into()),
                 modifier: vec![MOD_KEY.to_owned(), "Shift".to_owned()],
                 key: "r".to_owned(),
             },
-
             // Quit session
             Keybind {
                 command: Command::Execute("pkill leftwm-session".into()),
                 modifier: vec![MOD_KEY.to_owned(), "Shift".to_owned()],
                 key: "q".to_owned(),
             },
-
             // Window actions
             Keybind {
                 command: Command::CloseWindow,
@@ -70,7 +65,6 @@ impl leftwm_core::Config for Config {
                 modifier: vec![MOD_KEY.to_owned(), "Shift".to_owned()],
                 key: "space".to_owned(),
             },
-
             // Move windows
             Keybind {
                 command: Command::MoveWindowUp,
@@ -92,18 +86,17 @@ impl leftwm_core::Config for Config {
                 modifier: vec![MOD_KEY.to_owned(), "Shift".to_owned()],
                 key: "j".to_owned(),
             },
-            // TODO implement MoveWindowLeft & MoveWindowRight?
             Keybind {
-                command: Command::MoveWindowTop,
+                command: Command::MoveWindowTop { swap: false },
                 modifier: vec![MOD_KEY.to_owned(), "Shift".to_owned()],
                 key: "Left".to_owned(),
             },
+            // TODO implement MoveWindowRight?
             Keybind {
                 command: Command::MoveWindowDown,
                 modifier: vec![MOD_KEY.to_owned(), "Shift".to_owned()],
                 key: "Right".to_owned(),
             },
-
             // Window focus change
             Keybind {
                 command: Command::FocusWindowUp,
@@ -125,18 +118,17 @@ impl leftwm_core::Config for Config {
                 modifier: vec![MOD_KEY.to_owned()],
                 key: "j".to_owned(),
             },
-            // TODO implement FocusWindowLeft & FocusWindowRight?
             Keybind {
-                command: Command::FocusWindowUp,
+                command: Command::FocusWindowTop { swap: false },
                 modifier: vec![MOD_KEY.to_owned()],
                 key: "Left".to_owned(),
             },
+            // TODO implement FocusWindowRight?
             Keybind {
                 command: Command::FocusWindowDown,
                 modifier: vec![MOD_KEY.to_owned()],
                 key: "Right".to_owned(),
             },
-
             // Scratch pads
             Keybind {
                 command: Command::ToggleScratchPad("terminal".to_string()),
@@ -148,7 +140,10 @@ impl leftwm_core::Config for Config {
         // add "goto workspace"
         for i in 1..=WORKSPACES_NUM {
             commands.push(Keybind {
-                command: Command::GotoTag(i),
+                command: Command::GoToTag {
+                    swap: false,
+                    tag: i,
+                },
                 modifier: vec![MOD_KEY.to_owned()],
                 key: (i % 10).to_string(),
             });
@@ -157,7 +152,10 @@ impl leftwm_core::Config for Config {
         // and "move to workspace"
         for i in 1..=WORKSPACES_NUM {
             commands.push(Keybind {
-                command: Command::SendWindowToTag(i),
+                command: Command::SendWindowToTag {
+                    window: None,
+                    tag: i,
+                },
                 modifier: vec![MOD_KEY.to_owned(), "Shift".to_owned()],
                 key: (i % 10).to_string(),
             });
@@ -187,26 +185,20 @@ impl leftwm_core::Config for Config {
         FocusBehaviour::Sloppy
     }
 
-    fn mousekey(&self) -> String {
-        MOD_KEY.to_string()
-    }
-
-    fn disable_current_tag_swap(&self) -> bool {
-        true
+    fn mousekey(&self) -> Vec<String> {
+        vec![MOD_KEY.to_string()]
     }
 
     fn create_list_of_scratchpads(&self) -> Vec<ScratchPad> {
-        vec![
-            ScratchPad {
-                name: "terminal".to_string(),
-                value: "xterm".to_string(),
-                x: Some(Size::Pixel(0)),
-                y: Some(Size::Pixel(0)),
-                // NOTE: not per-cent! it's a ratio (per 1)
-                width: Some(Size::Ratio(1.0)),
-                height: Some(Size::Ratio(0.5)),
-            }
-        ]
+        vec![ScratchPad {
+            name: "terminal".to_string(),
+            value: "xterm".to_string(),
+            x: Some(Size::Pixel(0)),
+            y: Some(Size::Pixel(0)),
+            // NOTE: not per-cent! it's a ratio (per 1)
+            width: Some(Size::Ratio(1.0)),
+            height: Some(Size::Ratio(0.5)),
+        }]
     }
 
     fn layouts(&self) -> Vec<Layout> {
@@ -258,7 +250,8 @@ impl leftwm_core::Config for Config {
     }
 
     fn command_handler<SERVER>(_command: &str, _manager: &mut Manager<Self, SERVER>) -> bool
-        where SERVER: DisplayServer
+    where
+        SERVER: DisplayServer,
     {
         false
     }
@@ -281,6 +274,20 @@ impl leftwm_core::Config for Config {
 
     fn layout_mode(&self) -> LayoutMode {
         LayoutMode::Workspace
+    }
+
+    fn setup_predefined_window(&self, window: &mut Window) -> bool {
+        match window.res_class.as_deref() {
+            Some("xterm") => {
+                window.set_floating(true);
+                true
+            }
+            _ => false,
+        }
+    }
+
+    fn disable_tile_drag(&self) -> bool {
+        true
     }
 
     /*
