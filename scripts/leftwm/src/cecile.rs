@@ -278,10 +278,14 @@ impl leftwm_core::Config for Config {
 
     fn setup_predefined_window(&self, window: &mut Window) -> bool {
         match window.res_class.as_deref() {
-            Some("xterm") => {
+            // TODO there are multiple classes per window. It seems only the last one is taken into
+            //      account... this should be fixed
+            /*
+            Some("XTerm") => {
                 window.set_floating(true);
                 true
             }
+            */
             _ => false,
         }
     }
