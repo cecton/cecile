@@ -2,4 +2,6 @@
 members = [
     "leftwm",
     "windows-vm",
+    "invoice",
+    "freeotp",
 ]

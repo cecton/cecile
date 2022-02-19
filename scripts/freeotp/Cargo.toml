@@ -1,0 +1,14 @@
+[package]
+name = "freeotp-rust"
+version = "0.1.0"
+authors = ["Cecile Tonglet <cecile.tonglet@cecton.com>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+rust-crypto = "0.2.36"
+base32 = "0.4.0"
+xml-rs = "0.8.3"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
