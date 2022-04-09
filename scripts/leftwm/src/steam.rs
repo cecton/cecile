@@ -1,5 +1,5 @@
 use leftwm_core::{
-    config::{Keybind, ScratchPad, Workspace},
+    config::{InsertBehavior, Keybind, ScratchPad, Workspace},
     layouts::Layout,
     models::{FocusBehaviour, Gutter, LayoutMode, Margins, Size},
     Manager, State, Window, XlibDisplayServer,
@@ -181,6 +181,10 @@ impl leftwm_core::Config for Config {
 
     fn disable_tile_drag(&self) -> bool {
         true
+    }
+
+    fn insert_behavior(&self) -> InsertBehavior {
+        Default::default()
     }
 
     /*
