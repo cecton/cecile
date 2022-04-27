@@ -3,4 +3,4 @@
 	url = https://github.com/altercation/mutt-colors-solarized.git
 [submodule "repos/fish-cargo-completions"]
 	path = repos/fish-cargo-completions
-	url = git@github.com:thomcc/fish-cargo-completions.git
+	url = https://github.com/thomcc/fish-cargo-completions.git
