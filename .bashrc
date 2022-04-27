@@ -2,8 +2,7 @@
 #[ -z "$PS1" ] && return
 [ -z "${-##*i*}" -a -n "$PS1" ] || return
 
-# export environment variables if login shell
-[ -z "${0##-*}" ] && [ -f ~/.exports ] && . ~/.exports
+[ -z "$PLATFORM" -a -f ~/.exports ] && . ~/.exports
 
 [ -z "${0##-*}" -a -x ~/.setup ] && ~/.setup
 
@@ -24,12 +23,15 @@ parent_name=`ps o comm -p $PPID | awk 'NR>1'`
 
 tty=`tty`
 
-if [ "$PLATFORM" == Linux ] && [ "$parent_name" == login ] && [ "$tty" == /dev/tty1 ]; then
-	# starting SSH agent
-	if [ -x "`which ssh-agent 2> /dev/null`" ]; then
-		eval `ssh-agent`
+# starting SSH agent
+if [ -x "`which ssh-agent 2> /dev/null`" ]; then
+	if ! [ -e /tmp/ssh-agent.$USER ]; then
+		ssh-agent | grep -v '^echo' > /tmp/ssh-agent.$USER
 	fi
+	. /tmp/ssh-agent.$USER
+fi
 
+if [ "$PLATFORM" == Linux ] && [ "$parent_name" == login ] && [ "$tty" == /dev/tty1 ]; then
 	# automatically start graphical session
 	lsmod | grep -q nvidia
 	if [ $? -ne 0 ] && [ -x "`which sway 2> /dev/null`" ]; then
