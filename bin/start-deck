@@ -1,7 +1,7 @@
 #!/bin/sh
 set -x -e
-mkdir -p /var/lib/overlays/usr/upper
-mkdir -p /var/lib/overlays/usr/work
-mount -t overlay overlay -o index=off,lowerdir=/usr,upperdir=/var/lib/overlays/usr/upper,workdir=/var/lib/overlays/usr/work /usr
+mkdir -p /home/overlays/usr/upper
+mkdir -p /home/overlays/usr/work
+mount -t overlay overlay -o index=off,lowerdir=/usr,upperdir=/home/overlays/usr/upper,workdir=/home/overlays/usr/work /usr
 pacman-key --init
 pacman-key --populate
