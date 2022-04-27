@@ -201,7 +201,7 @@ if status --is-interactive
 		alias vi nvim
 	else
 		# default is ViM if available
-		if which vim >/dev/null ^/dev/null
+		if which vim &>/dev/null
 			alias vi vim
 		end
 	end
