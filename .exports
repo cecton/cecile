@@ -37,5 +37,6 @@ export PLATFORM=`uname`
 
 export GALLIUM_HUD="simple,fps"
 #export vblank_mode=0 #disable vsync
+export DXVK_HUD=fps,gpuload
 
 #[ -f ~/.nix-profile/etc/profile.d/nix.sh ] && . ~/.nix-profile/etc/profile.d/nix.sh
