@@ -5,7 +5,6 @@ use crypto::mac::Mac;
 use crypto::sha1::Sha1;
 use serde::Deserialize;
 use std::time::{SystemTime, UNIX_EPOCH};
-use xml::reader::{EventReader, XmlEvent};
 
 #[derive(Debug, Deserialize)]
 #[serde(rename_all = "camelCase")]
@@ -39,44 +38,38 @@ impl Entry {
     }
 }
 
+#[derive(Debug, Deserialize)]
+#[serde(rename_all = "camelCase")]
+struct TokensJson {
+    token_order: Vec<String>,
+    tokens: Vec<Entry>,
+}
+
 fn main() {
     let file = std::env::args().last().unwrap();
     let file = std::fs::File::open(file).unwrap();
     let file = std::io::BufReader::new(file);
+
+    let tokens: TokensJson = serde_json::from_reader(file).unwrap();
 
     let start = SystemTime::now();
     let since_the_epoch = start
         .duration_since(UNIX_EPOCH)
         .expect("Time went backwards");
 
-    let parser = EventReader::new(file);
-    for e in parser {
-        match e {
-            Ok(XmlEvent::Characters(ref x)) => match serde_json::from_str::<Entry>(x) {
-                Ok(e) => {
-                    let secret: Vec<u8> = e
-                        .secret
-                        .iter()
-                        .map(|&x| if x < 0 { 255 - (-x) as u8 + 1 } else { x as u8 })
-                        .collect();
-                    let secret = generate(
-                        since_the_epoch.as_secs() + 5,
-                        secret.as_slice(),
-                        e.period,
-                        e.digits,
-                    );
-                    println!("{}: {}", e.issuer(), secret);
-                }
-                Err(_err) => {
-                    //eprintln!("{}", err);
-                }
-            },
-            Err(e) => {
-                println!("Error: {}", e);
-                break;
-            }
-            _ => {}
-        }
+    for token in &tokens.tokens {
+        let secret: Vec<u8> = token
+            .secret
+            .iter()
+            .map(|&x| if x < 0 { 255 - (-x) as u8 + 1 } else { x as u8 })
+            .collect();
+        let secret = generate(
+            since_the_epoch.as_secs() + 5,
+            secret.as_slice(),
+            token.period,
+            token.digits,
+        );
+        println!("{}: {}", token.issuer(), secret);
     }
 }
 
