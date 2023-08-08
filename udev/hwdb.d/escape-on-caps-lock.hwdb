@@ -4,3 +4,4 @@
 ###   KEYBOARD_KEY_3a=esc # key marked caps lock -> escape
 evdev:input:*
   KEYBOARD_KEY_70039=esc # key marked caps lock -> escape
+  KEYBOARD_KEY_C0030=esc # disable power button

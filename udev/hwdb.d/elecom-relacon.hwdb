@@ -1,0 +1,10 @@
+### sudo evtest /dev/input/event17
+### cat /proc/bus/input/devices
+### Vendor=056e Product=0156
+#evdev:input:*
+evdev:input:*v056Ep0156*
+  KEYBOARD_KEY_C00CD=enter
+  KEYBOARD_KEY_C00B5=right
+  KEYBOARD_KEY_C00B6=left
+  KEYBOARD_KEY_C00E9=up
+  KEYBOARD_KEY_C00EA=down
