@@ -1,0 +1,10 @@
+### cat /proc/bus/input/devices
+### sudo evtest /dev/input/event17
+### sudo systemd-hwdb update
+evdev:input:*v05ACp0257*
+  KEYBOARD_KEY_70030=leftbrace
+  KEYBOARD_KEY_70031=rightbrace
+  KEYBOARD_KEY_7002F=backslash
+  KEYBOARD_KEY_70087=minus
+  KEYBOARD_KEY_7002D=equal
+  KEYBOARD_KEY_7002E=grave
