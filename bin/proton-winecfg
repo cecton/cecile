@@ -1,9 +1,11 @@
 #!/bin/bash
 
-appid=${1:?}
-location=${2:?}
+appid="${1:?}"
+common="$HOME/.steam/steam/steamapps/common"
+location="${2:-$HOME/.steam/steam/steamapps}"
+proton="Proton 7.0"
 
-export STEAM_COMPAT_DATA_PATH=$location/SteamLibrary/steamapps/compatdata/$appid
+export STEAM_COMPAT_DATA_PATH=$location/compatdata/$appid
 export STEAM_COMPAT_CLIENT_INSTALL_PATH=$HOME/.local/share/Steam
 
-$HOME/.local/share/Steam/ubuntu12_32/reaper SteamLaunch AppId=$appid -- "$HOME/.local/share/Steam/steamapps/common/SteamLinuxRuntime_soldier/_v2-entry-point" --verb=waitforexitandrun -- "$HOME/.local/share/Steam/steamapps/common/Proton - Experimental/proton" waitforexitandrun winecfg
+$HOME/.local/share/Steam/ubuntu12_32/reaper SteamLaunch AppId=$appid -- "$common/SteamLinuxRuntime_soldier/_v2-entry-point" --verb=waitforexitandrun -- "$common/$proton/proton" waitforexitandrun winecfg
