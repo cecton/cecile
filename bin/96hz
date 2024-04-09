@@ -1,0 +1,7 @@
+#!/bin/sh
+if [ -z "$WAYLAND_DISPLAY" ]; then
+	xrandr --output DisplayPort-0 --refresh 96 --mode 1920x1080 --set TearFree on
+else
+	kscreen-doctor output.1.mode.7
+fi
+exec "$@"

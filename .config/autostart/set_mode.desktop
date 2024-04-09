@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Exec=kscreen-doctor output.1.mode.0
+Name=Screen Setup
+Comment=Setup screens with kscreen-doctor
+X-KDE-AutostartPhase=2
