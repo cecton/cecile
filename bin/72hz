@@ -1,5 +1,5 @@
-#!/bin/sh
-if [ -z "$WAYLAND_DISPLAY" ]; then
+#!/bin/bash
+if [ -z "$KDE_FULL_SESSION" ] || [ -z "$WAYLAND_DISPLAY" ]; then
 	xrandr --output DisplayPort-0 --refresh 72 --mode 1920x1080 --set TearFree on
 else
 	kscreen-doctor output.1.mode.8
