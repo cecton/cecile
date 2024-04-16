@@ -1,7 +1,11 @@
 #!/bin/bash
-if [ -z "$KDE_FULL_SESSION" ] || [ -z "$WAYLAND_DISPLAY" ]; then
-	xrandr --output DisplayPort-0 --refresh 60 --mode 1920x1080 --set TearFree on
+if [ -n "$WAYLAND_DISPLAY" ]; then
+	if [ -n "$KDE_FULL_SESSION" ]; then
+		kscreen-doctor output.1.mode.0
+	elif [ -n "$I3SOCK" ]; then
+		swaymsg output DP-1 mode 1920x1080@60Hz
+	fi
 else
-	kscreen-doctor output.1.mode.0
+	xrandr --output DisplayPort-0 --refresh 60 --mode 1920x1080 --set TearFree on
 fi
 exec "$@"

@@ -145,12 +145,9 @@ for_window [class=VirtualBox] floating enable
 for_window [class=qemu-system-i386] floating enable
 for_window [class=Display] floating enable
 for_window [class=XFontSel] floating enable
-for_window [class=Wine] floating enable
-for_window [class=Steam] floating enable
-for_window [class=steam] floating enable
-for_window [class=ShadowOfTheTombRaider] floating enable
-for_window [class=Transistor.bin.x86_64] floating enable
-for_window [title=Gunpoint] floating enable
+#for_window [class=Wine] floating enable
+#for_window [class=Steam] floating enable
+#for_window [class=steam] floating enable
 
-output "*" bg #000000 solid_color
+output * bg #000000 solid_color
 exec --no-startup-id ~/.config/sway/autostart
