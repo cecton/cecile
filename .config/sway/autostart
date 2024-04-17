@@ -1,5 +1,5 @@
 #!/bin/bash
 
 #setxkbmap -option caps:none -layout us -variant dvp
-test -f $HOME/.Xresources && xrdb -load $HOME/.Xresources
+#test -f $HOME/.Xresources && xrdb -load $HOME/.Xresources
 #which redshift &> /dev/null && (redshift -l 50.72:4.86 -t 5500:3700 -g 0.9 -m wayland &)
