@@ -1,0 +1,23 @@
+#!/bin/bash
+
+# Check if at least two arguments are provided
+if [ "$#" -lt 2 ]; then
+  echo "Usage: $0 <sed-regex> <command> [args...]"
+  exit 1
+fi
+
+# First argument is the sed regex
+sed_regex=$1
+shift
+
+# Create an array to hold the modified command and arguments
+modified_args=()
+
+# Apply the sed regex to each argument
+for arg in "$@"; do
+  modified_arg=$(echo "$arg" | sed "$sed_regex")
+  modified_args+=("$modified_arg")
+done
+
+# Execute the command with the modified arguments
+exec "${modified_args[@]}"
