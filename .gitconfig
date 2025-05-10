@@ -4,11 +4,12 @@
 	signingkey = 8498359B2C2BE786
 [push]
 	default = simple
+	autoSetupRemote = true
 [core]
 	excludesfile = ~/.gitignore_global
 	pager = delta
-[interactive]
-	diffFilter = delta --color-only
+#[interactive]
+#	diffFilter = delta --color-only
 [advice]
 	detachedHead = false
 [delta]
@@ -24,3 +25,9 @@
 	ff = only
 [try-merge]
 	ignore-conflict = Cargo.lock
+[url "ssh://git@github.com/"]
+	insteadOf = https://github.com/
+#[diff]
+#	external = difft
+[diff "lfs"]
+	textconv = cat
