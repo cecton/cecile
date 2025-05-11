@@ -1,7 +1,7 @@
 #!/bin/bash
 
 LEFTWM_BIN=${1:-$HOME/scripts/target/release/leftwm-cecile}
-[ -x "$HOME/.xorg-autostart" ] && $HOME/.xorg-autostart &
+[ -x "$HOME/.xorg-autostart" ] && $HOME/.xorg-autostart
 
 while :
 do
