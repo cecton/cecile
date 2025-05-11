@@ -1,7 +1,7 @@
-[user]
-	name = Cecile Tonglet
-	email = cecile.tonglet@cecton.com
-	signingkey = 8498359B2C2BE786
+#[user]
+#	name = Cecile Tonglet
+#	email = cecile.tonglet@cecton.com
+#	signingkey = 8498359B2C2BE786
 [push]
 	default = simple
 	autoSetupRemote = true
