@@ -121,11 +121,7 @@ if status --is-interactive
 		set old_pwd $PWD
 		while test $PWD != "/"
 			if test -e ".git"
-				if test -e Cargo.lock && which cargo-git &>/dev/null
-					cargo git diff
-				else
-					git diff
-				end
+				git diff -- . ":!Cargo.lock" ":!*.json"
 				commandline -f repaint
 				break
 			end
