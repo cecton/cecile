@@ -159,16 +159,18 @@ if status --is-interactive
 
 	# binds
 	function fish_user_key_bindings
+		# F7
+		#bind f7 repo-add # not working
 		# F8
-		bind [19~ repo-log
+		bind f8 repo-log
 		# F9
-		bind [20~ repo-status
+		bind f9 repo-status
 		# F10
-		bind [21~ repo-diff
+		bind f10 repo-diff
 		# F11
-		bind [23~ repo-diff-cached
+		bind f11 repo-diff-cached
 		# F12
-		bind [24~ repo-commit
+		bind f12 repo-commit
 	end
 
 	# prompt
