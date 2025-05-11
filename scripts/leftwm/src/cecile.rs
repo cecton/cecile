@@ -131,7 +131,7 @@ impl leftwm_core::Config for Config {
             },
             // Scratch pads
             Keybind {
-                command: Command::ToggleScratchPad("terminal".to_string()),
+                command: Command::ToggleScratchPad("terminal".into()),
                 modifier: vec![MOD_KEY.to_owned()],
                 key: "grave".to_owned(),
             },
@@ -191,7 +191,7 @@ impl leftwm_core::Config for Config {
 
     fn create_list_of_scratchpads(&self) -> Vec<ScratchPad> {
         vec![ScratchPad {
-            name: "terminal".to_string(),
+            name: "terminal".into(),
             value: "xterm".to_string(),
             x: Some(Size::Pixel(0)),
             y: Some(Size::Pixel(0)),
@@ -278,10 +278,18 @@ impl leftwm_core::Config for Config {
 
     fn setup_predefined_window(&self, window: &mut Window) -> bool {
         match (window.res_class.as_deref(), window.res_name.as_deref()) {
+            (Some("firefox"), Some("Alert")) => {
+                window.set_floating(true);
+                true
+            }
             // TODO apparently the 2 classes from xprop are in res_class and res_name. It doesn't
             //      seem to be an array but more like a tuple that identify a specific window's
             //      program and role
             (Some("firefox"), Some("Toolkit")) => {
+                window.set_floating(true);
+                true
+            }
+            (Some("gui"), Some("gui")) => {
                 window.set_floating(true);
                 true
             }
@@ -298,6 +306,14 @@ impl leftwm_core::Config for Config {
 
     fn insert_behavior(&self) -> InsertBehavior {
         Default::default()
+    }
+
+    fn disable_window_snap(&self) -> bool {
+        true
+    }
+
+    fn sloppy_mouse_follows_focus(&self) -> bool {
+        true
     }
 
     /*
@@ -337,7 +353,7 @@ fn main() {
         let manager = Manager::<Config, XlibDisplayServer>::new(config);
         manager.register_child_hook();
 
-        rt.block_on(manager.event_loop());
+        rt.block_on(manager.start_event_loop())
     });
 
     match completed {

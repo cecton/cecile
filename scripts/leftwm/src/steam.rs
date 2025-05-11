@@ -187,6 +187,14 @@ impl leftwm_core::Config for Config {
         Default::default()
     }
 
+    fn disable_window_snap(&self) -> bool {
+        true
+    }
+
+    fn sloppy_mouse_follows_focus(&self) -> bool {
+        true
+    }
+
     /*
     fn pipe_file(&self) -> PathBuf {
         PathBuf::from("/tmp/leftwm.sock")
@@ -224,7 +232,7 @@ fn main() {
         let manager = Manager::<Config, XlibDisplayServer>::new(config);
         manager.register_child_hook();
 
-        rt.block_on(manager.event_loop());
+        rt.block_on(manager.start_event_loop())
     });
 
     match completed {
