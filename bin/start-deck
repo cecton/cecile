@@ -1,7 +1,4 @@
 #!/bin/sh
 set -x -e
-mkdir -p /home/overlays/usr/upper
-mkdir -p /home/overlays/usr/work
-mount -t overlay overlay -o index=off,lowerdir=/usr,upperdir=/home/overlays/usr/upper,workdir=/home/overlays/usr/work /usr
-pacman-key --init
-pacman-key --populate
+(mount | grep -o ~/arch/root.x86_64 >/dev/null || sudo mount --bind ~/arch/root.x86_64 ~/arch/root.x86_64)
+exec sudo arch-chroot ~/arch/root.x86_64/ "$@"
