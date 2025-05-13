@@ -12,6 +12,7 @@
 #	diffFilter = delta --color-only
 [advice]
 	detachedHead = false
+	addIgnoredFile = false
 [delta]
 	#side-by-side = true
 [filter "lfs"]
