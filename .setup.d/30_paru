@@ -1,0 +1,11 @@
+#!/bin/bash
+
+which pacman &>/dev/null || exit 0
+which cargo &>/dev/null || exit 0
+which paru &>/dev/null && exit 0
+
+echo installing paru...
+
+set -x -e
+
+cargo install --git https://github.com/Morganamilo/paru.git #--target x86_64-unknown-linux-musl --features static
