@@ -19,8 +19,11 @@ export PERL_MM_OPT="INSTALL_BASE=$HOME/perl5"
 export PERL5LIB="$HOME/perl5/lib/perl5"
 
 export PAGER=less
+EDITOR=vi
+which vim &>/dev/null
+[ "$?" == 0 ] && EDITOR=vim
 which nvim &>/dev/null
-[ "$?" == 0 ] && EDITOR=nvim || EDITOR=vi
+[ "$?" == 0 ] && EDITOR=nvim
 export EDITOR
 export BROWSER=firefox
 
