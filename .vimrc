@@ -5,6 +5,9 @@ if stridx($TERM, "256color") > -1
     set spell
 endif
 
+set number
+set relativenumber
+
 " disable some annoying bindings
 nmap Q <NOP>
 nmap <F1> <NOP>
