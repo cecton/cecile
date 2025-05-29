@@ -7,7 +7,7 @@
 	autoSetupRemote = true
 [core]
 	excludesfile = ~/.gitignore_global
-	pager = delta
+	#pager = delta
 #[interactive]
 #	diffFilter = delta --color-only
 [advice]
