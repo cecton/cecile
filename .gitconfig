@@ -26,8 +26,6 @@
 	ff = only
 [try-merge]
 	ignore-conflict = Cargo.lock
-[url "ssh://git@github.com/"]
-	insteadOf = https://github.com/
 #[diff]
 #	external = difft
 [diff "lfs"]

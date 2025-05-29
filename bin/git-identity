@@ -8,3 +8,4 @@ set -e -x
 git config core.sshCommand "ssh -o IdentitiesOnly=yes -i ${IDENTITY:?} -F /dev/null"
 git config user.name "${NAME:?}"
 git config user.email "${EMAIL:?}"
+git config url."ssh://git@github.com/".insteadOf https://github.com/
