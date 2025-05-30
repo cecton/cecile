@@ -1,0 +1,9 @@
+#!/bin/bash
+
+which cargo-temp &> /dev/null && exit 0
+which cargo &> /dev/null || exit 1
+
+set -x -e
+
+rustup target add x86_64-unknown-linux-musl
+cargo install --target x86_64-unknown-linux-musl cargo-temp
