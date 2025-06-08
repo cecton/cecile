@@ -8,8 +8,8 @@ export WINETRICKS_CONTINUE_DOWNLOAD=1
 
 export PYTHONDONTWRITEBYTECODE=1
 
-export LANG="en_US.UTF-8"
-export LC_TIME="en_GB.UTF-8"
+export LANG="en_NZ.UTF-8"
+#export LC_TIME="en_GB.UTF-8"
 export TZ="Europe/Brussels"
 export GTK_THEME=Adwaita:dark
 
