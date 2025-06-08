@@ -38,8 +38,10 @@ export PLATFORM=`uname`
 #which sccache &>/dev/null
 #[ "$?" == 0 ] && export RUSTC_WRAPPER=sccache && export SCCACHE_CACHE_SIZE=60G
 
-export GALLIUM_HUD="simple,fps"
+#export GALLIUM_HUD="simple,fps"
 #export vblank_mode=0 #disable vsync
-export DXVK_HUD=fps,gpuload
+#export DXVK_HUD=fps,gpuload
+#export WINE_CPU_TOPOLOGY=12:0,1,2,3,4,5,12,13,14,15,16,17
+export WINE_CPU_TOPOLOGY=8:0,1,2,3,12,13,14,15
 
 #[ -f ~/.nix-profile/etc/profile.d/nix.sh ] && . ~/.nix-profile/etc/profile.d/nix.sh
