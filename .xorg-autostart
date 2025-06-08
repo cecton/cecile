@@ -9,6 +9,7 @@ setup()
 	xset s off
 	xset -b
 	test -d /usr/share/fonts/local && xset +fp /usr/share/fonts/local
+	test -d /home/deck/.fonts && xset +fp /home/deck/.fonts
 	xset fp rehash
 	test -f $HOME/.Xresources && xrdb -load $HOME/.Xresources
 	setxkbmap -option caps:escape -layout us
