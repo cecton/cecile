@@ -1,4 +1,17 @@
 #!/bin/sh
-set -x -e
-(mount | grep -o ~/arch/root.x86_64 >/dev/null || sudo mount --bind ~/arch/root.x86_64 ~/arch/root.x86_64)
-exec sudo arch-chroot ~/arch/root.x86_64/ "$@"
+
+CONTAINER=steamdeck
+
+sudo machinectl start $CONTAINER
+sleep 2
+
+DISPLAY=:`fgconsole`
+VT=vt`fgconsole`
+
+Xorg $DISPLAY $VT &
+XORG_PID=$!
+
+sudo machinectl shell -E DISPLAY=$DISPLAY -E XDG_RUNTIME_DIR="/run/user/1000" -E LIBGL_ALWAYS_SOFTWARE=1 -E GALLIUM_DRIVER=llvmpipe -E DBUS_SESSION_BUS_ADDRESS="unix:path=/run/user/1000/bus" cecile@$CONTAINER /home/cecile/bin/i3-session
+
+kill $XORG_PID
+wait $XORG_PID
