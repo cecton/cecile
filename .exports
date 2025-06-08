@@ -44,4 +44,6 @@ export PLATFORM=`uname`
 #export WINE_CPU_TOPOLOGY=12:0,1,2,3,4,5,12,13,14,15,16,17
 export WINE_CPU_TOPOLOGY=8:0,1,2,3,12,13,14,15
 
-#[ -f ~/.nix-profile/etc/profile.d/nix.sh ] && . ~/.nix-profile/etc/profile.d/nix.sh
+[ -f ~/.nix-profile/etc/profile.d/nix.sh ] && . ~/.nix-profile/etc/profile.d/nix.sh
+
+export DFT_BYTE_LIMIT=4000000
