@@ -31,6 +31,20 @@ if [ -x "`which ssh-agent 2> /dev/null`" ]; then
 	. /tmp/ssh-agent.$USER
 fi
 
+if [ "$PLATFORM" == Linux ] && [ "$parent_name" == login ] && [ "$tty" == /dev/tty4 ]; then
+	# automatically start graphical session (X.org) with container
+	if [ "$USER" == deck ]; then
+		echo -n "Starting X.org graphical session with container, press return to cancel... "
+		read -s -t 2 answer
+		if [ $? -eq 0 ]; then
+			echo canceled
+		else
+			echo done
+			start-deck
+		fi
+	fi
+fi
+
 if [ "$PLATFORM" == Linux ] && [ "$parent_name" == login ] && [ "$tty" == /dev/tty1 ]; then
 	# automatically start graphical session
 	lsmod | grep -q nvidia
