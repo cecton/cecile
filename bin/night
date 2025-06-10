@@ -1,2 +1,0 @@
-#!/bin/sh
-xcalib -gc 1.2 $HOME/.config/vast.icm
