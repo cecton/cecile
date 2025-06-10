@@ -1,11 +1,14 @@
 #!/bin/bash
 
 which pacman &>/dev/null || exit 0
-which cargo &>/dev/null || exit 0
 which paru &>/dev/null && exit 0
+
+VER="2.0.4"
+ARCH="x86_64"
 
 echo installing paru...
 
 set -x -e
 
-cargo install --git https://github.com/Morganamilo/paru.git #--target x86_64-unknown-linux-musl --features static
+curl -L https://github.com/Morganamilo/paru/releases/download/v$VER/paru-v$VER-$ARCH.tar.zst | tar --use-compress-program=unzstd -xO paru > ~/bin/paru
+chmod +x ~/bin/paru
