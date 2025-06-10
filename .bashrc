@@ -86,5 +86,8 @@ fi
 
 # exec fish depending who's the parent
 if which fish >/dev/null && [ "$parent_name" != fish ] && [ "$parent_name" != mc ]; then
+	# NOTE: fix annoying fish bug with history file
+	# 	https://github.com/fish-shell/fish-shell/issues/10300
+	tr -d '\000' < ~/.local/share/fish/fish_history | sponge ~/.local/share/fish/fish_history
 	exec fish
 fi
