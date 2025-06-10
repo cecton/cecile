@@ -125,12 +125,9 @@ bindsym XF86MonBrightnessUp exec brightness up
 bindsym XF86MonBrightnessDown exec brightness down
 bindsym XF86Display exec toggle_display
 
-new_window pixel 1
-hide_edge_borders both
+default_border none
+default_floating_border none
 
-for_window [class=Chromium] move container to workspace 4
-#for_window [class=firefox] move container to workspace 6
-for_window [class=Iceweasel] move container to workspace 7
 for_window [class=Gimp] floating enable
 for_window [class=Dia] floating enable
 for_window [class=Inkscape] floating enable
@@ -144,17 +141,4 @@ for_window [class=Display] floating enable
 for_window [class=XFontSel] floating enable
 for_window [class=Wine] floating enable
 for_window [class=Steam] floating enable
-for_window [class=Steam] move container to workspace 9
-for_window [class=ShadowOfTheTombRaider] floating enable
-for_window [class=TombRaider] floating enable
-for_window [class=Transistor.bin.x86_64] floating enable
-for_window [title=Gunpoint] floating enable
-for_window [class=ARobotNamedFight.x86_64] floating enable
-for_window [title=Dex] floating enable
 for_window [title=Picture-in-Picture] sticky enable
-for_window [class=looking-glass-client] move container to workspace 10
-for_window [class=backinthegroove.x86_64] floating enable
-for_window [title="Mother Russia Bleeds"] floating enable
-for_window [title=Beholder] floating enable
-for_window [title=Huntdown.x86_64] floating enable
-#for_window [title=STRAFE] floating enable
