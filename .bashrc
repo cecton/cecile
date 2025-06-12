@@ -102,6 +102,10 @@ fi
 if which fish >/dev/null && [ "$parent_name" != fish ] && [ "$parent_name" != mc ]; then
 	# NOTE: fix annoying fish bug with history file
 	# 	https://github.com/fish-shell/fish-shell/issues/10300
-	tr -d '\000' < ~/.local/share/fish/fish_history | sponge ~/.local/share/fish/fish_history
+	if output=$(tr -d '\000' < ~/.local/share/fish/fish_history); then
+	  printf '%s' "$output" > ~/.local/share/fish/fish_history
+	else
+	  echo "Error: Failed to clean fish history" >&2
+	fi
 	exec fish
 fi
