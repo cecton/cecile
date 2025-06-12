@@ -1,17 +1,18 @@
 #!/bin/sh
 
-CONTAINER=steamdeck
+container=steamdeck
 
-sudo machinectl start $CONTAINER
+sudo /usr/bin/machinectl start $container
+[ "$?" -ne 0 ] && exit 1
 sleep 2
 
-DISPLAY=:`fgconsole`
-VT=vt`fgconsole`
+export DISPLAY=:`fgconsole`
+vt=vt`fgconsole`
 
-Xorg $DISPLAY $VT &
-XORG_PID=$!
+Xorg $DISPLAY $vt &
+xorg_pid=$!
 
-sudo machinectl shell -E DISPLAY=$DISPLAY -E XDG_RUNTIME_DIR="/run/user/1000" -E LIBGL_ALWAYS_SOFTWARE=1 -E GALLIUM_DRIVER=llvmpipe cecile@$CONTAINER /home/cecile/bin/i3-session
+sudo /usr/bin/machinectl shell -E DISPLAY -E XDG_RUNTIME_DIR -E LIBGL_ALWAYS_SOFTWARE=1 -E GALLIUM_DRIVER=llvmpipe cecile@$container /home/cecile/bin/i3-session
 
-kill $XORG_PID
-wait $XORG_PID
+kill $xorg_pid
+wait $xorg_pid
