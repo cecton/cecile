@@ -103,11 +103,11 @@ if which fish >/dev/null && [ "$parent_name" != fish ] && [ "$parent_name" != mc
 	# NOTE: fix annoying fish bug with history file
 	# 	https://github.com/fish-shell/fish-shell/issues/10300
 	history_file=~/.local/share/fish/fish_history
-	/bin/cp --reflink=always -f "$history_file" "${history_file}.backup-daily-"$(( $(date +%s) / 86400 % 30 ))
-	/bin/cp --reflink=always -f "$history_file" "${history_file}.backup-2h-"$(( $(date +%s) / 7200 % 30 ))
+	/bin/cp --reflink=auto -f "$history_file" "${history_file}.backup-daily-"$(( $(date +%s) / 86400 % 30 ))
+	/bin/cp --reflink=auto -f "$history_file" "${history_file}.backup-2h-"$(( $(date +%s) / 7200 % 30 ))
 
 	if output=$(tr -d '\000' < $history_file); then
-	  printf '%s' "$output" > "$history_file.new" && /bin/mv "$history_file" "$history_file.old" && /bin/mv "$history_file.new" "$history_file"
+	  printf '%s' "$output" > "$history_file.new" && /bin/mv -b "$history_file.new" "$history_file"
 	else
 	  echo "Error: Failed to clean fish history" >&2
 	fi
