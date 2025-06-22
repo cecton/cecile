@@ -19,10 +19,10 @@ my @disks_monitored = qw(/ /tmp);
 sub clock {
 	strftime("%-H:%M UTC", gmtime).
 	", ".
-	strftime("%a %b %-d, %-I:%M%P", localtime)
+	strftime("%a %b %-d, %-H:%M", localtime)
 }
 
-sub login { chop($_=$ENV{USER}.'@'.`hostname`); $_ }
+sub login { chop($_=$ENV{USER}.'@'.`hostnamectl hostname`); $_ }
 
 sub battery {
 	$_ = [split /\n/,`acpi`]->[-1];
