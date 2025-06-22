@@ -1,7 +1,9 @@
-[ -e ~/SailfishOS/bin ] && export PATH=~/SailfishOS/bin:$PATH
-[ -d ~/.cabal/bin ] && export PATH=~/.cabal/bin:$PATH
-[ -d ~/.local/bin ] && export PATH=~/.local/bin:$PATH
-[ -d ~/bin ] && export PATH=~/bin:$PATH
+test -d ~/.cargo/bin && export PATH=$PATH:~/.cargo/bin
+test -d ~/.cabal/bin && export PATH=~/.cabal/bin:$PATH
+test -d ~/.local/bin && export PATH=~/.local/bin:$PATH
+test -d ~/bin && export PATH=~/bin:$PATH
+
+test -f ~/.nix-profile/etc/profile.d/nix.sh && . ~/.nix-profile/etc/profile.d/nix.sh
 
 export WINEARCH=win32
 export WINETRICKS_CONTINUE_DOWNLOAD=1
@@ -9,41 +11,25 @@ export WINETRICKS_CONTINUE_DOWNLOAD=1
 export PYTHONDONTWRITEBYTECODE=1
 
 export LANG="en_NZ.UTF-8"
-#export LC_TIME="en_GB.UTF-8"
 export TZ="Europe/Brussels"
 export GTK_THEME=Adwaita:dark
 
-# TODO: not sure if that's really good...
-export PERL_MB_OPT="--install_base \"$HOME/perl5\""
-export PERL_MM_OPT="INSTALL_BASE=$HOME/perl5"
-export PERL5LIB="$HOME/perl5/lib/perl5"
-
 export PAGER=less
+command -v firefox >/dev/null && export BROWSER=firefox
+
 EDITOR=vi
-which vim &>/dev/null
-[ "$?" == 0 ] && EDITOR=vim
-which nvim &>/dev/null
-[ "$?" == 0 ] && EDITOR=nvim
+command -v vim >/dev/null && EDITOR=vim
+command -v nvim >/dev/null && EDITOR=nvim
 export EDITOR
-export BROWSER=firefox
 
 export HISTCONTROL=ignoreboth:erasedups
 
 export PLATFORM=`uname`
-
-[ -d ~/.cargo/bin ] && export PATH=$PATH:~/.cargo/bin
-
-[ -f /etc/profile.d/jre.sh ] && . /etc/profile.d/jre.sh
-
-#which sccache &>/dev/null
-#[ "$?" == 0 ] && export RUSTC_WRAPPER=sccache && export SCCACHE_CACHE_SIZE=60G
 
 #export GALLIUM_HUD="simple,fps"
 #export vblank_mode=0 #disable vsync
 #export DXVK_HUD=fps,gpuload
 #export WINE_CPU_TOPOLOGY=12:0,1,2,3,4,5,12,13,14,15,16,17
 export WINE_CPU_TOPOLOGY=8:0,1,2,3,12,13,14,15
-
-[ -f ~/.nix-profile/etc/profile.d/nix.sh ] && . ~/.nix-profile/etc/profile.d/nix.sh
 
 export DFT_BYTE_LIMIT=4000000
