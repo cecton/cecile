@@ -1,4 +1,0 @@
-#!/bin/bash
-
-which startx &>/dev/null
-[ $? == 0 ] || exit 0

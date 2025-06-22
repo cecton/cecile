@@ -1,7 +1,7 @@
 #!/bin/bash
 
-which pacman &>/dev/null || exit 0
-which paru &>/dev/null && exit 0
+command -v pacman >/dev/null || exit 0
+command -v paru >/dev/null && exit 0
 
 VER="2.0.4"
 ARCH="x86_64"

@@ -1,11 +1,10 @@
 #!/bin/bash
 
-which exa &> /dev/null && exit 0
-which wget &> /dev/null || exit 1
-which unzip &> /dev/null || exit 1
+command -v exa > /dev/null && exit 0
+command -v wget > /dev/null || exit 1
+command -v bsdtar > /dev/null || exit 1
 
 set -x -e
 cd /tmp
-wget https://github.com/ogham/exa/releases/download/v0.10.0/exa-linux-x86_64-musl-v0.10.0.zip
-unzip -cqq exa-linux-*.zip bin/exa > ~/bin/exa
+curl -sSL https://github.com/ogham/exa/releases/download/v0.10.1/exa-linux-x86_64-musl-v0.10.1.zip | bsdtar -xOf - bin/exa > ~/bin/exa
 chmod +x ~/bin/exa

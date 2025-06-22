@@ -1,7 +1,8 @@
 #!/bin/bash
 
-which bat &> /dev/null && exit 0
-which curl &> /dev/null || exit 1
+command -v bat > /dev/null && exit 0
+command -v curl > /dev/null || exit 1
+command -v tar > /dev/null || exit 1
 
 set -x -e
 curl -sSL https://github.com/sharkdp/bat/releases/download/v0.18.0/bat-v0.18.0-x86_64-unknown-linux-musl.tar.gz | tar xzO --wildcards \*/bat > ~/bin/bat

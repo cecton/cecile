@@ -1,9 +1,14 @@
 #!/bin/bash
 
-which cargo-temp &> /dev/null && exit 0
-which cargo &> /dev/null || exit 1
+command -v cargo-temp > /dev/null && exit 0
 
-set -x -e
+if command -v nix > /dev/null; then
+	set -x -e
+	exec nix profile install 'nixpkgs#cargo-temp'
+fi
 
-rustup target add x86_64-unknown-linux-musl
-cargo install --target x86_64-unknown-linux-musl cargo-temp
+if command -v cargo > /dev/null; then
+	set -x -e
+	rustup target add x86_64-unknown-linux-musl
+	exec cargo install --target x86_64-unknown-linux-musl cargo-temp
+fi
