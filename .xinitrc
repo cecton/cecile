@@ -15,9 +15,6 @@ fi
 # exec startkde
 # exec startxfce4
 # ...or the Window Manager of your choice
-which i3 &>/dev/null
-if [ $? == 0 ]; then
-	exec i3-session
-else
-	exec xterm
-fi
+command -v "$LEFTWM_BIN" >/dev/null && exec leftwm-session
+command -v i3 >/dev/null && exec i3-session
+exec xterm
