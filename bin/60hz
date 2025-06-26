@@ -1,11 +1,27 @@
 #!/bin/bash
-if [ -n "$WAYLAND_DISPLAY" ]; then
-	if [ -n "$KDE_FULL_SESSION" ]; then
-		kscreen-doctor output.1.mode.0
-	elif [ -n "$I3SOCK" ]; then
-		swaymsg output DP-1 mode 1920x1080@60Hz
-	fi
-else
-	xrandr --output DisplayPort-0 --refresh 60 --mode 1920x1080 --set TearFree on
+
+[[ "$0" =~ ([0-9]+)hz$ ]]
+NEW_RATE="${BASH_REMATCH[1]:-60}"
+
+if pgrep -f /usr/bin/start-gamescope-session >/dev/null; then
+	CFG_PATH="/home/deck/.config/gamescope/modes.cfg"
+	RES="$(cut -d '@' -f 1 "$CFG_PATH")"
+
+	echo "${RES}@${NEW_RATE}" > "$CFG_PATH"
+	sudo chvt 2
+	sudo chvt 1
+	exec "$@"
 fi
+
+if [ -n "$WAYLAND_DISPLAY" -a -n "$KDE_FULL_SESSION" ]; then
+	kscreen-doctor output.1.mode.0
+	exec "$@"
+fi
+
+if [ -n "$WAYLAND_DISPLAY" -a -n "$I3SOCK" ]; then
+	swaymsg output DP-1 mode 1920x1080@60Hz
+	exec "$@"
+fi
+
+xrandr --output DisplayPort-0 --refresh 60 --mode 1920x1080 --set TearFree on
 exec "$@"
