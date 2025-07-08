@@ -43,9 +43,6 @@ if status --is-interactive
 
 	# programs
 	alias g git
-	if which cargo-git &>/dev/null
-		alias cg "cargo git"
-	end
 	alias p pijul
 	alias ff 'git pull --ff-only'
 	alias fff 'git fetch --all -p; and git pull --ff-only'
@@ -76,24 +73,6 @@ if status --is-interactive
 	end
 
 	# shortcuts
-	function repo-add
-		set old_pwd $PWD
-		while test $PWD != "/"
-			if test -e ".git"
-				echo
-				if test -e Cargo.lock && which cargo-git &>/dev/null
-					cargo git add -p
-				else
-					git add -p
-				end
-				commandline -f repaint
-				break
-			end
-			cd ..
-		end
-		cd $old_pwd
-	end
-
 	function repo-log
 		echo
 		tig; or git log --oneline
@@ -104,11 +83,7 @@ if status --is-interactive
 		set old_pwd $PWD
 		while test $PWD != "/"
 			if test -e ".git"
-				if test -e Cargo.lock && which cargo-git &>/dev/null
-					cargo git diff --cached
-				else
-					git diff --cached
-				end
+				git diff --cached -- . ":!Cargo.lock" ":!*.json"
 				commandline -f repaint
 				break
 			end
@@ -172,8 +147,6 @@ if status --is-interactive
 		bind [24~ repo-commit
 
 		# fish v4
-		# F7
-		#bind f7 repo-add # not working
 		# F8
 		bind f8 repo-log
 		# F9
