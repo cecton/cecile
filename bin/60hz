@@ -13,15 +13,10 @@ if pgrep -f /usr/bin/start-gamescope-session >/dev/null; then
 	exec "$@"
 fi
 
-if [ -n "$WAYLAND_DISPLAY" -a -n "$KDE_FULL_SESSION" ]; then
-	kscreen-doctor output.1.mode.0
-	exec "$@"
-fi
-
 if [ -n "$WAYLAND_DISPLAY" -a -n "$I3SOCK" ]; then
-	swaymsg output DP-1 mode 1920x1080@60Hz
+	swaymsg output DP-1 mode 1920x1080@${NEW_RATE}Hz
 	exec "$@"
 fi
 
-xrandr --output DisplayPort-0 --refresh 60 --mode 1920x1080 --set TearFree on
+xrandr --output DisplayPort-0 --refresh $NEW_RATE --mode 1920x1080 --set TearFree on
 exec "$@"
