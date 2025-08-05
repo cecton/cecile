@@ -3,6 +3,9 @@
 [[ "$0" =~ ([0-9]+)hz$ ]]
 NEW_RATE="${BASH_REMATCH[1]:-60}"
 
+# Enable logs
+#exec >>"/tmp/logs" 2>&1
+
 if pgrep -f /usr/bin/start-gamescope-session >/dev/null; then
 	CFG_PATH="/home/deck/.config/gamescope/modes.cfg"
 	RES="$(cut -d '@' -f 1 "$CFG_PATH")"
@@ -10,6 +13,7 @@ if pgrep -f /usr/bin/start-gamescope-session >/dev/null; then
 	echo "${RES}@${NEW_RATE}" > "$CFG_PATH"
 	sudo chvt 2
 	sudo chvt 1
+	sleep 1
 	exec "$@"
 fi
 
