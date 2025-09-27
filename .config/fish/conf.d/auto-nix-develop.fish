@@ -26,4 +26,7 @@ if status --is-interactive && type -q nix
 		env __AUTO_NIX_LAST_ROOT="$root" nix develop "$root" -c fish
 		echo "Exiting nix develop environment..."
 	end
+
+	# NOTE: in case the shell starts on it
+	__auto_nix_develop
 end
