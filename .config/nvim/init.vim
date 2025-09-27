@@ -10,6 +10,7 @@ colorscheme gruvbox
 
 set number
 set relativenumber
+set mouse=
 
 " Always show the sign column, to avoid jumps on diagnostics
 set signcolumn=yes

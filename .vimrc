@@ -7,6 +7,7 @@ endif
 
 set number
 set relativenumber
+set mouse=
 
 " disable some annoying bindings
 nmap Q <NOP>
