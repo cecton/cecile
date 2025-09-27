@@ -12,9 +12,7 @@ if status --is-interactive && type -q nix
 	end
 
 	function __auto_nix_develop --on-variable PWD
-		status is-interactive; or return
 		set -q AUTO_NIX_DISABLE; and return
-		type -q nix; or return
 		set -l root (__find_flake_root); or return
 		test -f "$root/.auto-nix"; or return
 		status is-command-substitution; and return
@@ -24,6 +22,8 @@ if status --is-interactive && type -q nix
 			test "$__AUTO_NIX_LAST_ROOT" = "$root"; and return
 		end
 
+		echo "Entering nix develop environment..."
 		env __AUTO_NIX_LAST_ROOT="$root" nix develop "$root" -c fish
+		echo "Exiting nix develop environment..."
 	end
 end
