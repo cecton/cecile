@@ -1,0 +1,14 @@
+#!/bin/sh
+export GALLIUM_HUD=
+
+command -v librewolf > /dev/null && exec librewolf -ProfileManager
+
+if command -v flatpak > /dev/null; then
+	flatpak override --user io.gitlab.librewolf-community --reset
+	flatpak override --user io.gitlab.librewolf-community --filesystem=xdg-download
+	# NOTE: make sure librewolf won't use portal and stuff from DBUS
+	#       otherwise the dialogs won't open and there can be freezes. It
+	#       seems related to having multiple graphical sessions running
+	export DBUS_SESSION_BUS_ADDRESS=
+	exec flatpak run --branch=stable --arch=x86_64 --command=librewolf io.gitlab.librewolf-community #-- -ProfileManager
+fi
