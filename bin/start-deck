@@ -1,10 +1,6 @@
 #!/bin/sh
 
-container=steamdeck
-
-sudo /usr/bin/machinectl start $container
-[ "$?" -ne 0 ] && exit 1
-sleep 2
+# basically a clone of startx to workaround freeze with nix xorg.xinit package
 
 export DISPLAY=:`fgconsole`
 vt=vt`fgconsole`
@@ -12,7 +8,9 @@ vt=vt`fgconsole`
 Xorg $DISPLAY $vt &
 xorg_pid=$!
 
-sudo /usr/bin/machinectl shell -E DISPLAY -E XDG_RUNTIME_DIR -E LIBGL_ALWAYS_SOFTWARE=1 -E GALLIUM_DRIVER=llvmpipe cecile@$container /home/cecile/bin/i3-session
+sleep 0.5
+
+~/.xinitrc
 
 kill $xorg_pid
 wait $xorg_pid

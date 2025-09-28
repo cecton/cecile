@@ -31,10 +31,13 @@ if [ -x "`which ssh-agent 2> /dev/null`" ]; then
 	. /tmp/ssh-agent.$USER
 fi
 
-if [ "$PLATFORM" == Linux ] && [ "$parent_name" == login ] && [ "$tty" == /dev/tty4 ]; then
-	# automatically start graphical session (X.org) with container
-	if [ "$USER" == deck ]; then
-		echo -n "Starting X.org graphical session with container, press return to cancel... "
+if [ "$PLATFORM" == Linux ] && [ "$parent_name" == login ] && [ "$tty" == /dev/tty4 ] && [ "$USER" == deck ]; then
+	# automatically start graphical session (X.org)
+	# NOTE: not sure why nix xorg.xinit doesn't work... it starts Xorg but it looks
+	#       like the system freezes or the keyboard and mouse gets disconnected I
+	#       don't know
+	if [ -x "$LEFTWM_BIN" ] || command -v i3; then
+		echo -n "Starting X.org graphical session, press return to cancel... "
 		read -s -t 2 answer
 		if [ $? -eq 0 ]; then
 			echo canceled
