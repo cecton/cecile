@@ -1,9 +1,14 @@
 #!/bin/bash
 
 command -v cargo-firstpage > /dev/null && exit 0
-command -v cargo > /dev/null || exit 1
 
-set -x -e
+if command -v nix > /dev/null; then
+	set -x -e
+	exec nix profile install -f .setup.d/90_cargo-firstpage.nix
+fi
 
-rustup target add x86_64-unknown-linux-musl
-cargo install --target x86_64-unknown-linux-musl cargo-firstpage
+if command -v cargo > /dev/null; then
+	set -x -e
+	rustup target add x86_64-unknown-linux-musl
+	exec cargo install --target x86_64-unknown-linux-musl cargo-firstpage
+fi
