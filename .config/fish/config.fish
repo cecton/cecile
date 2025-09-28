@@ -21,9 +21,9 @@ if status --is-interactive
 	else
 		alias ls 'ls --color=auto -h'
 	end
-	if which exa &>/dev/null
-		alias ls 'exa'
-		alias tree 'exa -T'
+	if command -v eza >/dev/null
+		alias ls 'eza'
+		alias tree 'eza -T'
 	end
 	if which bat &>/dev/null
 		alias cat 'bat --tabs=0'
