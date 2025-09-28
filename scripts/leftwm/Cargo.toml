@@ -15,7 +15,7 @@ path = "src/steam.rs"
 
 [dependencies]
 anyhow = "1"
-leftwm-core = { git = "https://github.com/cecton/leftwm.git" }
+leftwm-core = { git = "https://github.com/cecton/leftwm.git", branch = "fix-crash-when-swapping-tag-at-startup" }
 
 # pulled from leftwm's bin
 tokio = { version = "1.2.0", features = ["fs", "io-util", "macros", "net", "rt-multi-thread", "sync", "time"] }
