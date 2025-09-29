@@ -3,4 +3,6 @@
 test -z "$NIX_PROFILES" || exit 0
 test -w /nix || exit 0
 
-exec sh <(curl --proto '=https' --tlsv1.2 -L https://nixos.org/nix/install) --no-daemon
+set -x -e
+curl -sSf -L https://install.lix.systems/lix | sh -s -- install
+nix profile install nixpkgs#legacyPackages.x86_64-linux.lix --priority 4
