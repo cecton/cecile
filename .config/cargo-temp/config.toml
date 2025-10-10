@@ -1,0 +1,6 @@
+# TODO remove the need to specify this in cargo-temp
+temporary_project_dir = "/home/deck/.cache/cargo-temp"
+
+[[subprocess]]
+command = "xterm -e nix develop ../flake.nix -c cargo -- watch -x run"
+foreground = false
