@@ -40,6 +40,6 @@ online()
 }
 
 
-setup
+setup &
 #redshift -l 50.72:4.86 -t 5500:3500 -b 0.6:0.8 &
 #ping -i 3 -c 4 -W 1 8.8.8.8 &>/dev/null && online
