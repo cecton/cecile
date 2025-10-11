@@ -36,3 +36,5 @@ export DFT_BYTE_LIMIT=4000000
 
 LEFTWM_BIN=$HOME/scripts/target/release/leftwm-cecile
 test -x "$LEFTWM_BIN" && export LEFTWM_BIN
+LEFTWM_BIN=$HOME/.nix-profile/bin/leftwm-cecile
+test -x "$LEFTWM_BIN" && export LEFTWM_BIN
