@@ -23,6 +23,8 @@ if status --is-interactive && type -q nix
 		end
 
 		echo "Entering nix develop environment..."
+		history merge
+		history save
 		env __AUTO_NIX_LAST_ROOT="$root" nix develop "$root" -c fish
 		echo "Exiting nix develop environment..."
 	end
