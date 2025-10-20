@@ -132,6 +132,10 @@ if status --is-interactive
 		cd $old_pwd
 	end
 
+	function open-terminal
+		setsid xterm &> /dev/null
+	end
+
 	# binds
 	function fish_user_key_bindings
 		# fish v3
@@ -157,6 +161,8 @@ if status --is-interactive
 		bind f11 repo-diff-cached
 		# F12
 		bind f12 repo-commit
+
+		bind ctrl-t open-terminal
 	end
 
 	# prompt
