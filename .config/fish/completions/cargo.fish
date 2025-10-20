@@ -1,1 +1,0 @@
-/home/cecile/repos/fish-cargo-completions/completions/cargo.fish
