@@ -22,11 +22,15 @@ if status --is-interactive && type -q nix
 			test "$__AUTO_NIX_LAST_ROOT" = "$root"; and return
 		end
 
-		echo "Entering nix develop environment..."
 		history merge
 		history save
-		env __AUTO_NIX_LAST_ROOT="$root" nix develop "$root" -c fish
-		echo "Exiting nix develop environment..."
+		if test -z "$argv"
+			exec env __AUTO_NIX_LAST_ROOT="$root" nix develop "$root" -c fish
+		else
+			echo "Entering nix develop environment..."
+			env __AUTO_NIX_LAST_ROOT="$root" nix develop "$root" -c fish
+			echo "Exiting nix develop environment..."
+		end
 	end
 
 	# NOTE: in case the shell starts on it
