@@ -133,7 +133,11 @@ if status --is-interactive
 	end
 
 	function open-terminal
-		setsid xterm &> /dev/null
+		# NOTE: if we are in a nix develop environment, the SHELL is
+		# replaced by nix's bash and then, for some reason, xterm will
+		# remove the SHELL env variable entirely (but not if it's
+		# /bin/bash, go figure)
+		SHELL=/bin/bash setsid xterm &> /dev/null
 	end
 
 	# binds
