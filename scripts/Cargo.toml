@@ -3,4 +3,5 @@ members = [
     "leftwm",
     #"invoice",
     "freeotp",
+    "deck-switch-vt",
 ]

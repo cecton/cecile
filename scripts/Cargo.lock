@@ -132,6 +132,10 @@ dependencies = [
 ]
 
 [[package]]
+name = "deck-switch-vt"
+version = "0.1.0"
+
+[[package]]
 name = "dirs"
 version = "4.0.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
