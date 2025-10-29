@@ -4,7 +4,6 @@
 #	signingkey = 8498359B2C2BE786
 [push]
 	default = simple
-	autoSetupRemote = true
 [core]
 	excludesfile = ~/.gitignore_global
 	#pager = delta
