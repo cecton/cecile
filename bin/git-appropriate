@@ -1,0 +1,12 @@
+#!/bin/bash
+for commit in "$@"
+do
+	if ! git cherry-pick --no-commit --keep-redundant-commits --strategy-option=theirs "$commit"; then
+		git cherry-pick --abort >/dev/null 2>&1 || true
+		exit 1
+	fi
+	if ! git commit --reuse-message="$commit" --no-edit --reset-author; then
+		git reset --merge >/dev/null 2>&1 || true
+		exit 1
+	fi
+done
