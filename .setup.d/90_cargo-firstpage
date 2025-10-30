@@ -4,7 +4,7 @@ command -v cargo-firstpage > /dev/null && exit 0
 
 if command -v nix > /dev/null; then
 	set -x -e
-	exec nix profile install -f .setup.d/90_cargo-firstpage.nix
+	exec nix profile install -f ~/.setup.d/90_cargo-firstpage.nix
 fi
 
 if command -v cargo > /dev/null; then
