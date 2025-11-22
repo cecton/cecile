@@ -1,6 +1,13 @@
 lua require'plugins'
+
+" Disabled because it makes a concurrent cargo running in background, blocking
+" cargo-watch
 "lua require'lsp'
+
 lua require'autocmd'
+
+" Disabled because it makes substitution with :%s/XXX/YYY/g very slow even on
+" small files (<400 lines)
 "lua require'treesitter'
 
 autocmd BufWritePost plugins.lua PackerCompile
@@ -12,8 +19,9 @@ set number
 set relativenumber
 set mouse=
 
-" Always show the sign column, to avoid jumps on diagnostics
-set signcolumn=yes
+" Always show the sign column, to avoid jumps on diagnostics (disable to save
+" space)
+set signcolumn=no
 
 " Allow hidden buffers
 set hidden
