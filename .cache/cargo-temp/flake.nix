@@ -1,27 +1,27 @@
 {
-  inputs.fenix.url = "github:nix-community/fenix";
-  inputs.nixpkgs.url = "github:NixOS/nixpkgs";
-
-  outputs = { self, nixpkgs, fenix, ... }:
-  let
-    pkgs = import nixpkgs { system = "x86_64-linux"; };
-    toolchain = fenix.packages.${pkgs.system}.fromToolchainFile {
-      file = ./rust-toolchain.toml;
-      sha256 = "sha256-SJwZ8g0zF2WrKDVmHrVG3pD2RGoQeo24MEXnNx5FyuI=";
-    };
-  in {
-    devShells.${pkgs.system}.default = pkgs.mkShell {
-      nativeBuildInputs = [
-        toolchain
-        pkgs.openssl
-      ];
-
-      shellHook = ''
-        export LIBCLANG_PATH=${pkgs.llvmPackages.libclang.lib}/lib
-        export OPENSSL_DIR=${pkgs.openssl.dev}
-        export OPENSSL_LIB_DIR=${pkgs.openssl.out}/lib
-        export OPENSSL_INCLUDE_DIR=${pkgs.openssl.dev}/include
-      '';
-    };
+  inputs = {
+    nixpkgs.url      = "github:NixOS/nixpkgs/nixos-unstable";
+    rust-overlay.url = "github:oxalica/rust-overlay";
+    flake-utils.url  = "github:numtide/flake-utils";
   };
+
+  outputs = { self, nixpkgs, rust-overlay, flake-utils, ... }:
+    flake-utils.lib.eachDefaultSystem (system:
+      let
+        overlays = [ (import rust-overlay) ];
+        pkgs = import nixpkgs {
+          inherit system overlays;
+        };
+        toolchain = pkgs.rust-bin.stable.latest.default;
+      in
+      {
+        devShells.default = with pkgs; mkShell {
+          buildInputs = [
+            openssl
+            pkg-config
+            toolchain
+          ];
+        };
+      }
+    );
 }
