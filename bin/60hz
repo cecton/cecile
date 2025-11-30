@@ -11,9 +11,7 @@ if pgrep -f /usr/bin/start-gamescope-session >/dev/null; then
 	RES="$(cut -d '@' -f 1 "$CFG_PATH")"
 
 	echo "${RES}@${NEW_RATE}" > "$CFG_PATH"
-	sudo chvt 2
-	sudo chvt 1
-	sleep 1
+	/home/deck/bin/deck-refresh-vt
 	exec "$@"
 fi
 
