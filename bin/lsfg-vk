@@ -1,0 +1,14 @@
+#!/bin/bash
+
+# Enable logs
+#exec >>"/tmp/logs" 2>&1
+
+# lsfg-vk 1.x
+export LSFG_LEGACY=1
+export LSFG_PERFORMANCE_MODE=1
+
+# lsfg-vk 2.x
+#export LSFGVK_ENV=1
+#export LSFGVK_PERFORMANCE_MODE=1
+
+exec "$@"
