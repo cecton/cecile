@@ -1,0 +1,12 @@
+[Unit]
+Description=Bind mount /usr/local/bin
+After=usr-local.mount
+
+[Mount]
+What=/home/deck/bin
+Where=/usr/local/bin
+Type=none
+Options=bind
+
+[Install]
+WantedBy=multi-user.target
