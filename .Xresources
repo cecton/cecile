@@ -45,3 +45,9 @@ xterm*termName:           xterm-256color
 xterm*selectToClipboard:  true
 
 Xft.dpi: 96
+
+
+XTerm*faceName: Terminus:pixelsize=16
+XTerm*faceNameDoublesize: OpenMoji Color,OpenMoji
+!XTerm*emojiFont: Twemoji Mozilla
+XTerm*Xft.antialias: false
