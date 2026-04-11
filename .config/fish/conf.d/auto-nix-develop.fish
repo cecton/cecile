@@ -22,8 +22,8 @@ if status --is-interactive && type -q nix
 			test "$__AUTO_NIX_LAST_ROOT" = "$root"; and return
 		end
 
-		history merge
-		history save
+		#history merge
+		#history save
 		if test -z "$argv"
 			exec env __AUTO_NIX_LAST_ROOT="$root" nix develop "$root" -c fish
 		else
@@ -33,6 +33,18 @@ if status --is-interactive && type -q nix
 		end
 	end
 
+	function __auto_rust_shell --on-variable PWD
+		set -q AUTO_NIX_DISABLE; and return
+		set -q __AUTO_NIX_LAST_ROOT; and return   # already in any nix shell
+		test -f (pwd)/Cargo.toml; or return        # no Cargo.toml in current dir
+		test ! -f (pwd)/flake.nix; or return       # skip if project has its own flake
+		status is-command-substitution; and return
+
+		set -l rust_shell ~/.config/rust-shell
+		env __AUTO_NIX_LAST_ROOT="$rust_shell" nix develop "$rust_shell" -c fish
+	end
+
 	# NOTE: in case the shell starts on it
 	__auto_nix_develop
+	__auto_rust_shell
 end
