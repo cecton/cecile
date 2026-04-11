@@ -1,0 +1,11 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "permission": {
+    "external_directory": {
+      "~/.cargo/**": "allow",
+    },
+  },
+  "plugin": [
+    "@bdliyq/opencode-rate-limit-retry@latest"
+  ],
+}
