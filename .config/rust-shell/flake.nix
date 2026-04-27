@@ -20,7 +20,25 @@
             toolchain
             pkg-config
             openssl
+            libx11
+            libxcursor
+            libxrandr
+            libxi
+            libxkbcommon
+            vulkan-loader
+            mesa
+            libGL
           ];
+
+          shellHook = ''
+            export LD_LIBRARY_PATH=${pkgs.lib.makeLibraryPath [
+              pkgs.vulkan-loader
+              pkgs.libxkbcommon
+              pkgs.libx11
+              pkgs.mesa
+              pkgs.libGL
+            ]}:$LD_LIBRARY_PATH
+          '';
         };
       }
     );
