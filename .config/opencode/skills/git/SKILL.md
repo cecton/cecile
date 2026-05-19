@@ -14,3 +14,5 @@ Rules:
 2. Use ASCII characters only — no emoji, no Unicode symbols
 3. Use lowercase for type and description
 4. No period at the end of the subject line
+5. Check if it's a Rust project and load the "rust" skill
+6. If the user ask you to squash commits, don't re-use the commit messages
