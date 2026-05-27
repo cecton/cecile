@@ -16,3 +16,5 @@ Rules:
 4. No period at the end of the subject line
 5. Check if it's a Rust project and load the "rust" skill
 6. If the user ask you to squash commits, don't re-use the commit messages
+7. Before committing, always update the AGENTS.md and include the change in
+   your commit
