@@ -73,3 +73,9 @@ XTerm*faceName: Terminus:pixelsize=16
 XTerm*faceNameDoublesize: OpenMoji Color,OpenMoji
 !XTerm*emojiFont: Twemoji Mozilla
 XTerm*Xft.antialias: false
+
+! Disable Ctrl+Left click popup menu by overriding the translation
+XTerm*omitTranslation: popup-menu
+
+! Always pass Shift+Click through to application when mouse protocol is active
+XTerm*shiftEscape: always
