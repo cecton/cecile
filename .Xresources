@@ -77,5 +77,8 @@ XTerm*Xft.antialias: false
 ! Disable Ctrl+Left click popup menu by overriding the translation
 XTerm*omitTranslation: popup-menu
 
+! Convert Shift+PgUp/PgDown to cursor keys in alternate screen mode
+XTerm*vt100*alternateScroll: true
+
 ! Always pass Shift+Click through to application when mouse protocol is active
 XTerm*shiftEscape: always
