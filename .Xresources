@@ -82,3 +82,6 @@ XTerm*vt100*alternateScroll: true
 
 ! Always pass Shift+Click through to application when mouse protocol is active
 XTerm*shiftEscape: always
+
+! Use ^? for backspace instead of ^H
+XTerm*vt100*backarrowKey: false
