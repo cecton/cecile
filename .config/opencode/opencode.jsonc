@@ -6,6 +6,13 @@
       "~/.cargo/**": "allow",
     },
   },
+  "command": {
+    "squash": {
+      "template": "Squash all commits into a single commit. Discard the existing commit messages. Generate a new detailed, structured commit message that summarizes all changes made in the squashed commits. Use `git reset --soft <ref>` and `git commit` to accomplish this. Squash all commits since:",
+      "description": "Squash commits since a given ref into one with a new detailed message",
+      "model": "opencode/deepseek-v4-flash-free",
+    },
+  },
   "plugin": [
     "@bdliyq/opencode-rate-limit-retry@latest"
   ],
