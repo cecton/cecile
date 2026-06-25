@@ -68,7 +68,14 @@ SimpleEventHook {
         local found = nil
         for lnkbl in om:iterate { type = "SiLinkable" } do
           local p = lnkbl.properties
-          if p ["node.name"] == rule.target then
+          local match_target = true
+          for key, value in pairs (rule.target) do
+            if p [key] ~= value then
+              match_target = false
+              break
+            end
+          end
+          if match_target then
             found = lnkbl
             break
           end
@@ -76,7 +83,7 @@ SimpleEventHook {
         if found then
           event:set_data ("target", found)
           local name = si_props ["node.name"] or si_props ["application.name"]
-          log:warning ("routed " .. name .. " to " .. rule.target)
+          log:warning ("routed " .. name)
         end
         return
       end
