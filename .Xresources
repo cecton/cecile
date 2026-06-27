@@ -1,3 +1,5 @@
+xterm*geometry: 160x48
+
 *background: black
 *foreground: gray90
 
