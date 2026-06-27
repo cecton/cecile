@@ -142,18 +142,6 @@ if status --is-interactive
 
 	# binds
 	function fish_user_key_bindings
-		# fish v3
-		# F8
-		bind [19~ repo-log
-		# F9
-		bind [20~ repo-status
-		# F10
-		bind [21~ repo-diff
-		# F11
-		bind [23~ repo-diff-cached
-		# F12
-		bind [24~ repo-commit
-
 		# fish v4
 		# F8
 		bind f8 repo-log
