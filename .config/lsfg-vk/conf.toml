@@ -13,11 +13,11 @@ dll = "/home/deck/.local/share/Steam/steamapps/common/Lossless Scaling/Lossless.
 #
 # experimental_present_mode = "fifo"
 
-[[game]] # default vkcube entry
-exe = "vkcube"
+#[[game]] # default vkcube entry
+#exe = "vkcube"
 
-multiplier = 4
-performance_mode = true
+#multiplier = 4
+#performance_mode = true
 
 [[game]] # default benchmark entry
 exe = "benchmark"
