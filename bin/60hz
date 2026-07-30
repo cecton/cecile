@@ -20,5 +20,31 @@ if [ -n "$WAYLAND_DISPLAY" -a -n "$I3SOCK" ]; then
 	exec "$@"
 fi
 
+if [ -n "$XDG_CURRENT_DESKTOP" ]; then
+	export ENABLE_LAYER_MESA_ANTI_LAG=1
+	#export PROTON_FSR4_UPGRADE=1
+	#export PROTON_USE_OPTISCALER=1
+
+	if [ "$XDG_CURRENT_DESKTOP" == GNOME ]; then
+		gdctl set --logical-monitor \
+			--primary \
+			--monitor DP-1 \
+			--mode 1920x1080@${NEW_RATE}.000+vrr
+	fi
+
+	#if [ "$XDG_CURRENT_DESKTOP" == gamescope ]; then
+	#fi
+
+	if [ -n "$WAYLAND_DISPLAY" ]; then
+		export PROTON_ENABLE_WAYLAND=1
+	fi
+
+	if command -v mangohud &> /dev/null; then
+		exec mangohud "$@"
+	else
+		exec "$@"
+	fi
+fi
+
 xrandr --output DisplayPort-0 --refresh $NEW_RATE --mode 1920x1080 --set TearFree on
 exec "$@"
