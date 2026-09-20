@@ -1,5 +1,6 @@
 test -d ~/.cargo/bin && export PATH=$PATH:~/.cargo/bin
 test -d ~/.cabal/bin && export PATH=~/.cabal/bin:$PATH
+test -d ~/.kimi-code/bin && export PATH=~/.kimi-code/bin:$PATH
 test -d ~/bin && export PATH=~/bin:$PATH
 
 test -f ~/.nix-profile/etc/profile.d/nix.sh && . ~/.nix-profile/etc/profile.d/nix.sh
